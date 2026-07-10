@@ -1,0 +1,35 @@
+{
+  "title": "Frontier Score Explorer",
+  "description": "A working view of policy areas where technological change, public attention, and institutional pressure are beginning to converge.",
+  "scoreLabel": "Frontier score",
+  "topics": [
+    {
+      "id": "ai-governance",
+      "label": "AI governance",
+      "score": 92,
+      "explanation": "Rapid regulatory activity, technical uncertainty, and international competition make this a high-pressure frontier.",
+      "sourceIds": [3, 4, 5, 6]
+    },
+    {
+      "id": "semiconductor-policy",
+      "label": "Semiconductor policy",
+      "score": 84,
+      "explanation": "Manufacturing capacity, supply-chain resilience, workforce, and national competitiveness are becoming one policy system.",
+      "sourceIds": [7]
+    },
+    {
+      "id": "arctic-security",
+      "label": "Arctic security",
+      "score": 79,
+      "explanation": "Climate change, maritime security, critical minerals, and undersea infrastructure are widening the policy field.",
+      "sourceIds": [8]
+    },
+    {
+      "id": "defence-innovation",
+      "label": "Defence innovation",
+      "score": 73,
+      "explanation": "Emerging technology is increasingly shaped by the institutions that connect technical development with collective security needs.",
+      "sourceIds": [9]
+    }
+  ]
+}

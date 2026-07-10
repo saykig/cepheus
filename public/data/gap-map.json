@@ -1,0 +1,134 @@
+{
+  "title": "Gap Map Matrix",
+  "description": "A matrix for locating places where technical activity and policy readiness are not moving at the same pace.",
+  "rows": [
+    {
+      "id": "technical-activity",
+      "label": "Technical activity"
+    },
+    {
+      "id": "policy-readiness",
+      "label": "Policy readiness"
+    },
+    {
+      "id": "public-understanding",
+      "label": "Public understanding"
+    }
+  ],
+  "columns": [
+    {
+      "id": "military-ai",
+      "label": "Military AI"
+    },
+    {
+      "id": "undersea-infrastructure",
+      "label": "Undersea infrastructure"
+    },
+    {
+      "id": "arctic-surveillance",
+      "label": "Arctic surveillance"
+    },
+    {
+      "id": "advanced-chips",
+      "label": "Advanced chips"
+    }
+  ],
+  "cells": [
+    {
+      "row": "technical-activity",
+      "column": "military-ai",
+      "score": 89,
+      "label": "High",
+      "explanation": "Technical work and defence experimentation are moving quickly across autonomy, sensing, and decision support.",
+      "sourceIds": [9]
+    },
+    {
+      "row": "technical-activity",
+      "column": "undersea-infrastructure",
+      "score": 67,
+      "label": "Growing",
+      "explanation": "The field combines existing engineering practice with new security and resilience pressures.",
+      "sourceIds": [8]
+    },
+    {
+      "row": "technical-activity",
+      "column": "arctic-surveillance",
+      "score": 72,
+      "label": "Growing",
+      "explanation": "Remote sensing, maritime awareness, and autonomous systems are expanding the technical surface of Arctic policy.",
+      "sourceIds": [8]
+    },
+    {
+      "row": "technical-activity",
+      "column": "advanced-chips",
+      "score": 94,
+      "label": "High",
+      "explanation": "Advanced chip design and manufacturing remain a concentrated and strategically important technical frontier.",
+      "sourceIds": [7]
+    },
+    {
+      "row": "policy-readiness",
+      "column": "military-ai",
+      "score": 48,
+      "label": "Uneven",
+      "explanation": "Technical, legal, and operational communities are active, but they do not always frame the same risks together.",
+      "sourceIds": [9]
+    },
+    {
+      "row": "policy-readiness",
+      "column": "undersea-infrastructure",
+      "score": 41,
+      "label": "Early",
+      "explanation": "Protection, ownership, resilience, and security responsibilities remain dispersed across institutions.",
+      "sourceIds": [8]
+    },
+    {
+      "row": "policy-readiness",
+      "column": "arctic-surveillance",
+      "score": 53,
+      "label": "Uneven",
+      "explanation": "The policy implications of emerging surveillance capabilities are shared across environmental, security, and Indigenous governance concerns.",
+      "sourceIds": [8]
+    },
+    {
+      "row": "policy-readiness",
+      "column": "advanced-chips",
+      "score": 81,
+      "label": "Developing",
+      "explanation": "Industrial strategy has begun to catch up through investment, workforce, and supply-chain initiatives.",
+      "sourceIds": [7]
+    },
+    {
+      "row": "public-understanding",
+      "column": "military-ai",
+      "score": 38,
+      "label": "Low",
+      "explanation": "Public debate often lags behind the technical and operational choices shaping military uses of AI.",
+      "sourceIds": [9]
+    },
+    {
+      "row": "public-understanding",
+      "column": "undersea-infrastructure",
+      "score": 29,
+      "label": "Low",
+      "explanation": "The strategic importance of undersea systems is easy to miss until a disruption makes it visible.",
+      "sourceIds": [8]
+    },
+    {
+      "row": "public-understanding",
+      "column": "arctic-surveillance",
+      "score": 35,
+      "label": "Low",
+      "explanation": "Many people still encounter the Arctic as a regional issue rather than a connected security and infrastructure field.",
+      "sourceIds": [8]
+    },
+    {
+      "row": "public-understanding",
+      "column": "advanced-chips",
+      "score": 56,
+      "label": "Partial",
+      "explanation": "The strategic importance of chips is clearer than many of the technical and institutional dependencies behind it.",
+      "sourceIds": [7]
+    }
+  ]
+}

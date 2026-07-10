@@ -1,0 +1,105 @@
+{
+  "title": "Policy Constellation Map",
+  "description": "A small policy ecosystem showing how technical systems, institutions, and public decisions begin to pull on one another.",
+  "selectionLabel": "Current point",
+  "nodes": [
+    {
+      "id": "ai-governance",
+      "label": "AI governance",
+      "kind": "policy",
+      "x": 49,
+      "y": 42,
+      "size": 16,
+      "explanation": "A policy field where model capability, risk management, legal accountability, and international rule-making meet.",
+      "sourceIds": [3, 4, 5, 6]
+    },
+    {
+      "id": "compute-governance",
+      "label": "Compute governance",
+      "kind": "infrastructure",
+      "x": 23,
+      "y": 24,
+      "size": 11,
+      "explanation": "The governance questions created by concentrated computing capacity, advanced chips, and cloud infrastructure.",
+      "sourceIds": [7]
+    },
+    {
+      "id": "cybersecurity",
+      "label": "Cybersecurity",
+      "kind": "security",
+      "x": 74,
+      "y": 22,
+      "size": 12,
+      "explanation": "A security field increasingly linked to model misuse, critical infrastructure, and strategic competition.",
+      "sourceIds": [5]
+    },
+    {
+      "id": "military-ai",
+      "label": "Military AI",
+      "kind": "security",
+      "x": 77,
+      "y": 69,
+      "size": 12,
+      "explanation": "The point where autonomy, deterrence, procurement, legal debate, and technical capability converge.",
+      "sourceIds": [9]
+    },
+    {
+      "id": "standards",
+      "label": "Standards bodies",
+      "kind": "institution",
+      "x": 39,
+      "y": 76,
+      "size": 10,
+      "explanation": "Organizations that turn technical language into interoperable practices that can later influence regulation.",
+      "sourceIds": [4, 5]
+    },
+    {
+      "id": "export-controls",
+      "label": "Export controls",
+      "kind": "policy",
+      "x": 17,
+      "y": 58,
+      "size": 10,
+      "explanation": "A policy lever that links strategic technology, trade, security, and access to advanced hardware.",
+      "sourceIds": [7]
+    }
+  ],
+  "edges": [
+    {
+      "source": "ai-governance",
+      "target": "compute-governance",
+      "explanation": "Model governance depends on where advanced computing capacity is built, controlled, and deployed.",
+      "sourceIds": [3, 7]
+    },
+    {
+      "source": "ai-governance",
+      "target": "cybersecurity",
+      "explanation": "Security risks shape how AI systems are evaluated, deployed, and governed.",
+      "sourceIds": [5]
+    },
+    {
+      "source": "ai-governance",
+      "target": "military-ai",
+      "explanation": "Civilian AI governance and defence applications increasingly share technical and legal questions.",
+      "sourceIds": [6, 9]
+    },
+    {
+      "source": "ai-governance",
+      "target": "standards",
+      "explanation": "Standards translate broad governance aims into more durable technical and organizational practice.",
+      "sourceIds": [4, 5]
+    },
+    {
+      "source": "compute-governance",
+      "target": "export-controls",
+      "explanation": "Advanced computing infrastructure is already shaped by policy choices about strategic technology flows.",
+      "sourceIds": [7]
+    },
+    {
+      "source": "export-controls",
+      "target": "military-ai",
+      "explanation": "Technology access, strategic competition, and defence applications are connected through shared hardware dependencies.",
+      "sourceIds": [7, 9]
+    }
+  ]
+}
