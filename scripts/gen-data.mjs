@@ -76,9 +76,9 @@ function weightedScore(sub, w) {
 
 // ---------------------------------------------------------------- periods (14 quarters, 2022 Q1 .. 2025 Q2)
 const periods = []
-for (let y = 2022; y <= 2025; y++) {
+for (let y = 2022; y <= 2026; y++) {
   for (let q = 1; q <= 4; q++) {
-    if (y === 2025 && q > 2) break
+    if (y === 2026 && q > 2) break
     periods.push(`${y} Q${q}`)
   }
 }

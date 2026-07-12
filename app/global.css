@@ -55,7 +55,7 @@
   --series-6: oklch(0.520 0.060 196);
 
   /* --- Type scale (fluid) --- */
-  --t-hero: clamp(3rem, 7vw, 5.2rem);
+  --t-hero: clamp(2.75rem, 6vw, 4.4rem);
   --t-h2: clamp(1.95rem, 3.4vw, 2.55rem);
   --t-h3: clamp(1.35rem, 2.1vw, 1.62rem);
   --t-tool: clamp(1.3rem, 2vw, 1.5rem);
@@ -683,14 +683,14 @@ button {
 }
 
 .essay-hero h1 {
-  max-width: 16ch;
+  max-width: 19ch;
   margin: 0;
   color: var(--ink);
   font-family: var(--font-display), "Iowan Old Style", "Palatino Linotype", serif;
   font-size: var(--t-hero);
   font-weight: 400;
-  line-height: 0.98;
-  letter-spacing: -0.006em;
+  line-height: 1.02;
+  letter-spacing: -0.012em;
   text-wrap: balance;
 }
 
@@ -1597,15 +1597,7 @@ input[type='email'] {
   stroke-linejoin: round;
 }
 
-.tool.is-in .chart-line.draw {
-  stroke-dasharray: var(--len);
-  stroke-dashoffset: var(--len);
-  animation: ink-draw var(--dur-draw) var(--ease-expo) forwards;
-}
-
-@keyframes ink-draw {
-  to { stroke-dashoffset: 0; }
-}
+/* Entrance line/edge ink-draw removed for a calmer read; both render at rest. */
 
 .chart-dot {
   transition: opacity var(--dur-1) var(--ease-quart);
@@ -1979,12 +1971,6 @@ input[type='email'] {
   transition: stroke var(--dur-2) var(--ease-quart), opacity var(--dur-2) var(--ease-quart);
 }
 
-.tool.is-in .constellation-edge.draw {
-  stroke-dasharray: var(--len);
-  stroke-dashoffset: var(--len);
-  animation: ink-draw var(--dur-draw) var(--ease-expo) forwards;
-}
-
 .constellation-edge.is-dim {
   opacity: 0.28;
 }
@@ -2012,14 +1998,7 @@ input[type='email'] {
   transform-origin: center;
 }
 
-.tool.is-in .constellation-node.pop circle {
-  animation: node-pop var(--dur-3) var(--ease-expo) backwards;
-}
-
-@keyframes node-pop {
-  from { transform: scale(0.2); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
+/* Entrance node/bubble pop removed for a calmer read; both render at rest. */
 
 .constellation-node text {
   fill: var(--ink-soft);
@@ -2246,17 +2225,17 @@ input[type='email'] {
 }
 
 .quadrant-line {
-  stroke: var(--rule);
-  stroke-width: 0.4;
-  stroke-dasharray: 1.4 1.4;
+  stroke: var(--rule-soft);
+  stroke-width: 0.35;
+  stroke-dasharray: 1.4 1.6;
 }
 
-.quadrant-label {
-  fill: var(--ink-faint);
+.diagonal-label {
+  fill: color-mix(in oklab, var(--olive) 52%, transparent);
   font-family: var(--font-text), Georgia, serif;
   font-size: 3px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-style: italic;
+  letter-spacing: 0.03em;
 }
 
 .gap-axis-title {
@@ -2284,10 +2263,6 @@ input[type='email'] {
   stroke: color-mix(in oklab, var(--sc) 72%, transparent);
   stroke-width: 0.5;
   transition: fill var(--dur-2) var(--ease-quart), stroke-width var(--dur-2) var(--ease-quart);
-}
-
-.tool.is-in .bubble.pop circle {
-  animation: node-pop var(--dur-3) var(--ease-expo) backwards;
 }
 
 .bubble.is-dim {

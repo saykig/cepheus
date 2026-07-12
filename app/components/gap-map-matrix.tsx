@@ -33,7 +33,7 @@ type GapData = {
 // map a 0..100 value to the plot's 0..100 x, and policy attention to inverted y
 const sx = (v: number) => v
 const sy = (v: number) => 100 - v
-const rFor = (score: number) => 2.4 + (Math.sqrt(score) / 10) * 5.6
+const rFor = (score: number) => 2.2 + (Math.sqrt(score) / 10) * 4.6
 
 export function GapMapMatrix() {
   const { ref, inView } = useInView<HTMLElement>()
@@ -141,38 +141,17 @@ export function GapMapMatrix() {
               x2={100}
               y2={0}
               stroke="var(--olive)"
-              strokeWidth={0.4}
-              strokeDasharray="2 2"
-              opacity={0.4}
+              strokeWidth={0.35}
+              strokeDasharray="2 2.4"
+              opacity={0.3}
             />
             {/* axes */}
             <line className="chart-axis" x1={0} y1={0} x2={0} y2={100} />
             <line className="chart-axis" x1={0} y1={100} x2={100} y2={100} />
 
-            {/* quadrant corner labels */}
-            <text className="quadrant-label" x={3} y={5}>
-              High attention
-            </text>
-            <text className="quadrant-label" x={3} y={8.6}>
-              Low activity
-            </text>
-            <text className="quadrant-label" x={97} y={5} textAnchor="end">
-              High attention
-            </text>
-            <text className="quadrant-label" x={97} y={8.6} textAnchor="end">
-              High activity
-            </text>
-            <text className="quadrant-label" x={3} y={92.4}>
-              Low attention
-            </text>
-            <text className="quadrant-label" x={3} y={96} >
-              Low activity
-            </text>
-            <text className="quadrant-label" x={97} y={92.4} textAnchor="end">
-              Low attention
-            </text>
-            <text className="quadrant-label" x={97} y={96} textAnchor="end">
-              High activity
+            {/* a single quiet label for the alignment line */}
+            <text className="diagonal-label" x={72} y={26} transform="rotate(-45 72 26)">
+              in balance
             </text>
 
             {/* axis titles + ends */}

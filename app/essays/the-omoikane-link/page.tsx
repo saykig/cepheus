@@ -27,7 +27,7 @@ const sections = [
   { id: 'references-heading', title: 'References' },
 ]
 
-const UPDATED = 'July 2025'
+const UPDATED = 'July 2026'
 
 function Citation({ id }: { id: number }) {
   return (
