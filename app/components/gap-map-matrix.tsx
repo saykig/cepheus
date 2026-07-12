@@ -7,75 +7,75 @@ import { useInView } from './use-in-view'
 type Topic = {
   id: string
   label: string
-  category: string
-  technicalActivity: number
-  policyAttention: number
-  frontierScore: number
-  quadrant: string
-  insight: string
-  sourceIds: number[]
+  series: number
+  importance: number
+  gapType: string
+  gap: string
+  knowledge: number
+  authority: number
+  dependency: number
+  oversight: number
 }
 
-type Category = { id: string; label: string; series: number }
+type Axis = { key: keyof Topic; label: string; low: string; high: string }
+type Preset = { id: string; label: string; x: Axis; y: Axis }
 
 type GapData = {
   title: string
   description: string
   note: string
-  axes: {
-    x: { label: string; low: string; high: string }
-    y: { label: string; low: string; high: string }
-  }
-  categories: Category[]
+  presets: Preset[]
   topics: Topic[]
 }
 
-// map a 0..100 value to the plot's 0..100 x, and policy attention to inverted y
 const sx = (v: number) => v
 const sy = (v: number) => 100 - v
-const rFor = (score: number) => 2.2 + (Math.sqrt(score) / 10) * 4.6
+const rFor = (v: number) => 2.4 + (Math.sqrt(v) / 10) * 5.0
+
+const colorFor = (t: Topic) => `var(--series-${t.series})`
 
 export function GapMapMatrix() {
   const { ref, inView } = useInView<HTMLElement>()
   const [data, setData] = useState<GapData | null>(null)
   const [selectedId, setSelectedId] = useState<string | null>(null)
-  const [cat, setCat] = useState<string>('all')
+  const [presetId, setPresetId] = useState<string | null>(null)
 
   useEffect(() => {
-    fetch('/data/gap-map.json')
+    fetch('/data/gap-data.json')
       .then((r) => r.json())
       .then((d: GapData) => {
         setData(d)
-        // default to the widest gap (most technical activity beyond attention)
-        const widest = [...d.topics].sort(
-          (a, b) =>
-            b.technicalActivity - b.policyAttention - (a.technicalActivity - a.policyAttention),
-        )[0]
-        setSelectedId(widest?.id ?? d.topics[0]?.id ?? null)
+        setPresetId(d.presets[0]?.id ?? null)
+        setSelectedId(d.topics[0]?.id ?? null)
       })
   }, [])
 
-  const colorOf = useMemo(() => {
-    const byCat = new Map((data?.categories ?? []).map((c) => [c.id, c.series]))
-    return (t: Topic) => `var(--series-${byCat.get(t.category) ?? 1})`
-  }, [data])
-
+  const preset = useMemo(
+    () => data?.presets.find((p) => p.id === presetId) ?? data?.presets[0],
+    [data, presetId],
+  )
   const selected = useMemo(
     () => data?.topics.find((t) => t.id === selectedId),
     [data, selectedId],
   )
 
-  if (!data || !selected) {
+  if (!data || !selected || !preset) {
     return <div className="tool-loading" aria-live="polite" aria-busy="true" />
   }
 
-  const inCat = (t: Topic) => cat === 'all' || t.category === cat
-  const filters = [{ id: 'all', label: 'All' }, ...data.categories]
+  const xv = (t: Topic) => t[preset.x.key] as number
+  const yv = (t: Topic) => t[preset.y.key] as number
 
-  // Draw the selected bubble last so its label and halo sit above the cluster.
+  // draw the selected bubble last so its label and halo sit above the cluster
   const orderedTopics = [...data.topics].sort(
     (a, b) => Number(a.id === selectedId) - Number(b.id === selectedId),
   )
+
+  const meters = [
+    { label: preset.x.label, value: xv(selected) },
+    { label: preset.y.label, value: yv(selected) },
+    { label: 'Importance', value: selected.importance },
+  ]
 
   return (
     <section
@@ -89,10 +89,9 @@ export function GapMapMatrix() {
           <details className="tool-about">
             <summary>About this tool</summary>
             <div className="tool-about-body">
-              Each field is placed by technical activity against policy
-              attention. The dashed diagonal is where the two are balanced;
-              points below it draw more technical work than attention. Circle
-              size is the frontier score. {data.note}
+              Each field is placed by two institutional measures. The dashed
+              diagonal is where the two are balanced; points below it are where
+              the gap opens. Circle size is institutional importance. {data.note}
             </div>
           </details>
         </div>
@@ -100,22 +99,16 @@ export function GapMapMatrix() {
       <p className="tool-subtitle">{data.description}</p>
 
       <div className="gap-toolbar">
-        <div className="chip-row" role="group" aria-label="Filter by category">
-          {filters.map((f) => (
+        <div className="chip-row" role="group" aria-label="Choose axes">
+          {data.presets.map((p) => (
             <button
-              key={f.id}
+              key={p.id}
               type="button"
-              className={`chip${cat === f.id ? ' is-on' : ''}`}
-              aria-pressed={cat === f.id}
-              onClick={() => setCat(f.id)}
+              className={`chip${presetId === p.id ? ' is-on' : ''}`}
+              aria-pressed={presetId === p.id}
+              onClick={() => setPresetId(p.id)}
             >
-              {'series' in f ? (
-                <span
-                  className="chip-swatch"
-                  style={{ background: `var(--series-${(f as Category).series})` }}
-                />
-              ) : null}
-              {f.label}
+              {p.label}
             </button>
           ))}
         </div>
@@ -124,17 +117,15 @@ export function GapMapMatrix() {
             <i style={{ width: '6px', height: '6px' }} />
             <i style={{ width: '10px', height: '10px' }} />
           </span>
-          Circle size = frontier score
+          Circle size = importance
         </span>
       </div>
 
       <div className="gap-layout">
         <div className="gap-plot">
-          <svg viewBox="-15 -8 123 122" role="img" aria-label={data.title}>
-            {/* quadrant fills + guides */}
+          <svg viewBox="-15 -8 123 122" role="img" aria-label={`${data.title}: ${preset.label}`}>
             <line className="quadrant-line" x1={50} y1={0} x2={50} y2={100} />
             <line className="quadrant-line" x1={0} y1={50} x2={100} y2={50} />
-            {/* alignment diagonal */}
             <line
               x1={0}
               y1={100}
@@ -145,24 +136,21 @@ export function GapMapMatrix() {
               strokeDasharray="2 2.4"
               opacity={0.3}
             />
-            {/* axes */}
             <line className="chart-axis" x1={0} y1={0} x2={0} y2={100} />
             <line className="chart-axis" x1={0} y1={100} x2={100} y2={100} />
 
-            {/* a single quiet label for the alignment line */}
             <text className="diagonal-label" x={72} y={26} transform="rotate(-45 72 26)">
               in balance
             </text>
 
-            {/* axis titles + ends */}
             <text className="gap-axis-title" x={50} y={112} textAnchor="middle">
-              {data.axes.x.label}
+              {preset.x.label}
             </text>
             <text className="gap-axis-end" x={0} y={108} textAnchor="middle">
-              {data.axes.x.low}
+              {preset.x.low}
             </text>
             <text className="gap-axis-end" x={100} y={108} textAnchor="middle">
-              {data.axes.x.high}
+              {preset.x.high}
             </text>
             <text
               className="gap-axis-title"
@@ -171,28 +159,26 @@ export function GapMapMatrix() {
               textAnchor="middle"
               transform="rotate(-90 -11 50)"
             >
-              {data.axes.y.label}
+              {preset.y.label}
             </text>
 
-            {/* bubbles */}
-            {orderedTopics.map((t, i) => {
-              const on = inCat(t)
+            {orderedTopics.map((t) => {
               const isSel = selectedId === t.id
-              const r = rFor(t.frontierScore)
-              const cx = sx(t.technicalActivity)
-              const cy = sy(t.policyAttention)
+              const r = rFor(t.importance)
+              const cx = sx(xv(t))
+              const cy = sy(yv(t))
               return (
                 <g
                   key={t.id}
-                  className={`bubble pop${isSel ? ' is-selected is-labeled' : ''}${on ? '' : ' is-dim'}`}
-                  style={{ '--sc': colorOf(t), animationDelay: `${i * 40}ms` } as CSSProperties}
+                  className={`bubble${isSel ? ' is-selected is-labeled' : ''}`}
+                  style={{ '--sc': colorFor(t) } as CSSProperties}
                   role="button"
-                  tabIndex={on ? 0 : -1}
+                  tabIndex={0}
                   aria-pressed={isSel}
-                  aria-label={`${t.label}: technical activity ${t.technicalActivity}, policy attention ${t.policyAttention}`}
-                  onClick={() => on && setSelectedId(t.id)}
+                  aria-label={`${t.label}: ${preset.x.label} ${xv(t)}, ${preset.y.label} ${yv(t)}`}
+                  onClick={() => setSelectedId(t.id)}
                   onKeyDown={(ev) => {
-                    if (on && (ev.key === 'Enter' || ev.key === ' ')) {
+                    if (ev.key === 'Enter' || ev.key === ' ') {
                       ev.preventDefault()
                       setSelectedId(t.id)
                     }
@@ -211,22 +197,18 @@ export function GapMapMatrix() {
 
         <aside
           className="gap-panel"
-          style={{ '--sc': colorOf(selected) } as CSSProperties}
+          style={{ '--sc': colorFor(selected) } as CSSProperties}
           aria-live="polite"
         >
           <span className="gap-panel-kind">
             <span className="dot" />
-            {data.categories.find((c) => c.id === selected.category)?.label ?? 'Field'}
+            {selected.gapType}
           </span>
           <h5>{selected.label}</h5>
-          <p className="gap-panel-quadrant">{selected.quadrant}</p>
+          <p className="gap-panel-quadrant">{preset.label}</p>
 
           <div className="gap-meters">
-            {[
-              { label: 'Technical activity', value: selected.technicalActivity },
-              { label: 'Policy attention', value: selected.policyAttention },
-              { label: 'Frontier score', value: selected.frontierScore },
-            ].map((m) => (
+            {meters.map((m) => (
               <div className="gap-meter-row" key={m.label}>
                 <div className="gap-meter-head">
                   <span>{m.label}</span>
@@ -239,16 +221,7 @@ export function GapMapMatrix() {
             ))}
           </div>
 
-          <p className="gap-insight">{selected.insight}</p>
-
-          <div className="visual-sources">
-            <span className="visual-sources-label">Sources</span>
-            {selected.sourceIds.map((id) => (
-              <a href={`#ref-${id}`} key={id}>
-                {id}
-              </a>
-            ))}
-          </div>
+          <p className="gap-insight">{selected.gap}</p>
         </aside>
       </div>
     </section>

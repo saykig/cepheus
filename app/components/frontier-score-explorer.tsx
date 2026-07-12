@@ -11,38 +11,35 @@ import {
 } from 'react'
 import { useInView } from './use-in-view'
 
-type WeightKey = 'momentum' | 'novelty' | 'policySalience' | 'bridgeImportance'
-type Subscores = Record<WeightKey, number>
+type Dim = { key: string; label: string }
+type Layer = 'knowledge' | 'authority'
+type Weights = Record<string, number>
 
-type Topic = {
-  id: string
-  label: string
-  category: string
-  subscores: Subscores
-  score: number
-  sourceIds: number[]
-  series: number[]
+type InstScore = {
+  knowledge: Record<string, number>
+  authority: Record<string, number>
+  series: { knowledge: number[]; authority: number[] }
 }
+type Institution = { id: string; label: string; type: string; series: number }
+type TopicMeta = { id: string; label: string; description: string }
 
-type Category = { id: string; label: string; series: number }
-
-type FrontierData = {
+type CapacityData = {
   title: string
   description: string
-  scoreLabel: string
   note: string
-  periods: string[]
-  weightLabels: { key: WeightKey; label: string }[]
-  defaultWeights: Subscores
-  categories: Category[]
-  topics: Topic[]
+  years: number[]
+  layers: { id: Layer; label: string }[]
+  dimensions: { knowledge: Dim[]; authority: Dim[] }
+  defaultWeights: { knowledge: Weights; authority: Weights }
+  topics: TopicMeta[]
+  institutions: Institution[]
+  scores: Record<string, Record<string, InstScore>>
 }
 
 const RANGES = [
-  { id: '1Y', quarters: 4 },
-  { id: '2Y', quarters: 8 },
-  { id: '3Y', quarters: 12 },
-  { id: 'All', quarters: 99 },
+  { id: '3Y', years: 3 },
+  { id: '5Y', years: 5 },
+  { id: 'All', years: 99 },
 ]
 
 // chart plot geometry (viewBox units)
@@ -59,59 +56,69 @@ const xFor = (i: number, n: number) =>
 const yFor = (v: number) => PB - (v / 100) * (PB - PT)
 const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v))
 
+// The function name is kept so the essay page import stays valid; the tool is
+// the Institutional Capacity Explorer.
 export function FrontierScoreExplorer() {
   const { ref, inView } = useInView<HTMLElement>()
-  const [data, setData] = useState<FrontierData | null>(null)
-  const [weights, setWeights] = useState<Subscores | null>(null)
-  const [range, setRange] = useState('3Y')
+  const [data, setData] = useState<CapacityData | null>(null)
+  const [topic, setTopic] = useState<string | null>(null)
+  const [layer, setLayer] = useState<Layer>('knowledge')
+  const [weights, setWeights] = useState<Weights | null>(null)
+  const [range, setRange] = useState('All')
   const [hidden, setHidden] = useState<Set<string>>(new Set())
-  const [showAll, setShowAll] = useState(false)
   const [hover, setHover] = useState<number | null>(null)
   const [focus, setFocus] = useState<string | null>(null)
   const svgRef = useRef<SVGSVGElement>(null)
 
   useEffect(() => {
-    fetch('/data/frontier-topics.json')
+    fetch('/data/annual-scores.json')
       .then((r) => r.json())
-      .then((d: FrontierData) => {
+      .then((d: CapacityData) => {
         setData(d)
-        setWeights({ ...d.defaultWeights })
+        setTopic(d.topics[0]?.id ?? null)
+        setWeights({ ...d.defaultWeights.knowledge })
       })
   }, [])
 
-  const colorOf = useMemo(() => {
-    const byCat = new Map((data?.categories ?? []).map((c) => [c.id, c.series]))
-    return (topic: Topic) => `var(--series-${byCat.get(topic.category) ?? 1})`
-  }, [data])
+  const dims = data ? data.dimensions[layer] : []
+  const colorOf = (inst: Institution) => `var(--series-${inst.series})`
+
+  const changeLayer = useCallback(
+    (next: Layer) => {
+      if (!data) return
+      setLayer(next)
+      setWeights({ ...data.defaultWeights[next] })
+      setHidden(new Set())
+      setFocus(null)
+      setHover(null)
+    },
+    [data],
+  )
+
+  const changeTopic = useCallback((id: string) => {
+    setTopic(id)
+    setHidden(new Set())
+    setFocus(null)
+    setHover(null)
+  }, [])
 
   const totalWeight = weights
-    ? weights.momentum + weights.novelty + weights.policySalience + weights.bridgeImportance
+    ? Object.values(weights).reduce((a, b) => a + b, 0)
     : 0
 
-  const scored = useMemo(() => {
-    if (!data || !weights) return []
+  const ranked = useMemo(() => {
+    if (!data || !weights || !topic) return []
+    const topicScores = data.scores[topic]
     const denom = totalWeight || 1
-    return data.topics.map((t) => {
-      const raw =
-        t.subscores.momentum * weights.momentum +
-        t.subscores.novelty * weights.novelty +
-        t.subscores.policySalience * weights.policySalience +
-        t.subscores.bridgeImportance * weights.bridgeImportance
-      return { ...t, live: Math.round((raw / denom) * 10) / 10 }
-    })
-  }, [data, weights, totalWeight])
-
-  const ranked = useMemo(
-    () => [...scored].sort((a, b) => b.live - a.live),
-    [scored],
-  )
-  const visibleRanked = showAll ? ranked : ranked.slice(0, 8)
-
-  // the charted set: the six leading fields under the default weighting (stable)
-  const chartTopics = useMemo(() => {
-    if (!data) return []
-    return [...data.topics].sort((a, b) => b.score - a.score).slice(0, 6)
-  }, [data])
+    return data.institutions
+      .map((inst) => {
+        const dimScores = topicScores[inst.id][layer]
+        let raw = 0
+        for (const k in weights) raw += (dimScores[k] ?? 0) * weights[k]
+        return { inst, live: Math.round((raw / denom) * 10) / 10 }
+      })
+      .sort((a, b) => b.live - a.live)
+  }, [data, weights, topic, layer, totalWeight])
 
   // ---- FLIP reorder animation for the ranking ----
   const rowRefs = useRef(new Map<string, HTMLDivElement>())
@@ -121,8 +128,6 @@ export function FrontierScoreExplorer() {
       typeof window !== 'undefined' &&
       window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     const rows = rowRefs.current
-    // Always measure natural positions: clear any in-flight transform first so
-    // rapid slider drags can never compound transforms and fling a row away.
     rows.forEach((el) => {
       el.style.transition = 'none'
       el.style.transform = ''
@@ -140,7 +145,7 @@ export function FrontierScoreExplorer() {
         }
       })
       if (animated) {
-        void document.documentElement.offsetHeight // force reflow, then release
+        void document.documentElement.offsetHeight
         requestAnimationFrame(() => {
           rows.forEach((el) => {
             el.style.transition = 'transform 460ms cubic-bezier(0.16,1,0.3,1)'
@@ -150,11 +155,11 @@ export function FrontierScoreExplorer() {
       }
     }
     prevTops.current = next
-  }, [visibleRanked])
+  }, [ranked])
 
   const reset = useCallback(() => {
-    if (data) setWeights({ ...data.defaultWeights })
-  }, [data])
+    if (data) setWeights({ ...data.defaultWeights[layer] })
+  }, [data, layer])
 
   const onMove = useCallback(
     (e: ReactPointerEvent<SVGRectElement>) => {
@@ -163,8 +168,8 @@ export function FrontierScoreExplorer() {
       const rect = svg.getBoundingClientRect()
       const vx = ((e.clientX - rect.left) / rect.width) * VB_W
       const n = Math.min(
-        data.periods.length,
-        RANGES.find((r) => r.id === range)?.quarters ?? data.periods.length,
+        data.years.length,
+        RANGES.find((r) => r.id === range)?.years ?? data.years.length,
       )
       const t = (vx - PL) / (PR - PL)
       setHover(clamp(Math.round(t * (n - 1)), 0, n - 1))
@@ -172,24 +177,26 @@ export function FrontierScoreExplorer() {
     [data, range],
   )
 
-  if (!data || !weights) {
+  if (!data || !weights || !topic) {
     return <div className="tool-loading" aria-live="polite" aria-busy="true" />
   }
 
-  const isDefault = (['momentum', 'novelty', 'policySalience', 'bridgeImportance'] as WeightKey[]).every(
-    (k) => weights[k] === data.defaultWeights[k],
-  )
+  const topicMeta = data.topics.find((t) => t.id === topic)!
+  const topicScores = data.scores[topic]
+  const seriesFor = (id: string) => topicScores[id].series[layer]
 
-  const nQuarters = Math.min(
-    data.periods.length,
-    RANGES.find((r) => r.id === range)?.quarters ?? data.periods.length,
+  const isDefault = dims.every((d) => weights[d.key] === data.defaultWeights[layer][d.key])
+
+  const nYears = Math.min(
+    data.years.length,
+    RANGES.find((r) => r.id === range)?.years ?? data.years.length,
   )
-  const start = data.periods.length - nQuarters
-  const periodsSlice = data.periods.slice(start)
-  const activeIdx = hover ?? nQuarters - 1
+  const start = data.years.length - nYears
+  const yearsSlice = data.years.slice(start).map(String)
+  const activeIdx = hover ?? nYears - 1
 
   const xTicks = Array.from(
-    new Set([0, Math.round((nQuarters - 1) / 3), Math.round((2 * (nQuarters - 1)) / 3), nQuarters - 1]),
+    new Set([0, Math.round((nYears - 1) / 3), Math.round((2 * (nYears - 1)) / 3), nYears - 1]),
   )
 
   return (
@@ -204,20 +211,56 @@ export function FrontierScoreExplorer() {
           <details className="tool-about">
             <summary>About this tool</summary>
             <div className="tool-about-body">
-              A frontier score is a weighted average of four signals. Move the
-              sliders to re-weight them; scores normalize to the slider total, so
-              the ranking always reads from 0 to 100. {data.note}
+              A capacity score is a weighted average of an institution&apos;s{' '}
+              {layer} dimensions for the chosen field. Move the sliders to
+              re-weight them; scores normalize to the slider total, so the ranking
+              always reads from 0 to 100. {data.note}
             </div>
           </details>
         </div>
       </div>
       <p className="tool-subtitle">{data.description}</p>
 
+      <div className="tool-controls">
+        <div className="tool-control-group">
+          <span className="tool-label">Field</span>
+          <div className="chip-row" role="group" aria-label="Select field">
+            {data.topics.map((t) => (
+              <button
+                key={t.id}
+                type="button"
+                className={`chip${topic === t.id ? ' is-on' : ''}`}
+                aria-pressed={topic === t.id}
+                onClick={() => changeTopic(t.id)}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="tool-control-group">
+          <span className="tool-label">Layer</span>
+          <div className="chip-row" role="group" aria-label="Select layer">
+            {data.layers.map((l) => (
+              <button
+                key={l.id}
+                type="button"
+                className={`chip${layer === l.id ? ' is-on' : ''}`}
+                aria-pressed={layer === l.id}
+                onClick={() => changeLayer(l.id)}
+              >
+                {l.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <div className="frontier-grid">
-        {/* ---- momentum chart ---- */}
+        {/* ---- capacity-over-time chart ---- */}
         <div className="frontier-panel">
           <div className="frontier-panel-head">
-            <span className="tool-label">Topic momentum</span>
+            <span className="tool-label">{layer} over time</span>
             <div className="chip-row" role="group" aria-label="Time range">
               {RANGES.map((r) => (
                 <button
@@ -241,7 +284,7 @@ export function FrontierScoreExplorer() {
             className="chart-svg"
             viewBox={`0 0 ${VB_W} ${VB_H}`}
             role="img"
-            aria-label={`Momentum over time for ${chartTopics.map((t) => t.label).join(', ')}`}
+            aria-label={`${layer} over time for ${data.institutions.map((n) => n.label).join(', ')} in ${topicMeta.label}`}
           >
             <g className="chart-grid">
               {GRID.filter((g) => g !== 0).map((g) => (
@@ -250,13 +293,7 @@ export function FrontierScoreExplorer() {
             </g>
             <line className="chart-axis" x1={PL} x2={PR} y1={yFor(0)} y2={yFor(0)} />
             {[0, 50, 100].map((g) => (
-              <text
-                key={g}
-                className="chart-tick"
-                x={PL - 5}
-                y={yFor(g) + 2.6}
-                textAnchor="end"
-              >
+              <text key={g} className="chart-tick" x={PL - 5} y={yFor(g) + 2.6} textAnchor="end">
                 {g}
               </text>
             ))}
@@ -264,44 +301,45 @@ export function FrontierScoreExplorer() {
               <text
                 key={i}
                 className="chart-tick"
-                x={xFor(i, nQuarters)}
+                x={xFor(i, nYears)}
                 y={PB + 12}
                 textAnchor="middle"
               >
-                {periodsSlice[i]}
+                {yearsSlice[i]}
               </text>
             ))}
 
-            {chartTopics.map((t) => {
-              const pts = t.series.slice(start).map((v, i) => [xFor(i, nQuarters), yFor(v)])
+            {data.institutions.map((inst) => {
+              const s = seriesFor(inst.id)
+              const pts = s.slice(start).map((v, i) => [xFor(i, nYears), yFor(v)])
               const d = pts.map((p, i) => `${i ? 'L' : 'M'}${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' ')
-              const off = hidden.has(t.id)
-              const isFocus = focus === t.id
+              const off = hidden.has(inst.id)
+              const isFocus = focus === inst.id
               const dim = focus != null && !isFocus
               return (
                 <path
-                  key={t.id}
+                  key={inst.id}
                   className="chart-line"
                   d={d}
-                  stroke={colorOf(t)}
+                  stroke={colorOf(inst)}
                   style={{ strokeWidth: isFocus ? 2.4 : 1.6, opacity: off ? 0.1 : dim ? 0.22 : 1 }}
                 />
               )
             })}
 
-            {chartTopics
-              .filter((t) => !hidden.has(t.id))
-              .map((t) => {
-                const isFocus = focus === t.id
+            {data.institutions
+              .filter((inst) => !hidden.has(inst.id))
+              .map((inst) => {
+                const isFocus = focus === inst.id
                 const dim = focus != null && !isFocus
                 return (
                   <circle
-                    key={`end-${t.id}`}
+                    key={`end-${inst.id}`}
                     className="chart-end-dot"
-                    cx={xFor(nQuarters - 1, nQuarters)}
-                    cy={yFor(t.series[start + nQuarters - 1])}
+                    cx={xFor(nYears - 1, nYears)}
+                    cy={yFor(seriesFor(inst.id)[start + nYears - 1])}
                     r={isFocus ? 2.3 : 1.7}
-                    fill={colorOf(t)}
+                    fill={colorOf(inst)}
                     style={{ opacity: dim ? 0.22 : 1 }}
                   />
                 )
@@ -310,23 +348,23 @@ export function FrontierScoreExplorer() {
             {hover != null && (
               <line
                 className="chart-crosshair"
-                x1={xFor(hover, nQuarters)}
-                x2={xFor(hover, nQuarters)}
+                x1={xFor(hover, nYears)}
+                x2={xFor(hover, nYears)}
                 y1={PT}
                 y2={PB}
               />
             )}
             {hover != null &&
-              chartTopics
-                .filter((t) => !hidden.has(t.id))
-                .map((t) => (
+              data.institutions
+                .filter((inst) => !hidden.has(inst.id))
+                .map((inst) => (
                   <circle
-                    key={t.id}
+                    key={inst.id}
                     className="chart-dot"
-                    cx={xFor(hover, nQuarters)}
-                    cy={yFor(t.series[start + hover])}
+                    cx={xFor(hover, nYears)}
+                    cy={yFor(seriesFor(inst.id)[start + hover])}
                     r={1.9}
-                    fill={colorOf(t)}
+                    fill={colorOf(inst)}
                   />
                 ))}
 
@@ -343,74 +381,62 @@ export function FrontierScoreExplorer() {
           </svg>
 
           <div className="frontier-readout">
-            {chartTopics.map((t) => (
+            {data.institutions.map((inst) => (
               <button
-                key={t.id}
+                key={inst.id}
                 type="button"
-                className={`frontier-legend-row${hidden.has(t.id) ? ' is-off' : ''}`}
-                aria-pressed={!hidden.has(t.id)}
-                aria-label={`${t.label}, ${Math.round(
-                  t.series[start + activeIdx],
-                )} in ${periodsSlice[activeIdx]}. Toggle line.`}
-                onMouseEnter={() => setFocus(t.id)}
+                className={`frontier-legend-row${hidden.has(inst.id) ? ' is-off' : ''}`}
+                aria-pressed={!hidden.has(inst.id)}
+                aria-label={`${inst.label}, ${Math.round(
+                  seriesFor(inst.id)[start + activeIdx],
+                )} in ${yearsSlice[activeIdx]}. Toggle line.`}
+                onMouseEnter={() => setFocus(inst.id)}
                 onMouseLeave={() => setFocus(null)}
-                onFocus={() => setFocus(t.id)}
+                onFocus={() => setFocus(inst.id)}
                 onBlur={() => setFocus(null)}
                 onClick={() =>
                   setHidden((prev) => {
                     const next = new Set(prev)
-                    next.has(t.id) ? next.delete(t.id) : next.add(t.id)
+                    next.has(inst.id) ? next.delete(inst.id) : next.add(inst.id)
                     return next
                   })
                 }
               >
-                <span
-                  className="frontier-legend-swatch"
-                  style={{ background: colorOf(t) }}
-                />
-                <span>{t.label}</span>
+                <span className="frontier-legend-swatch" style={{ background: colorOf(inst) }} />
+                <span>{inst.label}</span>
                 <span className="frontier-legend-value">
-                  {Math.round(t.series[start + activeIdx])}
+                  {Math.round(seriesFor(inst.id)[start + activeIdx])}
                 </span>
               </button>
             ))}
           </div>
         </div>
 
-        {/* ---- weighted ranking ---- */}
+        {/* ---- weighted institution ranking ---- */}
         <div className="frontier-panel">
           <div className="frontier-panel-head">
-            <span className="tool-label">Frontier ranking</span>
-            <span className="tool-label">{periodsSlice[activeIdx]}</span>
+            <span className="tool-label">Institutions</span>
+            <span className="tool-label">{yearsSlice[activeIdx]}</span>
           </div>
           <div className="rank-list">
-            {visibleRanked.map((t, i) => (
+            {ranked.map((row, i) => (
               <div
                 className="rank-row"
-                key={t.id}
+                key={row.inst.id}
                 ref={(el) => {
-                  if (el) rowRefs.current.set(t.id, el)
-                  else rowRefs.current.delete(t.id)
+                  if (el) rowRefs.current.set(row.inst.id, el)
+                  else rowRefs.current.delete(row.inst.id)
                 }}
               >
                 <span className="rank-num">{i + 1}</span>
-                <span className="rank-label">{t.label}</span>
-                <span className="rank-score">{t.live.toFixed(1)}</span>
+                <span className="rank-label">{row.inst.label}</span>
+                <span className="rank-score">{row.live.toFixed(1)}</span>
                 <div className="rank-track">
-                  <span style={{ width: `${t.live}%`, background: colorOf(t) }} />
+                  <span style={{ width: `${row.live}%`, background: colorOf(row.inst) }} />
                 </div>
               </div>
             ))}
           </div>
-          <button
-            type="button"
-            className="rank-more"
-            onClick={() => setShowAll((s) => !s)}
-          >
-            {showAll
-              ? 'Show top 8'
-              : `View full ranking (${data.topics.length} topics) →`}
-          </button>
         </div>
 
         {/* ---- weight controls ---- */}
@@ -419,25 +445,25 @@ export function FrontierScoreExplorer() {
             <span className="tool-label">Weight controls</span>
           </div>
           <div className="weight-list">
-            {data.weightLabels.map((w) => (
-              <div className="weight-row" key={w.key}>
+            {dims.map((d) => (
+              <div className="weight-row" key={d.key}>
                 <div className="weight-head">
-                  <label htmlFor={`w-${w.key}`}>{w.label}</label>
-                  <span className="weight-value">{weights[w.key].toFixed(2)}</span>
+                  <label htmlFor={`w-${d.key}`}>{d.label}</label>
+                  <span className="weight-value">{weights[d.key].toFixed(2)}</span>
                 </div>
                 <input
-                  id={`w-${w.key}`}
+                  id={`w-${d.key}`}
                   className="slider"
                   type="range"
                   min={0}
                   max={1}
                   step={0.05}
-                  value={weights[w.key]}
-                  style={{ '--fill': weights[w.key] * 100 } as CSSProperties}
+                  value={weights[d.key]}
+                  style={{ '--fill': weights[d.key] * 100 } as CSSProperties}
                   onChange={(e) =>
-                    setWeights((prev) => ({ ...prev!, [w.key]: Number(e.target.value) }))
+                    setWeights((prev) => ({ ...prev!, [d.key]: Number(e.target.value) }))
                   }
-                  aria-valuetext={`${w.label} weight ${weights[w.key].toFixed(2)}`}
+                  aria-valuetext={`${d.label} weight ${weights[d.key].toFixed(2)}`}
                 />
               </div>
             ))}
@@ -446,12 +472,7 @@ export function FrontierScoreExplorer() {
             <span>Total weight</span>
             <strong>{totalWeight.toFixed(2)}</strong>
           </div>
-          <button
-            type="button"
-            className="weight-reset"
-            onClick={reset}
-            disabled={isDefault}
-          >
+          <button type="button" className="weight-reset" onClick={reset} disabled={isDefault}>
             Reset to default
           </button>
         </div>
