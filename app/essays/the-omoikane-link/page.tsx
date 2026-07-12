@@ -102,24 +102,14 @@ export default function OmoikaneEssay() {
           </p>
           <ol className="essay-questions">
             <li>
-              <em>How does a government govern a system it does not build?</em>
+              <em>Who has legal or political authority?</em>
+            </li>
+            <li>
+              <em>Who controls the technology or infrastructure?</em>
             </li>
             <li>
               <em>
-                How does an AI company translate public law into technical
-                restrictions that a model can actually follow?
-              </em>
-            </li>
-            <li>
-              <em>
-                Who should decide when technical judgment and lawful public
-                authority conflict?
-              </em>
-            </li>
-            <li>
-              <em>
-                Where should these disagreements be resolved before they become
-                public crises?
+                Why is there no reliable institution connecting these groups?
               </em>
             </li>
           </ol>

@@ -588,19 +588,26 @@ button {
 }
 
 .essay-body .essay-questions {
-  margin: 0.25rem 0 2rem 2.4rem;
-  padding-left: 0.8rem;
+  margin: 0.25rem 0 2rem 2rem;
+  padding-left: 0;
+  list-style: none;
+  counter-reset: essay-question;
 }
 
 .essay-body .essay-questions li {
+  position: relative;
   margin-bottom: 0.9rem;
-  padding-left: 0.45rem;
+  padding-left: 2rem;
   color: var(--ink);
   font-size: 1.06rem;
   line-height: 1.7;
+  counter-increment: essay-question;
 }
 
-.essay-body .essay-questions li::marker {
+.essay-body .essay-questions li::before {
+  position: absolute;
+  left: 0;
+  content: counter(essay-question) ".";
   color: var(--olive);
   font-family: var(--font-body), Georgia, serif;
   font-style: normal;
