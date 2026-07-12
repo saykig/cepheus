@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
 import { EssayIndex } from 'app/components/essay-index'
 import { FrontierScoreExplorer } from 'app/components/frontier-score-explorer'
 import { GapMapMatrix } from 'app/components/gap-map-matrix'
@@ -37,6 +38,14 @@ function Citation({ id }: { id: number }) {
   )
 }
 
+function CitationLink({ children, id }: { children: ReactNode; id: number }) {
+  return (
+    <a className="citation-link" href={`#ref-${id}`}>
+      {children}
+    </a>
+  )
+}
+
 export default function OmoikaneEssay() {
   return (
     <article className="essay-page">
@@ -56,8 +65,10 @@ export default function OmoikaneEssay() {
         <div className="essay-body">
           <p>
             In February 2026, while sitting in my office, I opened a Flipboard
-            notification about a confrontation between Anthropic and the
-            Pentagon in an AP article
+            notification about a confrontation between{' '}
+            <CitationLink id={1}>
+              Anthropic and the Pentagon in an AP article
+            </CitationLink>
             <Citation id={1} />. The dispute concerned the conditions under which
             the Department of Defense could use Claude. Anthropic refused
             to remove safeguards related to mass domestic surveillance and fully
@@ -145,8 +156,11 @@ export default function OmoikaneEssay() {
             national security, labour policy, civil liberties, infrastructure,
             and international competition. Arctic security depends on climate
             science, naval strategy, undersea infrastructure, critical minerals,
-            Indigenous governance, and Russia-NATO relations. These issues do
-            not fit neatly into one department, agency, or professional field.
+            Indigenous governance, and Russia-NATO relations.{' '}
+            <CitationLink id={2}>
+              These issues do not fit neatly into one department, agency, or
+              professional field.
+            </CitationLink>
             <Citation id={2} />
           </p>
           <p>
@@ -192,46 +206,63 @@ export default function OmoikaneEssay() {
           </p>
           <p>
             This is also why governments have become more interested in
-            mission-oriented and cross-sector approaches. The OECD describes
-            mission-oriented innovation as a way for the public sector to
-            convene and coordinate actors around complex problems that cannot be
-            solved by individual actors alone. Omoikane would apply a similar
+            mission-oriented and cross-sector approaches.{' '}
+            <CitationLink id={3}>
+              The OECD describes mission-oriented innovation as a way for the
+              public sector to convene and coordinate actors around complex
+              problems that cannot be solved by individual actors alone.
+            </CitationLink>
+            <Citation id={3} /> Omoikane would apply a similar
             logic to research and policy navigation. It would not treat policy
             fields as isolated lanes. It would show where actors, documents,
             technical systems, and public decisions are starting to converge.
-            <Citation id={3} />
           </p>
           <p>
-            AI governance is a clear example. Stanford&apos;s 2025 AI Index
-            reports that legislative mentions of AI rose across 75 countries in
-            2024, while U.S. federal agencies issued 59 AI-related regulations
-            that year.
+            AI governance is a clear example.{' '}
+            <CitationLink id={4}>
+              Stanford&apos;s 2025 AI Index reports that legislative mentions of
+              AI rose across 75 countries in 2024, while U.S. federal agencies
+              issued 59 AI-related regulations that year.
+            </CitationLink>
             <Citation id={4} /> International institutions are also trying to
-            keep pace: the OECD AI Principles were adopted in 2019 and updated
-            in 2024, NIST created an AI Risk Management Framework to help
-            organizations manage AI risks, and the European Commission describes
-            the EU AI Act as the first legal framework on AI. Together, these
+            keep pace:{' '}
+            <CitationLink id={5}>
+              the OECD AI Principles were adopted in 2019 and updated in 2024
+            </CitationLink>
+            <Citation id={5} />,{' '}
+            <CitationLink id={6}>
+              NIST created an AI Risk Management Framework to help organizations
+              manage AI risks
+            </CitationLink>
+            <Citation id={6} />, and{' '}
+            <CitationLink id={7}>
+              the European Commission describes the EU AI Act as the first legal
+              framework on AI
+            </CitationLink>
+            <Citation id={7} />. Together, these
             examples show that AI governance has moved beyond general concern
             and into a more formal policy field with rules, standards,
             measurement problems, and institutional competition.
-            <Citation id={5} />
-            <Citation id={6} />
-            <Citation id={7} />
           </p>
           <p>
             Strategic technology policy shows the same pattern. Semiconductor
-            policy is no longer only about manufacturing chips. Through CHIPS
-            for America, the U.S. government links semiconductor production to
-            research and development, workforce capacity, supply-chain
-            resilience, and national competitiveness.
+            policy is no longer only about manufacturing chips.{' '}
+            <CitationLink id={8}>
+              Through CHIPS for America, the U.S. government links semiconductor
+              production to research and development, workforce capacity,
+              supply-chain resilience, and national competitiveness.
+            </CitationLink>
             <Citation id={8} /> Arctic policy also shows convergence in another
-            setting. The U.S. National Strategy for the Arctic Region connects
-            security, climate change, economic development, Indigenous
-            livelihoods, and international law into one policy agenda. These are
+            setting.{' '}
+            <CitationLink id={9}>
+              The U.S. National Strategy for the Arctic Region connects security,
+              climate change, economic development, Indigenous livelihoods, and
+              international law into one policy agenda.
+            </CitationLink>
+            <Citation id={9} /> These are
             different issue areas, but they point to the same problem: policy
             knowledge is being produced across institutions faster than most
             users can organize it.
-            <Citation id={9} />
           </p>
 
           <h2 id="how-the-platform-would-work">
@@ -284,12 +315,14 @@ export default function OmoikaneEssay() {
             studying Arctic security might be led toward submarine deterrence,
             undersea infrastructure, critical minerals, maritime surveillance,
             and NATO planning. This matters because many policy frontiers emerge
-            at the intersection of fields. NATO&apos;s Defence Innovation
-            Accelerator for the North Atlantic, for example, exists to connect
-            emerging and disruptive technologies with collective defence and
-            security needs. That is the kind of public-private-technical bridge
+            at the intersection of fields.{' '}
+            <CitationLink id={10}>
+              NATO&apos;s Defence Innovation Accelerator for the North Atlantic,
+              for example, exists to connect emerging and disruptive technologies
+              with collective defence and security needs.
+            </CitationLink>
+            <Citation id={10} /> That is the kind of public-private-technical bridge
             Omoikane would make easier to see.
-            <Citation id={10} />
           </p>
           <PolicyConstellationMap />
 

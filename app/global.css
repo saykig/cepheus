@@ -743,6 +743,21 @@ button {
   scroll-margin-top: 110px;
 }
 
+.citation-link {
+  color: inherit;
+  text-decoration-color: color-mix(in srgb, var(--olive) 52%, transparent);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+  transition: color 180ms ease, text-decoration-color 180ms ease;
+}
+
+.citation-link:hover,
+.citation-link:focus-visible {
+  color: var(--ink);
+  text-decoration-color: var(--olive);
+}
+
 .citation a {
   display: inline-block;
   margin-left: 0.16rem;
