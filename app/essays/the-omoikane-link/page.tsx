@@ -87,15 +87,31 @@ export default function OmoikaneEssay() {
             improvement made me wonder whether an equivalent policy world
             existed around them. But the better question was not whether AI
             policy existed. It clearly did. The real questions were more
-            difficult:{' '}
-            <em>
-              How does a government govern a system it does not build? How does
-              an AI company translate public law into technical restrictions
-              that a model can actually follow? Who should decide when technical
-              judgment and lawful public authority conflict? And where should
-              these disagreements be resolved before they become public crises?
-            </em>
+            difficult:
           </p>
+          <ol className="essay-questions">
+            <li>
+              <em>How does a government govern a system it does not build?</em>
+            </li>
+            <li>
+              <em>
+                How does an AI company translate public law into technical
+                restrictions that a model can actually follow?
+              </em>
+            </li>
+            <li>
+              <em>
+                Who should decide when technical judgment and lawful public
+                authority conflict?
+              </em>
+            </li>
+            <li>
+              <em>
+                Where should these disagreements be resolved before they become
+                public crises?
+              </em>
+            </li>
+          </ol>
           <p>
             The Anthropic-Pentagon dispute gave institutional form to a problem I
             had previously understood only in the abstract. Governments cannot
