@@ -1,6 +1,6 @@
 {
-  "title": "Policy Constellation Map",
-  "description": "Fields and institutions as a single constellation. Selecting a point reveals how influence, information, and funding move through the landscape.",
+  "title": "Institutional Constellation Map",
+  "description": "See how governments, companies, universities, and standards bodies connect across expertise, power, funding, and dependence.",
   "selectionLabel": "Selected point",
   "note": "Illustrative links, drawn from the cited sources.",
   "kinds": [

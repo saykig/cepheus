@@ -1,6 +1,6 @@
 {
   "title": "Gap Map Matrix",
-  "description": "Each field placed by how much technical activity it draws against how much policy attention it holds. Distance from the diagonal is the gap.",
+  "description": "Compare technical activity with policy authority and accountability to identify where the missing institutional links are greatest.",
   "note": "Circle size = frontier score. Illustrative, drawn from the cited sources.",
   "axes": {
     "x": {

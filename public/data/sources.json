@@ -34,7 +34,7 @@
     {
       "id": 6,
       "title": "National Institute of Standards and Technology, Artificial Intelligence Risk Management Framework.",
-      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework?utm_source=chatgpt.com",
       "note": "Provides practical guidance for identifying and managing AI risks."
     },
     {
@@ -60,6 +60,12 @@
       "title": "NATO, Defence Innovation Accelerator for the North Atlantic (DIANA).",
       "url": "https://www.nato.int/en/about-us/organization/nato-structure/defence-innovation-accelerator-for-the-north-atlantic-diana",
       "note": "Connects emerging technology with collective defence and security challenges."
+    },
+    {
+      "id": 11,
+      "title": "Cybersecurity and Infrastructure Security Agency, Joint Cyber Defense Collaborative AI Cybersecurity Collaboration Playbook (2025).",
+      "url": "https://www.cisa.gov/sites/default/files/2025-01/JCDC%20AI%20Playbook.pdf",
+      "note": "Describes a government-industry mechanism for coordinating cybersecurity planning and response."
     }
   ]
 }

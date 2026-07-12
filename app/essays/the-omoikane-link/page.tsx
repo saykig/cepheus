@@ -20,7 +20,6 @@ const sections = [
   { id: 'knowledge-map', title: 'Knowledge' },
   { id: 'authority-map', title: 'Authority' },
   { id: 'dependency-map', title: 'Dependency' },
-  { id: 'beyond-search', title: 'Beyond Search' },
   { id: 'case-study-the-north', title: 'The North' },
   { id: 'strong-pilot', title: 'Pilot' },
   { id: 'what-this-makes-possible', title: 'Possible' },
@@ -298,22 +297,40 @@ export default function OmoikaneEssay() {
                 <span className="map-index">1.</span> The Knowledge Map
               </h3>
             </div>
+            <p className="map-prompt">
+              <strong>
+                <em>Who can actually decide?</em>
+              </strong>
+            </p>
             <p className="map-lead">
-              The Knowledge Map would show where attention is accelerating. It
-              would help a user see whether a topic is growing because more
-              people are publishing on it, because governments are beginning to
-              regulate it, because new technical language is emerging, or because
-              the topic is starting to connect fields that were previously
-              separate. A frontier score could combine momentum, novelty, policy
-              salience, and bridge importance. The score would not decide what
-              matters on its own. It would give users a structured way to notice
-              which questions are becoming harder to ignore.
+              Authority can include the power to regulate, procure, deploy,
+              restrict, investigate, fund, audit, prosecute, or establish
+              standards. These powers rarely belong to the same institution.
+            </p>
+            <p className="map-lead">
+              In cybersecurity, a government agency may issue guidance or
+              investigate an attack, while private companies still control the
+              affected networks and infrastructure. In military AI, elected
+              governments and defence institutions hold authority over military
+              operations, but contractors and AI companies may control the
+              systems through which those decisions are carried out. In
+              biosecurity, authority may be divided among health agencies,
+              research regulators, laboratories, security institutions, and
+              international bodies.
+            </p>
+            <p className="map-lead">
+              The Anthropic-Pentagon dispute belongs partly on this map. The
+              Pentagon argued that military decisions belonged to the state.
+              Anthropic accepted that principle but argued that it should not be
+              required to provide a system for uses it considered technically
+              unreliable or incompatible with basic safeguards. The dispute was
+              not simply about whether the military or the company had authority.
+              It was about which kind of authority applied to which decision.
             </p>
             <FrontierScoreExplorer />
             <p className="tool-caption">
-              Adjust the weights to reflect different priorities. Raising Policy
-              Salience surfaces topics already on policymakers&apos; desks, while
-              raising Novelty brings earlier, faster-moving signals to the top.
+              Adjust the weights to test how knowledge, authority, dependency,
+              and coordination change the ranking.
             </p>
           </section>
 
@@ -327,32 +344,45 @@ export default function OmoikaneEssay() {
                 <span className="map-index">2.</span> The Authority Map
               </h3>
             </div>
-            <p className="map-lead">
-              The Authority Map would show how fields connect and who has the
-              power to shape them. A user searching AI
-              governance might be led toward cybersecurity, export controls,
-              semiconductor policy, military AI, and China strategy. A user
-              studying Arctic security might be led toward submarine deterrence,
-              undersea infrastructure, critical minerals, maritime surveillance,
-              and NATO planning. This matters because many policy frontiers
-              emerge at the intersection of fields.{' '}
-              <CitationLink id={10}>
-                NATO&apos;s Defence Innovation Accelerator for the North Atlantic,
-                for example, exists to connect emerging and disruptive technologies
-                with collective defence and security needs.
-              </CitationLink>{' '}That is the kind of
-              public-private-technical bridge Omoikane would make easier to see.
+            <p className="map-prompt">
+              <strong>
+                <em>Who depends on whom?</em>
+              </strong>
             </p>
             <p className="map-lead">
-              Policy influence does not move only through academic citations. It
-              also moves through hearings, standards, strategy papers,
-              procurement programs, legal decisions, funding streams, and public
-              speeches. A think tank can shape government strategy. A private
-              lab can shape AI governance. A standards body can influence
-              regulation. An international organization can spread a concept
-              across countries. A university can produce the research base while
-              still struggling to connect that research to implementation. The
-              Authority Map would make those pathways easier to follow.
+              A government may possess legal authority while depending on a
+              private company for access to a frontier model, cloud
+              infrastructure, computing capacity, technical maintenance, or
+              system evaluation. A private company may depend on government
+              contracts, public research, regulation, security clearances, or
+              access to government data.
+            </p>
+            <p className="map-lead">
+              In cybersecurity, governments and infrastructure operators often
+              rely on private firms to detect vulnerabilities and share threat
+              information.{' '}
+              <CitationLink id={11}>
+                CISA&apos;s Joint Cyber Defense Collaborative was created around
+                this basic reality
+              </CitationLink>, providing a mechanism for government and industry
+              to coordinate on cybersecurity threats.
+            </p>
+            <p className="map-lead">
+              In military AI, defence institutions may rely on commercial models
+              and cloud systems that they do not fully own. The Anthropic dispute
+              demonstrated what happens when a government becomes operationally
+              interested in a system while the supplier retains control over
+              important conditions of use.
+            </p>
+            <p className="map-lead">
+              In biosecurity, AI companies may depend on external scientists to
+              evaluate biological capabilities, while public-health institutions
+              may depend on private laboratories, commercial data, and
+              proprietary AI tools.
+            </p>
+            <p className="map-lead">
+              The Dependency Map would make these relationships visible because
+              dependency can shape decisions as strongly as law does.
             </p>
             <PolicyConstellationMap />
             <p className="tool-caption">
@@ -372,79 +402,43 @@ export default function OmoikaneEssay() {
                 <span className="map-index">3.</span> The Dependency Map
               </h3>
             </div>
-            <p className="map-lead">
-              The Dependency Map would identify places where policy attention and
-              technical knowledge are not aligned. Some fields may have strong
-              technical activity but weak public understanding. Other fields may
-              attract political attention before the relevant science,
-              engineering, or standards work has been absorbed by
-              decision-makers. The point would not be to claim that nobody is
-              working on a topic. The point would be to show where communities
-              are not communicating well enough.
+            <p className="map-prompt">
+              <strong>
+                <em>Where do these institutions meet?</em>
+              </strong>
             </p>
             <p className="map-lead">
-              Military AI is a good example of this kind of gap. Technical work,
-              defense planning, legal debate, and public concern all exist, but
-              they do not always speak to each other in a clear way. Arctic
-              security has a similar problem for a wider audience. It sits at the
-              intersection of climate, infrastructure, naval strategy, Russia
-              policy, critical minerals, and Indigenous governance, yet many
-              people encounter it only as a regional issue. A map that makes
-              these gaps visible would help users ask sharper research and policy
-              questions.
+              The answer may include procurement contracts, model-use policies,
+              reporting requirements, safety evaluations, licensing systems,
+              technical standards, joint research programs, advisory bodies,
+              red-team exercises, and public-private partnerships.
+            </p>
+            <p className="map-lead">
+              These interfaces translate public goals into technical
+              requirements. A law may state that an AI system must be safe or
+              accountable, but that principle must eventually become an
+              evaluation, an access control, a reporting process, a contract
+              clause, or an operational restriction.{' '}
+              <CitationLink id={6}>
+                NIST&apos;s AI Risk Management Framework is one example of an
+                institution
+              </CitationLink>{' '}trying to create a shared structure that
+              different organizations can use when designing, deploying, and
+              evaluating AI systems.
+            </p>
+            <p className="map-lead">
+              The Anthropic-Pentagon confrontation can be understood as a
+              contested interface. The contract connected a private model to a
+              public mission, but it did not produce agreement over who could
+              define the acceptable conditions of use.
             </p>
             <GapMapMatrix />
             <p className="tool-caption">
-              Fields far below the diagonal draw heavy technical work with little
-              policy attention. Hover or select any point to read the drivers
-              behind its position.
+              Fields far below the diagonal draw heavy technical activity with
+              limited policy authority or accountability. Hover or select any
+              point to read the drivers behind its position.
             </p>
           </section>
-
-          <h2 id="beyond-search">Beyond the Search Bar</h2>
-          <p>
-            Google Scholar, government databases, and normal search engines are
-            useful because they help users find sources. Omoikane would serve a
-            different function. It would help users understand the structure of
-            a policy field once the sources begin to pile up.
-          </p>
-
-          <table className="comparison">
-            <thead>
-              <tr>
-                <th>Search tools help answer</th>
-                <th>Omoikane would help answer</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>What has been published on this topic?</td>
-                <td>Where is this topic going?</td>
-              </tr>
-              <tr>
-                <td>Which sources match my search terms?</td>
-                <td>What does this topic connect to?</td>
-              </tr>
-              <tr>
-                <td>Which papers cite each other?</td>
-                <td>Which institutions are shaping the field?</td>
-              </tr>
-              <tr>
-                <td>Where can I find documents?</td>
-                <td>
-                  Where are the gaps between technical knowledge and policy
-                  action?
-                </td>
-              </tr>
-              <tr>
-                <td>Which sources seem influential?</td>
-                <td>
-                  Which ideas are moving from research into public
-                  decision-making?
-                </td>
-              </tr>
-            </tbody>
-          </table>
 
           <h2 id="case-study-the-north">Case Study: The North</h2>
           <p>

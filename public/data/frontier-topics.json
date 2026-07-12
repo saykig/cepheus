@@ -1,7 +1,7 @@
 {
-  "title": "Frontier Score Explorer",
-  "description": "Weight four signals to see which policy fields are hardening into frontiers, and watch the ranking move as priorities change.",
-  "scoreLabel": "Frontier score",
+  "title": "Institutional Friction Explorer",
+  "description": "Weight knowledge, authority, dependency, and coordination to see where cybersecurity, military AI, and biosecurity are most misaligned.",
+  "scoreLabel": "Friction score",
   "note": "Illustrative scores, drawn from the cited sources.",
   "periods": [
     "2022 Q1",
@@ -26,19 +26,19 @@
   "weightLabels": [
     {
       "key": "momentum",
-      "label": "Momentum"
+      "label": "Knowledge"
     },
     {
       "key": "novelty",
-      "label": "Novelty"
+      "label": "Authority"
     },
     {
       "key": "policySalience",
-      "label": "Policy Salience"
+      "label": "Dependency"
     },
     {
       "key": "bridgeImportance",
-      "label": "Bridge Importance"
+      "label": "Coordination"
     }
   ],
   "defaultWeights": {
