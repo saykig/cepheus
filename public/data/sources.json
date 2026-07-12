@@ -66,6 +66,18 @@
       "title": "Cybersecurity and Infrastructure Security Agency, Joint Cyber Defense Collaborative AI Cybersecurity Collaboration Playbook (2025).",
       "url": "https://www.cisa.gov/sites/default/files/2025-01/JCDC%20AI%20Playbook.pdf",
       "note": "Describes a government-industry mechanism for coordinating cybersecurity planning and response."
+    },
+    {
+      "id": 12,
+      "title": "U.S. Government Accountability Office, Fraud and Improper Payments: Data Quality and a Skilled Workforce Are Essential for Unlocking the Benefits of Artificial Intelligence (2025).",
+      "url": "https://www.gao.gov/products/gao-25-108412",
+      "note": "Documents the federal shortage of AI expertise and hiring and compensation barriers."
+    },
+    {
+      "id": 13,
+      "title": "Stanford Institute for Human-Centered Artificial Intelligence, 2025 AI Index Report: Research and Development.",
+      "url": "https://hai.stanford.edu/ai-index/2025-ai-index-report/research-and-development",
+      "note": "Reports industry's share of notable AI model development in 2024."
     }
   ]
 }

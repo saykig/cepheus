@@ -15,7 +15,6 @@ export const metadata: Metadata = {
 const sections = [
   { id: 'first-collision', title: 'First Collision' },
   { id: 'institutional-gap', title: 'Institutional Gap' },
-  { id: 'how-the-platform-would-work', title: 'Platform' },
   { id: 'three-maps', title: 'Three Maps' },
   { id: 'knowledge-map', title: 'Knowledge' },
   { id: 'authority-map', title: 'Authority' },
@@ -154,130 +153,115 @@ export default function OmoikaneEssay() {
 
           <h2 id="institutional-gap">The Institutional Gap</h2>
           <p>
-            Many policy problems are now organized around systems rather than
-            single disciplines. AI governance depends on computer science, law,
-            national security, labour policy, civil liberties, infrastructure,
-            and international competition. Arctic security depends on climate
-            science, naval strategy, undersea infrastructure, critical minerals,
-            Indigenous governance, and Russia-NATO relations.{' '}
-            <CitationLink id={2}>
-              These issues do not fit neatly into one department, agency, or
-              professional field.
-            </CitationLink>
+            Frontier AI is still being built largely inside a small group of
+            private companies. They recruit much of the technical talent,
+            control the computing infrastructure, develop and evaluate the
+            models, and decide how those systems can be accessed.{' '}
+            <CitationLink id={13}>
+              According to Stanford&apos;s 2025 AI Index, industry produced nearly
+              90 percent of the notable AI models identified in 2024.
+            </CitationLink>{' '}At the same time, the{' '}
+            <CitationLink id={12}>
+              U.S. Government Accountability Office has pointed to a serious
+              shortage of AI expertise across the federal workforce, made worse
+              by slow hiring systems and less competitive pay.
+            </CitationLink>{' '}Governments are not without technical capacity,
+            but much of the knowledge needed to understand the frontier sits
+            outside the institutions expected to govern it.
           </p>
           <p>
-            Disciplinary boundaries still matter. Universities divide knowledge
-            into departments because specialization produces depth. Governments
-            divide work into agencies because responsibility has to be assigned.
-            Companies separate engineering, compliance, legal, and strategy
-            teams because each function requires different expertise. The
-            problem begins when these divisions become the main way we
-            understand issues that are already moving across them. Omoikane
-            begins from this mismatch: the world is producing cross-disciplinary
-            problems faster than many of our knowledge systems can map them.
-          </p>
-
-          <details className="soft-note">
-            <summary>Why institutions still think in separate fields</summary>
-            <p>
-              Most institutions are built around specialization. Universities
-              organize knowledge into departments, governments divide
-              responsibility across agencies, and companies separate technical,
-              legal, policy, and commercial teams. This structure is useful
-              because it creates expertise and accountability. The weakness is
-              that many emerging policy problems do not respect those
-              boundaries. AI governance, semiconductor policy, Arctic security,
-              biosecurity, and defense innovation all require people from
-              different fields to understand the same problem at the same time.
-              Omoikane does not argue against specialization. It shows where
-              specialized fields need to be connected.
-            </p>
-          </details>
-
-          <p>
-            The basic claim behind Omoikane is that important policy frontiers
-            often form where technical change, geopolitical pressure, legal
-            uncertainty, and institutional fragmentation meet. These are the
-            areas where the language of one field is no longer enough. A lawyer
-            may understand regulation but not model architecture. An engineer
-            may understand technical performance but not public accountability.
-            A policymaker may understand risk but not the infrastructure that
-            creates it. A student may see the topic but not yet see the
-            surrounding ecosystem.
+            Public authority, meanwhile, is spread across legislatures, defence
+            departments, intelligence agencies, courts, and international
+            alliances. Here, each institution sees only part of the system.
+            Legislators may write the rules, defence departments procure the
+            technology, courts determine whether its use is lawful, and
+            standards bodies translate broad principles into technical guidance.
+            The result here would therefore not be a complete absence of
+            governance, but a system in which responsibility is divided among
+            institutions that do not always work from the same information.
           </p>
           <p>
-            This is also why governments have become more interested in
+            They do not always speak the same language either. Engineers may
+            focus on architecture and benchmarks, while policymakers are more
+            concerned with authority and jurisdiction. Private firms may be
+            thinking about deployment, competition, and contractual obligations.
+            These groups can be discussing the same technology while disagreeing
+            about what the real problem is.
+          </p>
+          <p>
+            They also work on different timelines. Models can change within
+            weeks or months, while judicial review and international
+            coordination can take years.{' '}
+            <strong>
+              It is easy to reduce this to the claim that policy moves too
+              slowly, but that misses part of the issue.
+            </strong>{' '}Public institutions move cautiously because they are
+            expected to follow procedures, justify decisions, assign
+            responsibility, and remain accountable to law. Private companies can
+            move faster due to less guardrails, but speed does not give them
+            public legitimacy either.
+          </p>
+          <p>
+            Now, this becomes more serious when private technical decisions begin
+            to carry public consequences. Choices about safeguards, model
+            access, cybersecurity, biological capabilities, or military use may
+            be made inside companies, even though their effects reach national
+            security, civil liberties, critical infrastructure, and public
+            safety. Governments can then become dependent on systems they cannot
+            fully inspect, and may not be able to replace.
+          </p>
+          <p>
+            The problem is therefore not simply that AI cuts across many
+            disciplines, as the institutions responsible for understanding,
+            building, and using it are organized separately. For example,
+            universities divide knowledge into departments because
+            specialization produces depth. These divisions are necessary, but
+            they become a problem when they are also the main way we understand
+            issues that already move across them.
+          </p>
+          <p>
+            This helps explain why governments have become more interested in
             mission-oriented and cross-sector approaches.{' '}
             <CitationLink id={3}>
-              The OECD describes mission-oriented innovation as a way for the
-              public sector to convene and coordinate actors around complex
-              problems that cannot be solved by individual actors alone.
-            </CitationLink>{' '}Omoikane would apply a similar
-            logic to research and policy navigation. It would not treat policy
-            fields as isolated lanes. It would show where actors, documents,
-            technical systems, and public decisions are starting to converge.
-          </p>
-          <p>
-            AI governance is a clear example.{' '}
+              The OECD describes mission-oriented innovation as a way for public
+              institutions to bring together actors around problems that no
+              single organization can solve alone.
+            </CitationLink>{' '}AI governance is already moving in this
+            direction.{' '}
             <CitationLink id={4}>
-              Stanford&apos;s 2025 AI Index reports that legislative mentions of
-              AI rose across 75 countries in 2024, while U.S. federal agencies
+              Stanford&apos;s 2025 AI Index found that legislative mentions of AI
+              increased across 75 countries in 2024, while U.S. federal agencies
               issued 59 AI-related regulations that year.
-            </CitationLink>{' '}International institutions are also trying to
-            keep pace:{' '}
-            <CitationLink id={5}>
-              the OECD AI Principles were adopted in 2019 and updated in 2024
-            </CitationLink>,{' '}
+            </CitationLink>{' '}International institutions have also moved from
+            broad concern toward more formal rules and standards through the{' '}
+            <CitationLink id={5}>OECD AI Principles</CitationLink>,{' '}
             <CitationLink id={6}>
-              NIST created an AI Risk Management Framework to help organizations
-              manage AI risks
-            </CitationLink>, and{' '}
-            <CitationLink id={7}>
-              the European Commission describes the EU AI Act as the first legal
-              framework on AI
-            </CitationLink>. Together, these
-            examples show that AI governance has moved beyond general concern
-            and into a more formal policy field with rules, standards,
-            measurement problems, and institutional competition.
+              NIST&apos;s AI Risk Management Framework
+            </CitationLink>, and the{' '}
+            <CitationLink id={7}>EU AI Act</CitationLink>.
           </p>
           <p>
-            Strategic technology policy shows the same pattern. Semiconductor
-            policy is no longer only about manufacturing chips.{' '}
-            <CitationLink id={8}>
-              Through CHIPS for America, the U.S. government links semiconductor
-              production to research and development, workforce capacity,
-              supply-chain resilience, and national competitiveness.
-            </CitationLink>{' '}Arctic policy also shows convergence in another
-            setting.{' '}
-            <CitationLink id={9}>
-              The U.S. National Strategy for the Arctic Region connects security,
-              climate change, economic development, Indigenous livelihoods, and
-              international law into one policy agenda.
-            </CitationLink>{' '}These are
-            different issue areas, but they point to the same problem: policy
-            knowledge is being produced across institutions faster than most
-            users can organize it.
-          </p>
-
-          <h2 id="how-the-platform-would-work">
-            How the Platform Would Work
-          </h2>
-          <p>
-            Omoikane would collect and map documents from several kinds of
-            institutions, including academic journals, think tanks, government
-            strategies, parliamentary reports, international organizations,
-            courts, standards bodies, public speeches, technical reports, and
-            major policy briefs. Each document would become a point on a map.
-            Similar documents would sit near each other, while bridges would
-            show where one field begins to connect with another.
+            Furthermore, these efforts show that AI governance is becoming a
+            real policy field. They also show why the field remains difficult to
+            navigate. Rules, expertise, infrastructure, and authority are being
+            developed in different places, often without a clear view of how they
+            fit together.
           </p>
           <p>
-            The first version should stay focused. A platform that tries to map
-            all of global affairs from the beginning would become too broad to
-            be useful. A stronger pilot would begin with one frontier ecosystem
-            where the problem is already visible: AI, security, and strategic
-            technology. That cluster is large enough to matter, but focused
-            enough to test whether the map actually helps users think better.
+            <strong>
+              The future is not arranged by university department, but many of
+              our knowledge systems still are. The same is true of governments
+              and companies.
+            </strong>{' '}Specialization gives us rooms full of experts, but very
+            few hallways between them.
+          </p>
+          <p>
+            The answer, then, is not to remove those rooms. It is important to
+            note that engineers, policymakers, scientists, and governments have
+            different roles for good reasons. The task is to make the
+            connections between them easier to see, especially where knowledge,
+            authority, and responsibility overlap without a reliable institution
+            linking them; and that is the gap Omoikane is meant to map.
           </p>
 
           <h2 id="three-maps">The Three Maps</h2>
