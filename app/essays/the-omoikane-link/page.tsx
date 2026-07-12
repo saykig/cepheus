@@ -13,14 +13,13 @@ export const metadata: Metadata = {
 }
 
 const sections = [
-  { id: 'map-problem', title: 'Map Problem' },
-  { id: 'what-omoikane-sees', title: 'What It Sees' },
+  { id: 'first-collision', title: 'First Collision' },
+  { id: 'institutional-gap', title: 'Institutional Gap' },
   { id: 'how-the-platform-would-work', title: 'Platform' },
-  { id: 'four-coordinates', title: 'Coordinates' },
-  { id: 'frontier-map', title: 'Frontier' },
-  { id: 'bridge-map', title: 'Bridge' },
-  { id: 'gap-map', title: 'Gap' },
-  { id: 'institution-map', title: 'Institutions' },
+  { id: 'three-maps', title: 'Three Maps' },
+  { id: 'knowledge-map', title: 'Knowledge' },
+  { id: 'authority-map', title: 'Authority' },
+  { id: 'dependency-map', title: 'Dependency' },
   { id: 'beyond-search', title: 'Beyond Search' },
   { id: 'case-study-the-north', title: 'The North' },
   { id: 'strong-pilot', title: 'Pilot' },
@@ -73,13 +72,19 @@ export default function OmoikaneEssay() {
         <EssayIndex sections={sections} updated={UPDATED} />
 
         <div className="essay-body">
+          <h2 className="essay-opening-heading" id="first-collision">
+            The First Collision
+          </h2>
           <p>
             In February 2026, while sitting in my office, I opened a Flipboard
             notification about a confrontation between{' '}
             <CitationLink id={1}>
               Anthropic and the Pentagon in an AP article
-            </CitationLink>. The dispute concerned the conditions under which
-            the Department of Defense could use Claude. Anthropic refused to
+            </CitationLink>.
+          </p>
+          <p>
+            The dispute concerned the conditions under which the Department of
+            Defense could use Claude. Anthropic refused to
             remove safeguards related to mass domestic surveillance and fully
             autonomous weapons, arguing that current frontier systems remained
             too unreliable for certain high-stakes uses. Pentagon officials
@@ -148,7 +153,7 @@ export default function OmoikaneEssay() {
             beginning with cybersecurity, military AI, and biosecurity.
           </p>
 
-          <h2 id="map-problem">The Map Problem</h2>
+          <h2 id="institutional-gap">The Institutional Gap</h2>
           <p>
             Many policy problems are now organized around systems rather than
             single disciplines. AI governance depends on computer science, law,
@@ -190,7 +195,6 @@ export default function OmoikaneEssay() {
             </p>
           </details>
 
-          <h2 id="what-omoikane-sees">What Omoikane Sees</h2>
           <p>
             The basic claim behind Omoikane is that important policy frontiers
             often form where technical change, geopolitical pressure, legal
@@ -277,25 +281,25 @@ export default function OmoikaneEssay() {
             enough to test whether the map actually helps users think better.
           </p>
 
-          <h2 id="four-coordinates">The Four Coordinates</h2>
+          <h2 id="three-maps">The Three Maps</h2>
           <p className="map-lead">
-            The platform would organize the map through four coordinates. These
-            coordinates are not separate products. They are different ways of
-            reading the same policy ecosystem.
+            The platform would organize the field through three maps. These maps
+            are not separate products. They are different ways of reading the
+            same policy ecosystem.
           </p>
 
           <section
             className="map-section"
-            id="frontier-map"
-            aria-labelledby="frontier-map-h"
+            id="knowledge-map"
+            aria-labelledby="knowledge-map-h"
           >
             <div className="map-head">
-              <h3 id="frontier-map-h">
-                <span className="map-index">1.</span> The Frontier Map
+              <h3 id="knowledge-map-h">
+                <span className="map-index">1.</span> The Knowledge Map
               </h3>
             </div>
             <p className="map-lead">
-              The Frontier Map would show where attention is accelerating. It
+              The Knowledge Map would show where attention is accelerating. It
               would help a user see whether a topic is growing because more
               people are publishing on it, because governments are beginning to
               regulate it, because new technical language is emerging, or because
@@ -315,16 +319,17 @@ export default function OmoikaneEssay() {
 
           <section
             className="map-section"
-            id="bridge-map"
-            aria-labelledby="bridge-map-h"
+            id="authority-map"
+            aria-labelledby="authority-map-h"
           >
             <div className="map-head">
-              <h3 id="bridge-map-h">
-                <span className="map-index">2.</span> The Bridge Map
+              <h3 id="authority-map-h">
+                <span className="map-index">2.</span> The Authority Map
               </h3>
             </div>
             <p className="map-lead">
-              The Bridge Map would show how fields connect. A user searching AI
+              The Authority Map would show how fields connect and who has the
+              power to shape them. A user searching AI
               governance might be led toward cybersecurity, export controls,
               semiconductor policy, military AI, and China strategy. A user
               studying Arctic security might be led toward submarine deterrence,
@@ -338,6 +343,17 @@ export default function OmoikaneEssay() {
               </CitationLink>{' '}That is the kind of
               public-private-technical bridge Omoikane would make easier to see.
             </p>
+            <p className="map-lead">
+              Policy influence does not move only through academic citations. It
+              also moves through hearings, standards, strategy papers,
+              procurement programs, legal decisions, funding streams, and public
+              speeches. A think tank can shape government strategy. A private
+              lab can shape AI governance. A standards body can influence
+              regulation. An international organization can spread a concept
+              across countries. A university can produce the research base while
+              still struggling to connect that research to implementation. The
+              Authority Map would make those pathways easier to follow.
+            </p>
             <PolicyConstellationMap />
             <p className="tool-caption">
               Select any point to read how influence, information, and funding
@@ -348,16 +364,16 @@ export default function OmoikaneEssay() {
 
           <section
             className="map-section"
-            id="gap-map"
-            aria-labelledby="gap-map-h"
+            id="dependency-map"
+            aria-labelledby="dependency-map-h"
           >
             <div className="map-head">
-              <h3 id="gap-map-h">
-                <span className="map-index">3.</span> The Gap Map
+              <h3 id="dependency-map-h">
+                <span className="map-index">3.</span> The Dependency Map
               </h3>
             </div>
             <p className="map-lead">
-              The Gap Map would identify places where policy attention and
+              The Dependency Map would identify places where policy attention and
               technical knowledge are not aligned. Some fields may have strong
               technical activity but weak public understanding. Other fields may
               attract political attention before the relevant science,
@@ -382,30 +398,6 @@ export default function OmoikaneEssay() {
               Fields far below the diagonal draw heavy technical work with little
               policy attention. Hover or select any point to read the drivers
               behind its position.
-            </p>
-          </section>
-
-          <section
-            className="map-section"
-            id="institution-map"
-            aria-labelledby="institution-map-h"
-          >
-            <div className="map-head">
-              <h3 id="institution-map-h">
-                <span className="map-index">4.</span> The Institution Map
-              </h3>
-            </div>
-            <p className="map-lead">
-              The Institution Map would show who is shaping a field. Policy
-              influence does not move only through academic citations. It also
-              moves through hearings, standards, strategy papers, procurement
-              programs, legal decisions, funding streams, and public speeches. A
-              think tank can shape government strategy. A private lab can shape
-              AI governance. A standards body can influence regulation. An
-              international organization can spread a concept across countries. A
-              university can produce the research base while still struggling to
-              connect that research to implementation. The Institution Map would
-              make those pathways easier to follow.
             </p>
           </section>
 
