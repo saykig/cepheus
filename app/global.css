@@ -53,6 +53,7 @@
   --series-4: oklch(0.660 0.100 78);
   --series-5: oklch(0.500 0.075 355);
   --series-6: oklch(0.520 0.060 196);
+  --series-7: oklch(0.520 0.070 300);
 
   /* --- Type scale (fluid) --- */
   --t-hero: clamp(2.75rem, 6vw, 4.4rem);
@@ -1496,7 +1497,25 @@ input[type='email'] {
   text-transform: uppercase;
 }
 
-/* =============================== Frontier Score Explorer */
+/* =============================== Institutional Capacity Explorer */
+.tool-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.9rem 1.4rem;
+  margin: 0.2rem 0 1.4rem;
+}
+
+.tool-control-group {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.tool-control-group > .tool-label {
+  margin-left: 0.1rem;
+}
+
 .frontier-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.06fr) minmax(0, 0.94fr);
@@ -2106,6 +2125,31 @@ input[type='email'] {
 .node-connection .val {
   color: var(--ink-muted);
   font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.node-none {
+  margin: 0.15rem 0 0;
+  color: var(--ink-faint);
+  font-family: var(--font-text), Georgia, serif;
+  font-size: 0.78rem;
+  font-style: italic;
+}
+
+.node-rel-note {
+  margin: 0.45rem 0 0.05rem;
+  color: var(--ink-muted);
+  font-family: var(--font-text), Georgia, serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+}
+
+.node-gap {
+  margin: 0.35rem 0 0;
+  color: var(--ink-soft);
+  font-family: var(--font-text), Georgia, serif;
+  font-size: 0.82rem;
+  line-height: 1.55;
 }
 
 /* =============================== Gap Map (quadrant scatter) */
