@@ -132,6 +132,21 @@ export function PolicyConstellationMap() {
 
   const visibleNodes = data.nodes.filter(nodeVisible)
 
+  // Build renderable edges as gentle arcs; draw highlighted ones last (on top).
+  const edgeEls = data.edges
+    .map((e, i) => ({ e, i, s: nodesById.get(e.source), t: nodesById.get(e.target) }))
+    .filter((x) => x.s && x.t && edgeVisible(x.e) && nodeVisible(x.s!) && nodeVisible(x.t!))
+    .map((x) => ({
+      ...x,
+      incident: x.e.source === selected.id || x.e.target === selected.id,
+    }))
+    .sort((a, b) => Number(a.incident) - Number(b.incident))
+
+  // Selected node renders last so its halo and label sit above the others.
+  const orderedNodes = [...visibleNodes].sort(
+    (a, b) => Number(a.id === selectedId) - Number(b.id === selectedId),
+  )
+
   return (
     <section
       ref={ref}
@@ -196,45 +211,43 @@ export function PolicyConstellationMap() {
       <div className="constellation-layout">
         <div className="constellation-canvas">
           <svg viewBox="-8 -8 116 122" role="img" aria-label={`${data.title}: ${visibleNodes.length} points`}>
-            {data.edges.map((e, i) => {
-              const s = nodesById.get(e.source)
-              const t = nodesById.get(e.target)
-              if (!s || !t || !edgeVisible(e) || !nodeVisible(s) || !nodeVisible(t)) return null
-              const incident = e.source === selected.id || e.target === selected.id
-              const dim = q && !(matches(s) && matches(t))
-              const len = Math.hypot(t.x - s.x, t.y - s.y)
+            {edgeEls.map(({ e, i, s, t, incident }) => {
+              const dim = !!q && !(matches(s!) && matches(t!))
+              const dx = t!.x - s!.x
+              const dy = t!.y - s!.y
+              const len = Math.hypot(dx, dy) || 1
+              const cx = (s!.x + t!.x) / 2 + (-dy / len) * len * 0.08
+              const cy = (s!.y + t!.y) / 2 + (dx / len) * len * 0.08
               return (
-                <line
+                <path
                   key={`${e.source}-${e.target}-${i}`}
                   className={`constellation-edge draw${incident ? ' is-highlighted' : ''}${dim ? ' is-dim' : ''}`}
-                  x1={s.x}
-                  y1={s.y}
-                  x2={t.x}
-                  y2={t.y}
-                  strokeWidth={strength ? 0.35 + e.strength * 1.15 : 0.5}
+                  d={`M ${s!.x} ${s!.y} Q ${cx.toFixed(2)} ${cy.toFixed(2)} ${t!.x} ${t!.y}`}
+                  strokeWidth={strength ? 0.35 + e.strength * 1.15 : 0.55}
                   style={
                     {
-                      '--len': len,
+                      '--len': len * 1.2,
                       '--sc': incident ? colorOf(selected) : undefined,
                     } as CSSProperties
                   }
                 >
                   <title>{e.explanation}</title>
-                </line>
+                </path>
               )
             })}
 
-            {visibleNodes.map((n, i) => {
+            {orderedNodes.map((n, i) => {
               const r = n.size * 0.78
               const dim = q ? !matches(n) : false
+              const isSel = selectedId === n.id
               return (
                 <g
                   key={n.id}
-                  className={`constellation-node pop is-${n.kind}${selectedId === n.id ? ' is-selected' : ''}${dim ? ' is-dim' : ''}`}
+                  className={`constellation-node pop is-${n.kind}${isSel ? ' is-selected' : ''}${dim ? ' is-dim' : ''}`}
                   style={{ '--sc': colorOf(n), animationDelay: `${i * 45}ms` } as CSSProperties}
                   role="button"
                   tabIndex={0}
-                  aria-pressed={selectedId === n.id}
+                  aria-pressed={isSel}
                   aria-label={`${n.label}, ${n.kind}`}
                   onClick={() => setSelectedId(n.id)}
                   onKeyDown={(ev) => {
@@ -244,6 +257,7 @@ export function PolicyConstellationMap() {
                     }
                   }}
                 >
+                  {isSel && <circle className="node-halo" cx={n.x} cy={n.y} r={r + 3.4} />}
                   <circle cx={n.x} cy={n.y} r={r} />
                   <text x={n.x} y={n.y + r + 3.6}>
                     {n.label}

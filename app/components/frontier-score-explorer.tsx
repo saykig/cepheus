@@ -289,6 +289,19 @@ export function FrontierScoreExplorer() {
               )
             })}
 
+            {chartTopics
+              .filter((t) => !hidden.has(t.id))
+              .map((t) => (
+                <circle
+                  key={`end-${t.id}`}
+                  className="chart-end-dot"
+                  cx={xFor(nQuarters - 1, nQuarters)}
+                  cy={yFor(t.series[start + nQuarters - 1])}
+                  r={1.7}
+                  fill={colorOf(t)}
+                />
+              ))}
+
             {hover != null && (
               <line
                 className="chart-crosshair"

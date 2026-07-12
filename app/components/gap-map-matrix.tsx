@@ -72,6 +72,11 @@ export function GapMapMatrix() {
   const inCat = (t: Topic) => cat === 'all' || t.category === cat
   const filters = [{ id: 'all', label: 'All' }, ...data.categories]
 
+  // Draw the selected bubble last so its label and halo sit above the cluster.
+  const orderedTopics = [...data.topics].sort(
+    (a, b) => Number(a.id === selectedId) - Number(b.id === selectedId),
+  )
+
   return (
     <section
       ref={ref}
@@ -191,17 +196,20 @@ export function GapMapMatrix() {
             </text>
 
             {/* bubbles */}
-            {data.topics.map((t, i) => {
+            {orderedTopics.map((t, i) => {
               const on = inCat(t)
+              const isSel = selectedId === t.id
               const r = rFor(t.frontierScore)
+              const cx = sx(t.technicalActivity)
+              const cy = sy(t.policyAttention)
               return (
                 <g
                   key={t.id}
-                  className={`bubble pop${selectedId === t.id ? ' is-selected' : ''}${on ? '' : ' is-dim'}${selectedId === t.id ? ' is-labeled' : ''}`}
+                  className={`bubble pop${isSel ? ' is-selected is-labeled' : ''}${on ? '' : ' is-dim'}`}
                   style={{ '--sc': colorOf(t), animationDelay: `${i * 40}ms` } as CSSProperties}
                   role="button"
                   tabIndex={on ? 0 : -1}
-                  aria-pressed={selectedId === t.id}
+                  aria-pressed={isSel}
                   aria-label={`${t.label}: technical activity ${t.technicalActivity}, policy attention ${t.policyAttention}`}
                   onClick={() => on && setSelectedId(t.id)}
                   onKeyDown={(ev) => {
@@ -211,11 +219,9 @@ export function GapMapMatrix() {
                     }
                   }}
                 >
-                  <circle cx={sx(t.technicalActivity)} cy={sy(t.policyAttention)} r={r} />
-                  <text
-                    x={sx(t.technicalActivity)}
-                    y={sy(t.policyAttention) - r - 1.4}
-                  >
+                  {isSel && <circle className="bubble-halo" cx={cx} cy={cy} r={r + 2.6} />}
+                  <circle cx={cx} cy={cy} r={r} />
+                  <text x={cx} y={cy - r - 1.4}>
                     {t.label}
                   </text>
                 </g>

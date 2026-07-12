@@ -1459,6 +1459,10 @@ input[type='email'] {
   border-color: var(--rule-strong);
 }
 
+.chip:active {
+  transform: scale(0.97);
+}
+
 .chip.is-on {
   color: var(--olive);
   border-color: color-mix(in oklab, var(--olive) 45%, transparent);
@@ -1611,6 +1615,11 @@ input[type='email'] {
   stroke: var(--rule-strong);
   stroke-width: 0.6;
   stroke-dasharray: 2 2;
+}
+
+.chart-end-dot {
+  stroke: var(--paper-raise);
+  stroke-width: 0.7;
 }
 
 .frontier-readout {
@@ -2044,6 +2053,29 @@ input[type='email'] {
   fill: var(--ink);
 }
 
+.constellation-node:focus-visible circle,
+.bubble:focus-visible circle {
+  stroke: var(--olive);
+  stroke-width: 1.7;
+}
+
+.node-halo {
+  fill: color-mix(in oklab, var(--sc) 11%, transparent);
+  stroke: color-mix(in oklab, var(--sc) 42%, transparent);
+  stroke-width: 0.5;
+  pointer-events: none;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: halo-in var(--dur-2) var(--ease-expo) backwards;
+}
+
+@keyframes halo-in {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+}
+
 .node-profile {
   display: flex;
   flex-direction: column;
@@ -2248,8 +2280,8 @@ input[type='email'] {
 }
 
 .bubble circle {
-  fill: color-mix(in oklab, var(--sc) 30%, var(--paper-bright));
-  stroke: var(--sc);
+  fill: color-mix(in oklab, var(--sc) 24%, transparent);
+  stroke: color-mix(in oklab, var(--sc) 72%, transparent);
   stroke-width: 0.5;
   transition: fill var(--dur-2) var(--ease-quart), stroke-width var(--dur-2) var(--ease-quart);
 }
@@ -2259,14 +2291,28 @@ input[type='email'] {
 }
 
 .bubble.is-dim {
-  opacity: 0.22;
+  opacity: 0.18;
 }
 
-.bubble.is-selected circle,
 .bubble:hover circle,
 .bubble:focus-visible circle {
-  fill: color-mix(in oklab, var(--sc) 52%, var(--paper-bright));
+  fill: color-mix(in oklab, var(--sc) 40%, transparent);
   stroke-width: 1;
+}
+
+.bubble.is-selected circle {
+  fill: color-mix(in oklab, var(--sc) 50%, transparent);
+  stroke-width: 1.1;
+}
+
+.bubble-halo {
+  fill: none;
+  stroke: color-mix(in oklab, var(--sc) 40%, transparent);
+  stroke-width: 0.5;
+  pointer-events: none;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: halo-in var(--dur-2) var(--ease-expo) backwards;
 }
 
 .bubble text {
