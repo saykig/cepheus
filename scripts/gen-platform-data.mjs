@@ -266,7 +266,7 @@ const nodes = allNodes.map((n) => ({
   ...n,
   x: NODE_POS[n.id][0],
   y: NODE_POS[n.id][1],
-  size: Number((5.6 + (degree[n.id] / maxDeg) * 6.2).toFixed(2)),
+  size: Number((3.8 + (degree[n.id] / maxDeg) * 1.9).toFixed(2)),
 }))
 const edges = EDGES.map(([source, target, kind, strength, description, directed = false, interfaceType = null]) =>
   ({ source, target, kind, strength, description, directed, interfaceType }))
