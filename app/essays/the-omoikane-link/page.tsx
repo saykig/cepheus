@@ -27,6 +27,8 @@ const sections = [
   { id: 'references-heading', title: 'References' },
 ]
 
+const UPDATED = 'July 2025'
+
 function Citation({ id }: { id: number }) {
   return (
     <sup className="citation" id={`ref-back-${id}`}>
@@ -47,11 +49,21 @@ export default function OmoikaneEssay() {
           Can we build a better map of how power, technology, and policy are
           beginning to connect?
         </p>
-        <p className="essay-author">Sara Kim</p>
+        <p className="essay-meta">
+          <span className="author">Sara Kim</span>
+          <span className="sep" aria-hidden="true">
+            /
+          </span>
+          <span>A 12-minute read</span>
+          <span className="sep" aria-hidden="true">
+            /
+          </span>
+          <span>Updated {UPDATED}</span>
+        </p>
       </header>
 
       <div className="essay-layout">
-        <EssayIndex sections={sections} />
+        <EssayIndex sections={sections} updated={UPDATED} />
 
         <div className="essay-body">
           <p>
@@ -215,80 +227,135 @@ export default function OmoikaneEssay() {
           </p>
 
           <h2 id="four-coordinates">The Four Coordinates</h2>
-          <p>
+          <p className="map-lead">
             The platform would organize the map through four coordinates. These
             coordinates are not separate products. They are different ways of
             reading the same policy ecosystem.
           </p>
 
-          <h3 id="frontier-map">1. The Frontier Map</h3>
-          <p>
-            The Frontier Map would show where attention is accelerating. It
-            would help a user see whether a topic is growing because more people
-            are publishing on it, because governments are beginning to regulate
-            it, because new technical language is emerging, or because the topic
-            is starting to connect fields that were previously separate. A
-            frontier score could combine momentum, novelty, policy salience, and
-            bridge importance. The score would not decide what matters on its
-            own. It would give users a structured way to notice which questions
-            are becoming harder to ignore.
-          </p>
-          <FrontierScoreExplorer />
+          <section
+            className="map-section"
+            id="frontier-map"
+            aria-labelledby="frontier-map-h"
+          >
+            <div className="map-head">
+              <h3 id="frontier-map-h">
+                <span className="map-index">1.</span> The Frontier Map
+              </h3>
+            </div>
+            <p className="map-lead">
+              The Frontier Map would show where attention is accelerating. It
+              would help a user see whether a topic is growing because more
+              people are publishing on it, because governments are beginning to
+              regulate it, because new technical language is emerging, or because
+              the topic is starting to connect fields that were previously
+              separate. A frontier score could combine momentum, novelty, policy
+              salience, and bridge importance. The score would not decide what
+              matters on its own. It would give users a structured way to notice
+              which questions are becoming harder to ignore.
+            </p>
+            <FrontierScoreExplorer />
+            <p className="tool-caption">
+              Adjust the weights to reflect different priorities. Raising Policy
+              Salience surfaces topics already on policymakers&apos; desks, while
+              raising Novelty brings earlier, faster-moving signals to the top.
+            </p>
+          </section>
 
-          <h3 id="bridge-map">2. The Bridge Map</h3>
-          <p>
-            The Bridge Map would show how fields connect. A user searching AI
-            governance might be led toward cybersecurity, export controls,
-            semiconductor policy, military AI, and China strategy. A user
-            studying Arctic security might be led toward submarine deterrence,
-            undersea infrastructure, critical minerals, maritime surveillance,
-            and NATO planning. This matters because many policy frontiers emerge
-            at the intersection of fields. NATO&apos;s Defence Innovation
-            Accelerator for the North Atlantic, for example, exists to connect
-            emerging and disruptive technologies with collective defence and
-            security needs. That is the kind of public-private-technical bridge
-            Omoikane would make easier to see.
-            <Citation id={9} />
-          </p>
-          <PolicyConstellationMap />
+          <section
+            className="map-section"
+            id="bridge-map"
+            aria-labelledby="bridge-map-h"
+          >
+            <div className="map-head">
+              <h3 id="bridge-map-h">
+                <span className="map-index">2.</span> The Bridge Map
+              </h3>
+            </div>
+            <p className="map-lead">
+              The Bridge Map would show how fields connect. A user searching AI
+              governance might be led toward cybersecurity, export controls,
+              semiconductor policy, military AI, and China strategy. A user
+              studying Arctic security might be led toward submarine deterrence,
+              undersea infrastructure, critical minerals, maritime surveillance,
+              and NATO planning. This matters because many policy frontiers
+              emerge at the intersection of fields. NATO&apos;s Defence
+              Innovation Accelerator for the North Atlantic, for example, exists
+              to connect emerging and disruptive technologies with collective
+              defence and security needs. That is the kind of
+              public-private-technical bridge Omoikane would make easier to see.
+              <Citation id={9} />
+            </p>
+            <PolicyConstellationMap />
+            <p className="tool-caption">
+              Select any point to read how influence, information, and funding
+              move through it. Filter to institutions or funding links to see who
+              holds the field together.
+            </p>
+          </section>
 
-          <h3 id="gap-map">3. The Gap Map</h3>
-          <p>
-            The Gap Map would identify places where policy attention and
-            technical knowledge are not aligned. Some fields may have strong
-            technical activity but weak public understanding. Other fields may
-            attract political attention before the relevant science,
-            engineering, or standards work has been absorbed by decision-makers.
-            The point would not be to claim that nobody is working on a topic.
-            The point would be to show where communities are not communicating
-            well enough.
-          </p>
-          <p>
-            Military AI is a good example of this kind of gap. Technical work,
-            defense planning, legal debate, and public concern all exist, but
-            they do not always speak to each other in a clear way. Arctic
-            security has a similar problem for a wider audience. It sits at the
-            intersection of climate, infrastructure, naval strategy, Russia
-            policy, critical minerals, and Indigenous governance, yet many
-            people encounter it only as a regional issue. A map that makes these
-            gaps visible would help users ask sharper research and policy
-            questions.
-          </p>
-          <GapMapMatrix />
+          <section
+            className="map-section"
+            id="gap-map"
+            aria-labelledby="gap-map-h"
+          >
+            <div className="map-head">
+              <h3 id="gap-map-h">
+                <span className="map-index">3.</span> The Gap Map
+              </h3>
+            </div>
+            <p className="map-lead">
+              The Gap Map would identify places where policy attention and
+              technical knowledge are not aligned. Some fields may have strong
+              technical activity but weak public understanding. Other fields may
+              attract political attention before the relevant science,
+              engineering, or standards work has been absorbed by
+              decision-makers. The point would not be to claim that nobody is
+              working on a topic. The point would be to show where communities
+              are not communicating well enough.
+            </p>
+            <p className="map-lead">
+              Military AI is a good example of this kind of gap. Technical work,
+              defense planning, legal debate, and public concern all exist, but
+              they do not always speak to each other in a clear way. Arctic
+              security has a similar problem for a wider audience. It sits at the
+              intersection of climate, infrastructure, naval strategy, Russia
+              policy, critical minerals, and Indigenous governance, yet many
+              people encounter it only as a regional issue. A map that makes
+              these gaps visible would help users ask sharper research and policy
+              questions.
+            </p>
+            <GapMapMatrix />
+            <p className="tool-caption">
+              Fields far below the diagonal draw heavy technical work with little
+              policy attention. Hover or select any point to read the drivers
+              behind its position.
+            </p>
+          </section>
 
-          <h3 id="institution-map">4. The Institution Map</h3>
-          <p>
-            The Institution Map would show who is shaping a field. Policy
-            influence does not move only through academic citations. It also
-            moves through hearings, standards, strategy papers, procurement
-            programs, legal decisions, funding streams, and public speeches. A
-            think tank can shape government strategy. A private lab can shape AI
-            governance. A standards body can influence regulation. An
-            international organization can spread a concept across countries. A
-            university can produce the research base while still struggling to
-            connect that research to implementation. The Institution Map would
-            make those pathways easier to follow.
-          </p>
+          <section
+            className="map-section"
+            id="institution-map"
+            aria-labelledby="institution-map-h"
+          >
+            <div className="map-head">
+              <h3 id="institution-map-h">
+                <span className="map-index">4.</span> The Institution Map
+              </h3>
+            </div>
+            <p className="map-lead">
+              The Institution Map would show who is shaping a field. Policy
+              influence does not move only through academic citations. It also
+              moves through hearings, standards, strategy papers, procurement
+              programs, legal decisions, funding streams, and public speeches. A
+              think tank can shape government strategy. A private lab can shape
+              AI governance. A standards body can influence regulation. An
+              international organization can spread a concept across countries. A
+              university can produce the research base while still struggling to
+              connect that research to implementation. The Institution Map would
+              make those pathways easier to follow.
+            </p>
+          </section>
 
           <h2 id="beyond-search">Beyond the Search Bar</h2>
           <p>

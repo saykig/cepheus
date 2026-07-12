@@ -1,105 +1,507 @@
 {
   "title": "Policy Constellation Map",
-  "description": "A small policy ecosystem showing how technical systems, institutions, and public decisions begin to pull on one another.",
-  "selectionLabel": "Current point",
+  "description": "Fields and institutions as a single constellation. Selecting a point reveals how influence, information, and funding move through the landscape.",
+  "selectionLabel": "Selected point",
+  "note": "Illustrative links, drawn from the cited sources.",
+  "kinds": [
+    {
+      "id": "topic",
+      "label": "Topics"
+    },
+    {
+      "id": "institution",
+      "label": "Institutions"
+    }
+  ],
+  "linkKinds": [
+    {
+      "id": "bilateral",
+      "label": "Bilateral"
+    },
+    {
+      "id": "funding",
+      "label": "Funding"
+    }
+  ],
+  "categories": [
+    {
+      "id": "ai",
+      "label": "AI",
+      "series": 1
+    },
+    {
+      "id": "security",
+      "label": "Security",
+      "series": 2
+    },
+    {
+      "id": "infrastructure",
+      "label": "Infrastructure",
+      "series": 3
+    },
+    {
+      "id": "resources",
+      "label": "Resources",
+      "series": 4
+    },
+    {
+      "id": "bio",
+      "label": "Health",
+      "series": 5
+    },
+    {
+      "id": "institutions",
+      "label": "Institutions",
+      "series": 6
+    }
+  ],
   "nodes": [
     {
       "id": "ai-governance",
-      "label": "AI governance",
-      "kind": "policy",
-      "x": 49,
-      "y": 42,
-      "size": 16,
-      "explanation": "A policy field where model capability, risk management, legal accountability, and international rule-making meet.",
-      "sourceIds": [3, 4, 5, 6]
+      "label": "AI Governance",
+      "kind": "topic",
+      "category": "ai",
+      "x": 50,
+      "y": 49,
+      "size": 12,
+      "connections": 8,
+      "reach": 11,
+      "avgStrength": 0.7,
+      "description": "A policy field where model capability, risk management, legal accountability, and international rule-making meet.",
+      "sourceIds": [
+        3,
+        4,
+        5,
+        6
+      ]
     },
     {
       "id": "compute-governance",
-      "label": "Compute governance",
-      "kind": "infrastructure",
-      "x": 23,
-      "y": 24,
-      "size": 11,
-      "explanation": "The governance questions created by concentrated computing capacity, advanced chips, and cloud infrastructure.",
-      "sourceIds": [7]
+      "label": "Compute Governance",
+      "kind": "topic",
+      "category": "infrastructure",
+      "x": 25,
+      "y": 34,
+      "size": 7.88,
+      "connections": 3,
+      "reach": 9,
+      "avgStrength": 0.68,
+      "description": "The governance questions created by concentrated computing capacity, advanced chips, and cloud infrastructure.",
+      "sourceIds": [
+        7
+      ]
     },
     {
       "id": "cybersecurity",
       "label": "Cybersecurity",
-      "kind": "security",
-      "x": 74,
-      "y": 22,
-      "size": 12,
-      "explanation": "A security field increasingly linked to model misuse, critical infrastructure, and strategic competition.",
-      "sourceIds": [5]
+      "kind": "topic",
+      "category": "security",
+      "x": 73,
+      "y": 29,
+      "size": 7.88,
+      "connections": 3,
+      "reach": 9,
+      "avgStrength": 0.62,
+      "description": "A security field increasingly linked to model misuse, critical infrastructure, and strategic competition.",
+      "sourceIds": [
+        5
+      ]
     },
     {
       "id": "military-ai",
       "label": "Military AI",
-      "kind": "security",
-      "x": 77,
-      "y": 69,
-      "size": 12,
-      "explanation": "The point where autonomy, deterrence, procurement, legal debate, and technical capability converge.",
-      "sourceIds": [9]
+      "kind": "topic",
+      "category": "security",
+      "x": 79,
+      "y": 58,
+      "size": 7.88,
+      "connections": 3,
+      "reach": 12,
+      "avgStrength": 0.63,
+      "description": "The point where autonomy, deterrence, procurement, legal debate, and technical capability converge.",
+      "sourceIds": [
+        9
+      ]
     },
     {
-      "id": "standards",
-      "label": "Standards bodies",
-      "kind": "institution",
-      "x": 39,
+      "id": "semiconductor-policy",
+      "label": "Semiconductor Policy",
+      "kind": "topic",
+      "category": "infrastructure",
+      "x": 37,
       "y": 76,
-      "size": 10,
-      "explanation": "Organizations that turn technical language into interoperable practices that can later influence regulation.",
-      "sourceIds": [4, 5]
+      "size": 7.88,
+      "connections": 3,
+      "reach": 6,
+      "avgStrength": 0.66,
+      "description": "Manufacturing capacity, supply chains, workforce, and national competitiveness becoming one policy system.",
+      "sourceIds": [
+        7
+      ]
     },
     {
       "id": "export-controls",
-      "label": "Export controls",
-      "kind": "policy",
-      "x": 17,
-      "y": 58,
-      "size": 10,
-      "explanation": "A policy lever that links strategic technology, trade, security, and access to advanced hardware.",
-      "sourceIds": [7]
+      "label": "Export Controls",
+      "kind": "topic",
+      "category": "security",
+      "x": 15,
+      "y": 55,
+      "size": 8.7,
+      "connections": 4,
+      "reach": 10,
+      "avgStrength": 0.59,
+      "description": "A policy lever that links strategic technology, trade, security, and access to advanced hardware.",
+      "sourceIds": [
+        7
+      ]
+    },
+    {
+      "id": "arctic-security",
+      "label": "Arctic Security",
+      "kind": "topic",
+      "category": "infrastructure",
+      "x": 56,
+      "y": 85,
+      "size": 7.88,
+      "connections": 3,
+      "reach": 6,
+      "avgStrength": 0.57,
+      "description": "Climate, maritime security, critical minerals, and undersea infrastructure widening into one field.",
+      "sourceIds": [
+        8
+      ]
+    },
+    {
+      "id": "undersea-infrastructure",
+      "label": "Undersea Infrastructure",
+      "kind": "topic",
+      "category": "infrastructure",
+      "x": 88,
+      "y": 75,
+      "size": 7.05,
+      "connections": 2,
+      "reach": 4,
+      "avgStrength": 0.61,
+      "description": "Cables and pipelines whose strategic importance surfaces mainly when a disruption makes them visible.",
+      "sourceIds": [
+        8
+      ]
+    },
+    {
+      "id": "nist",
+      "label": "NIST",
+      "kind": "institution",
+      "category": "institutions",
+      "x": 49,
+      "y": 15,
+      "size": 7.88,
+      "connections": 3,
+      "reach": 9,
+      "avgStrength": 0.7,
+      "description": "A standards body turning technical language into frameworks that later shape regulation.",
+      "sourceIds": [
+        5,
+        7
+      ]
+    },
+    {
+      "id": "oecd",
+      "label": "OECD",
+      "kind": "institution",
+      "category": "institutions",
+      "x": 12,
+      "y": 74,
+      "size": 7.88,
+      "connections": 3,
+      "reach": 11,
+      "avgStrength": 0.55,
+      "description": "An international organization convening actors around mission-oriented, cross-sector problems.",
+      "sourceIds": [
+        2,
+        4
+      ]
+    },
+    {
+      "id": "eu-commission",
+      "label": "EU Commission",
+      "kind": "institution",
+      "category": "institutions",
+      "x": 69,
+      "y": 13,
+      "size": 7.05,
+      "connections": 2,
+      "reach": 8,
+      "avgStrength": 0.63,
+      "description": "A regulator whose risk-based AI framework sets a reference point for other jurisdictions.",
+      "sourceIds": [
+        6
+      ]
+    },
+    {
+      "id": "nato-diana",
+      "label": "NATO DIANA",
+      "kind": "institution",
+      "category": "institutions",
+      "x": 94,
+      "y": 46,
+      "size": 7.88,
+      "connections": 3,
+      "reach": 6,
+      "avgStrength": 0.59,
+      "description": "An accelerator connecting emerging and disruptive technology with collective defence needs.",
+      "sourceIds": [
+        9
+      ]
+    },
+    {
+      "id": "standards",
+      "label": "Standards Bodies",
+      "kind": "institution",
+      "category": "institutions",
+      "x": 38,
+      "y": 93,
+      "size": 8.7,
+      "connections": 4,
+      "reach": 9,
+      "avgStrength": 0.54,
+      "description": "Organizations that make technical practice interoperable and durable enough to influence policy.",
+      "sourceIds": [
+        4,
+        5
+      ]
     }
   ],
   "edges": [
     {
       "source": "ai-governance",
+      "target": "nist",
+      "kind": "bilateral",
+      "strength": 0.82,
+      "explanation": "Standards work translates broad governance aims into durable technical practice.",
+      "sourceIds": [
+        4,
+        5
+      ]
+    },
+    {
+      "source": "ai-governance",
+      "target": "oecd",
+      "kind": "bilateral",
+      "strength": 0.76,
+      "explanation": "Shared principles spread a common governance vocabulary across countries.",
+      "sourceIds": [
+        2,
+        4
+      ]
+    },
+    {
+      "source": "ai-governance",
       "target": "compute-governance",
-      "explanation": "Model governance depends on where advanced computing capacity is built, controlled, and deployed.",
-      "sourceIds": [3, 7]
+      "kind": "bilateral",
+      "strength": 0.71,
+      "explanation": "Model governance depends on where computing capacity is built and controlled.",
+      "sourceIds": [
+        3,
+        7
+      ]
     },
     {
       "source": "ai-governance",
       "target": "cybersecurity",
+      "kind": "bilateral",
+      "strength": 0.69,
       "explanation": "Security risks shape how AI systems are evaluated, deployed, and governed.",
-      "sourceIds": [5]
+      "sourceIds": [
+        5
+      ]
+    },
+    {
+      "source": "ai-governance",
+      "target": "eu-commission",
+      "kind": "bilateral",
+      "strength": 0.73,
+      "explanation": "A risk-based legal framework anchors much of the governance conversation.",
+      "sourceIds": [
+        6
+      ]
     },
     {
       "source": "ai-governance",
       "target": "military-ai",
-      "explanation": "Civilian AI governance and defence applications increasingly share technical and legal questions.",
-      "sourceIds": [6, 9]
+      "kind": "bilateral",
+      "strength": 0.64,
+      "explanation": "Civilian governance and defence applications share technical and legal questions.",
+      "sourceIds": [
+        6,
+        9
+      ]
     },
     {
       "source": "ai-governance",
       "target": "standards",
-      "explanation": "Standards translate broad governance aims into more durable technical and organizational practice.",
-      "sourceIds": [4, 5]
+      "kind": "bilateral",
+      "strength": 0.66,
+      "explanation": "Standards give governance aims a more durable technical and organizational form.",
+      "sourceIds": [
+        4,
+        5
+      ]
+    },
+    {
+      "source": "ai-governance",
+      "target": "export-controls",
+      "kind": "bilateral",
+      "strength": 0.58,
+      "explanation": "Access to advanced hardware ties governance to trade and security policy.",
+      "sourceIds": [
+        7
+      ]
+    },
+    {
+      "source": "compute-governance",
+      "target": "semiconductor-policy",
+      "kind": "bilateral",
+      "strength": 0.74,
+      "explanation": "Computing capacity and chip manufacturing form one strategic supply question.",
+      "sourceIds": [
+        7
+      ]
     },
     {
       "source": "compute-governance",
       "target": "export-controls",
-      "explanation": "Advanced computing infrastructure is already shaped by policy choices about strategic technology flows.",
-      "sourceIds": [7]
+      "kind": "bilateral",
+      "strength": 0.6,
+      "explanation": "Infrastructure is already shaped by policy on strategic technology flows.",
+      "sourceIds": [
+        7
+      ]
     },
     {
-      "source": "export-controls",
-      "target": "military-ai",
-      "explanation": "Technology access, strategic competition, and defence applications are connected through shared hardware dependencies.",
-      "sourceIds": [7, 9]
+      "source": "semiconductor-policy",
+      "target": "export-controls",
+      "kind": "bilateral",
+      "strength": 0.63,
+      "explanation": "Chip strategy and export policy pull on the same supply chains.",
+      "sourceIds": [
+        7
+      ]
+    },
+    {
+      "source": "semiconductor-policy",
+      "target": "nist",
+      "kind": "funding",
+      "strength": 0.61,
+      "explanation": "Public programs link manufacturing with research, workforce, and resilience.",
+      "sourceIds": [
+        7
+      ]
+    },
+    {
+      "source": "military-ai",
+      "target": "nato-diana",
+      "kind": "funding",
+      "strength": 0.7,
+      "explanation": "Defence accelerators fund the bridge from emerging technology to capability.",
+      "sourceIds": [
+        9
+      ]
+    },
+    {
+      "source": "military-ai",
+      "target": "export-controls",
+      "kind": "bilateral",
+      "strength": 0.55,
+      "explanation": "Strategic competition connects defence applications to hardware access.",
+      "sourceIds": [
+        7,
+        9
+      ]
+    },
+    {
+      "source": "cybersecurity",
+      "target": "nist",
+      "kind": "funding",
+      "strength": 0.68,
+      "explanation": "Risk frameworks give organizations practical footing for managing threats.",
+      "sourceIds": [
+        5
+      ]
+    },
+    {
+      "source": "cybersecurity",
+      "target": "standards",
+      "kind": "bilateral",
+      "strength": 0.5,
+      "explanation": "Interoperable practice hardens security expectations into norms.",
+      "sourceIds": [
+        5
+      ]
+    },
+    {
+      "source": "arctic-security",
+      "target": "nato-diana",
+      "kind": "funding",
+      "strength": 0.58,
+      "explanation": "Northern defence priorities pull emerging technology toward the region.",
+      "sourceIds": [
+        8,
+        9
+      ]
+    },
+    {
+      "source": "arctic-security",
+      "target": "undersea-infrastructure",
+      "kind": "bilateral",
+      "strength": 0.72,
+      "explanation": "Security in the North increasingly means protecting undersea systems.",
+      "sourceIds": [
+        8
+      ]
+    },
+    {
+      "source": "undersea-infrastructure",
+      "target": "nato-diana",
+      "kind": "funding",
+      "strength": 0.5,
+      "explanation": "Resilience of undersea systems draws defence-innovation attention.",
+      "sourceIds": [
+        8,
+        9
+      ]
+    },
+    {
+      "source": "arctic-security",
+      "target": "oecd",
+      "kind": "bilateral",
+      "strength": 0.4,
+      "explanation": "Cross-sector convening frames the Arctic as more than a regional issue.",
+      "sourceIds": [
+        2,
+        8
+      ]
+    },
+    {
+      "source": "oecd",
+      "target": "standards",
+      "kind": "bilateral",
+      "strength": 0.48,
+      "explanation": "International principles and standards reinforce one another.",
+      "sourceIds": [
+        2,
+        4
+      ]
+    },
+    {
+      "source": "eu-commission",
+      "target": "standards",
+      "kind": "bilateral",
+      "strength": 0.52,
+      "explanation": "Regulation leans on standards to become operational.",
+      "sourceIds": [
+        4,
+        6
+      ]
     }
   ]
 }

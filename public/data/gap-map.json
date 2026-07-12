@@ -1,134 +1,210 @@
 {
   "title": "Gap Map Matrix",
-  "description": "A matrix for locating places where technical activity and policy readiness are not moving at the same pace.",
-  "rows": [
+  "description": "Each field placed by how much technical activity it draws against how much policy attention it holds. Distance from the diagonal is the gap.",
+  "note": "Circle size = frontier score. Illustrative, drawn from the cited sources.",
+  "axes": {
+    "x": {
+      "label": "Technical Activity",
+      "low": "Low",
+      "high": "High"
+    },
+    "y": {
+      "label": "Policy Attention",
+      "low": "Low",
+      "high": "High"
+    }
+  },
+  "categories": [
     {
-      "id": "technical-activity",
-      "label": "Technical activity"
+      "id": "ai",
+      "label": "AI",
+      "series": 1
     },
     {
-      "id": "policy-readiness",
-      "label": "Policy readiness"
+      "id": "security",
+      "label": "Security",
+      "series": 2
     },
     {
-      "id": "public-understanding",
-      "label": "Public understanding"
+      "id": "infrastructure",
+      "label": "Infrastructure",
+      "series": 3
+    },
+    {
+      "id": "resources",
+      "label": "Resources",
+      "series": 4
+    },
+    {
+      "id": "bio",
+      "label": "Health",
+      "series": 5
+    },
+    {
+      "id": "institutions",
+      "label": "Institutions",
+      "series": 6
     }
   ],
-  "columns": [
+  "topics": [
+    {
+      "id": "ai-governance",
+      "label": "AI Governance",
+      "category": "ai",
+      "technicalActivity": 84,
+      "policyAttention": 74,
+      "frontierScore": 86,
+      "quadrant": "High Attention, High Activity",
+      "insight": "Rules, standards, and institutions are forming quickly, and policy attention roughly tracks technical progress.",
+      "sourceIds": [
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "id": "compute-governance",
+      "label": "Compute Governance",
+      "category": "infrastructure",
+      "technicalActivity": 79,
+      "policyAttention": 41,
+      "frontierScore": 74.1,
+      "quadrant": "Low Attention, High Activity",
+      "insight": "Concentrated computing capacity is advancing faster than the governance frameworks built around it.",
+      "sourceIds": [
+        7
+      ]
+    },
     {
       "id": "military-ai",
-      "label": "Military AI"
+      "label": "Military AI",
+      "category": "security",
+      "technicalActivity": 82,
+      "policyAttention": 28,
+      "frontierScore": 73.3,
+      "quadrant": "Low Attention, High Activity",
+      "insight": "Rapid technical advancement in military AI is outpacing policy development and public institutional focus.",
+      "sourceIds": [
+        9
+      ]
+    },
+    {
+      "id": "cybersecurity",
+      "label": "Cybersecurity",
+      "category": "security",
+      "technicalActivity": 77,
+      "policyAttention": 72,
+      "frontierScore": 71.8,
+      "quadrant": "High Attention, High Activity",
+      "insight": "A mature field where technical practice and policy attention are relatively well aligned.",
+      "sourceIds": [
+        5
+      ]
+    },
+    {
+      "id": "semiconductor-policy",
+      "label": "Semiconductor Policy",
+      "category": "infrastructure",
+      "technicalActivity": 88,
+      "policyAttention": 68,
+      "frontierScore": 70.3,
+      "quadrant": "High Attention, High Activity",
+      "insight": "Industrial strategy has begun to catch up with a concentrated, strategically vital technical frontier.",
+      "sourceIds": [
+        7
+      ]
+    },
+    {
+      "id": "defence-innovation",
+      "label": "Defence Innovation",
+      "category": "institutions",
+      "technicalActivity": 71,
+      "policyAttention": 52,
+      "frontierScore": 67.5,
+      "quadrant": "High Attention, High Activity",
+      "insight": "Institutions increasingly exist to connect emerging technology with collective security needs.",
+      "sourceIds": [
+        9
+      ]
+    },
+    {
+      "id": "arctic-security",
+      "label": "Arctic Security",
+      "category": "infrastructure",
+      "technicalActivity": 61,
+      "policyAttention": 47,
+      "frontierScore": 65.7,
+      "quadrant": "Low Attention, High Activity",
+      "insight": "A widening field where security, climate, and infrastructure meet, still read by many as regional.",
+      "sourceIds": [
+        8
+      ]
     },
     {
       "id": "undersea-infrastructure",
-      "label": "Undersea infrastructure"
+      "label": "Undersea Infrastructure",
+      "category": "infrastructure",
+      "technicalActivity": 67,
+      "policyAttention": 33,
+      "frontierScore": 64.3,
+      "quadrant": "Low Attention, High Activity",
+      "insight": "Strategic importance is easy to miss until a disruption makes the dependency visible.",
+      "sourceIds": [
+        8
+      ]
     },
     {
-      "id": "arctic-surveillance",
-      "label": "Arctic surveillance"
+      "id": "export-controls",
+      "label": "Export Controls",
+      "category": "security",
+      "technicalActivity": 58,
+      "policyAttention": 74,
+      "frontierScore": 64.2,
+      "quadrant": "High Attention, High Activity",
+      "insight": "A policy lever moving ahead of shared technical understanding of its second-order effects.",
+      "sourceIds": [
+        7
+      ]
     },
     {
-      "id": "advanced-chips",
-      "label": "Advanced chips"
-    }
-  ],
-  "cells": [
-    {
-      "row": "technical-activity",
-      "column": "military-ai",
-      "score": 89,
-      "label": "High",
-      "explanation": "Technical work and defence experimentation are moving quickly across autonomy, sensing, and decision support.",
-      "sourceIds": [9]
+      "id": "biosecurity",
+      "label": "Biosecurity",
+      "category": "bio",
+      "technicalActivity": 63,
+      "policyAttention": 55,
+      "frontierScore": 61.8,
+      "quadrant": "High Attention, High Activity",
+      "insight": "Convergent life-science and security concerns are drawing attention across separate communities.",
+      "sourceIds": [
+        1
+      ]
     },
     {
-      "row": "technical-activity",
-      "column": "undersea-infrastructure",
-      "score": 67,
-      "label": "Growing",
-      "explanation": "The field combines existing engineering practice with new security and resilience pressures.",
-      "sourceIds": [8]
+      "id": "critical-minerals",
+      "label": "Critical Minerals",
+      "category": "resources",
+      "technicalActivity": 55,
+      "policyAttention": 49,
+      "frontierScore": 58.9,
+      "quadrant": "Low Attention, High Activity",
+      "insight": "Supply concentration ties resource policy to security and industrial strategy at once.",
+      "sourceIds": [
+        8
+      ]
     },
     {
-      "row": "technical-activity",
-      "column": "arctic-surveillance",
-      "score": 72,
-      "label": "Growing",
-      "explanation": "Remote sensing, maritime awareness, and autonomous systems are expanding the technical surface of Arctic policy.",
-      "sourceIds": [8]
-    },
-    {
-      "row": "technical-activity",
-      "column": "advanced-chips",
-      "score": 94,
-      "label": "High",
-      "explanation": "Advanced chip design and manufacturing remain a concentrated and strategically important technical frontier.",
-      "sourceIds": [7]
-    },
-    {
-      "row": "policy-readiness",
-      "column": "military-ai",
-      "score": 48,
-      "label": "Uneven",
-      "explanation": "Technical, legal, and operational communities are active, but they do not always frame the same risks together.",
-      "sourceIds": [9]
-    },
-    {
-      "row": "policy-readiness",
-      "column": "undersea-infrastructure",
-      "score": 41,
-      "label": "Early",
-      "explanation": "Protection, ownership, resilience, and security responsibilities remain dispersed across institutions.",
-      "sourceIds": [8]
-    },
-    {
-      "row": "policy-readiness",
-      "column": "arctic-surveillance",
-      "score": 53,
-      "label": "Uneven",
-      "explanation": "The policy implications of emerging surveillance capabilities are shared across environmental, security, and Indigenous governance concerns.",
-      "sourceIds": [8]
-    },
-    {
-      "row": "policy-readiness",
-      "column": "advanced-chips",
-      "score": 81,
-      "label": "Developing",
-      "explanation": "Industrial strategy has begun to catch up through investment, workforce, and supply-chain initiatives.",
-      "sourceIds": [7]
-    },
-    {
-      "row": "public-understanding",
-      "column": "military-ai",
-      "score": 38,
-      "label": "Low",
-      "explanation": "Public debate often lags behind the technical and operational choices shaping military uses of AI.",
-      "sourceIds": [9]
-    },
-    {
-      "row": "public-understanding",
-      "column": "undersea-infrastructure",
-      "score": 29,
-      "label": "Low",
-      "explanation": "The strategic importance of undersea systems is easy to miss until a disruption makes it visible.",
-      "sourceIds": [8]
-    },
-    {
-      "row": "public-understanding",
-      "column": "arctic-surveillance",
-      "score": 35,
-      "label": "Low",
-      "explanation": "Many people still encounter the Arctic as a regional issue rather than a connected security and infrastructure field.",
-      "sourceIds": [8]
-    },
-    {
-      "row": "public-understanding",
-      "column": "advanced-chips",
-      "score": 56,
-      "label": "Partial",
-      "explanation": "The strategic importance of chips is clearer than many of the technical and institutional dependencies behind it.",
-      "sourceIds": [7]
+      "id": "space-security",
+      "label": "Space Security",
+      "category": "resources",
+      "technicalActivity": 60,
+      "policyAttention": 38,
+      "frontierScore": 55.6,
+      "quadrant": "Low Attention, High Activity",
+      "insight": "Capabilities are expanding faster than the norms and institutions meant to govern them.",
+      "sourceIds": [
+        1
+      ]
     }
   ]
 }

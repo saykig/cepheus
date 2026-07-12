@@ -23,7 +23,14 @@ export function SourceNotes() {
       .then(setData)
   }, [])
 
-  if (!data) return <div className="omoikane-loading" aria-live="polite" />
+  if (!data)
+    return (
+      <div
+        className="tool-loading"
+        style={{ minHeight: '12rem' }}
+        aria-live="polite"
+      />
+    )
 
   return (
     <section className="references" aria-labelledby="references-heading">

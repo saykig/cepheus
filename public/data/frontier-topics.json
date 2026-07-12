@@ -1,35 +1,455 @@
 {
   "title": "Frontier Score Explorer",
-  "description": "A working view of policy areas where technological change, public attention, and institutional pressure are beginning to converge.",
+  "description": "Weight four signals to see which policy fields are hardening into frontiers, and watch the ranking move as priorities change.",
   "scoreLabel": "Frontier score",
+  "note": "Illustrative scores, drawn from the cited sources.",
+  "periods": [
+    "2022 Q1",
+    "2022 Q2",
+    "2022 Q3",
+    "2022 Q4",
+    "2023 Q1",
+    "2023 Q2",
+    "2023 Q3",
+    "2023 Q4",
+    "2024 Q1",
+    "2024 Q2",
+    "2024 Q3",
+    "2024 Q4",
+    "2025 Q1",
+    "2025 Q2"
+  ],
+  "weightLabels": [
+    {
+      "key": "momentum",
+      "label": "Momentum"
+    },
+    {
+      "key": "novelty",
+      "label": "Novelty"
+    },
+    {
+      "key": "policySalience",
+      "label": "Policy Salience"
+    },
+    {
+      "key": "bridgeImportance",
+      "label": "Bridge Importance"
+    }
+  ],
+  "defaultWeights": {
+    "momentum": 0.35,
+    "novelty": 0.25,
+    "policySalience": 0.25,
+    "bridgeImportance": 0.15
+  },
+  "categories": [
+    {
+      "id": "ai",
+      "label": "AI",
+      "series": 1
+    },
+    {
+      "id": "security",
+      "label": "Security",
+      "series": 2
+    },
+    {
+      "id": "infrastructure",
+      "label": "Infrastructure",
+      "series": 3
+    },
+    {
+      "id": "resources",
+      "label": "Resources",
+      "series": 4
+    },
+    {
+      "id": "bio",
+      "label": "Health",
+      "series": 5
+    },
+    {
+      "id": "institutions",
+      "label": "Institutions",
+      "series": 6
+    }
+  ],
   "topics": [
     {
       "id": "ai-governance",
-      "label": "AI governance",
-      "score": 92,
-      "explanation": "Rapid regulatory activity, technical uncertainty, and international competition make this a high-pressure frontier.",
-      "sourceIds": [3, 4, 5, 6]
+      "label": "AI Governance",
+      "category": "ai",
+      "subscores": {
+        "momentum": 88,
+        "novelty": 72,
+        "policySalience": 95,
+        "bridgeImportance": 90
+      },
+      "score": 86,
+      "sourceIds": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "series": [
+        41.3,
+        46.6,
+        53.5,
+        54.3,
+        61.6,
+        65.7,
+        69.2,
+        76.1,
+        79.2,
+        82,
+        82.8,
+        87.2,
+        87.4,
+        88
+      ]
+    },
+    {
+      "id": "compute-governance",
+      "label": "Compute Governance",
+      "category": "infrastructure",
+      "subscores": {
+        "momentum": 76,
+        "novelty": 82,
+        "policySalience": 60,
+        "bridgeImportance": 80
+      },
+      "score": 74.1,
+      "sourceIds": [
+        7
+      ],
+      "series": [
+        34.5,
+        40.3,
+        44.9,
+        49.4,
+        52.9,
+        58.8,
+        61.5,
+        64.6,
+        66.3,
+        69.2,
+        71,
+        74.1,
+        76.6,
+        76
+      ]
+    },
+    {
+      "id": "military-ai",
+      "label": "Military AI",
+      "category": "security",
+      "subscores": {
+        "momentum": 80,
+        "novelty": 78,
+        "policySalience": 54,
+        "bridgeImportance": 82
+      },
+      "score": 73.3,
+      "sourceIds": [
+        9
+      ],
+      "series": [
+        39.9,
+        41,
+        48.2,
+        52.9,
+        55.1,
+        63,
+        64.5,
+        69.4,
+        69.8,
+        74.6,
+        75.9,
+        78.8,
+        79.4,
+        80
+      ]
+    },
+    {
+      "id": "cybersecurity",
+      "label": "Cybersecurity",
+      "category": "security",
+      "subscores": {
+        "momentum": 74,
+        "novelty": 55,
+        "policySalience": 82,
+        "bridgeImportance": 78
+      },
+      "score": 71.8,
+      "sourceIds": [
+        5
+      ],
+      "series": [
+        28.2,
+        32.6,
+        40.1,
+        43.8,
+        51.5,
+        56.3,
+        56.2,
+        60.7,
+        66.2,
+        67.1,
+        71,
+        71,
+        73.6,
+        74
+      ]
     },
     {
       "id": "semiconductor-policy",
-      "label": "Semiconductor policy",
-      "score": 84,
-      "explanation": "Manufacturing capacity, supply-chain resilience, workforce, and national competitiveness are becoming one policy system.",
-      "sourceIds": [7]
-    },
-    {
-      "id": "arctic-security",
-      "label": "Arctic security",
-      "score": 79,
-      "explanation": "Climate change, maritime security, critical minerals, and undersea infrastructure are widening the policy field.",
-      "sourceIds": [8]
+      "label": "Semiconductor Policy",
+      "category": "infrastructure",
+      "subscores": {
+        "momentum": 70,
+        "novelty": 60,
+        "policySalience": 80,
+        "bridgeImportance": 72
+      },
+      "score": 70.3,
+      "sourceIds": [
+        7
+      ],
+      "series": [
+        29.3,
+        31.9,
+        36.1,
+        41.9,
+        45.3,
+        49.4,
+        55.1,
+        56.4,
+        60.9,
+        62.2,
+        68,
+        66.8,
+        68.8,
+        70
+      ]
     },
     {
       "id": "defence-innovation",
-      "label": "Defence innovation",
-      "score": 73,
-      "explanation": "Emerging technology is increasingly shaped by the institutions that connect technical development with collective security needs.",
-      "sourceIds": [9]
+      "label": "Defence Innovation",
+      "category": "institutions",
+      "subscores": {
+        "momentum": 68,
+        "novelty": 70,
+        "policySalience": 58,
+        "bridgeImportance": 78
+      },
+      "score": 67.5,
+      "sourceIds": [
+        9
+      ],
+      "series": [
+        24.4,
+        30.7,
+        36.6,
+        43.9,
+        43.7,
+        49,
+        52.7,
+        56.4,
+        60,
+        61.6,
+        64.5,
+        67.2,
+        68.5,
+        68
+      ]
+    },
+    {
+      "id": "arctic-security",
+      "label": "Arctic Security",
+      "category": "infrastructure",
+      "subscores": {
+        "momentum": 66,
+        "novelty": 68,
+        "policySalience": 58,
+        "bridgeImportance": 74
+      },
+      "score": 65.7,
+      "sourceIds": [
+        8
+      ],
+      "series": [
+        29.5,
+        32.9,
+        36.4,
+        39.6,
+        45.9,
+        48.1,
+        53.2,
+        58.1,
+        58.8,
+        60.7,
+        62.6,
+        65.5,
+        64.8,
+        66
+      ]
+    },
+    {
+      "id": "undersea-infrastructure",
+      "label": "Undersea Infrastructure",
+      "category": "infrastructure",
+      "subscores": {
+        "momentum": 64,
+        "novelty": 74,
+        "policySalience": 48,
+        "bridgeImportance": 76
+      },
+      "score": 64.3,
+      "sourceIds": [
+        8
+      ],
+      "series": [
+        25.2,
+        32.1,
+        33.1,
+        40,
+        46.2,
+        49.4,
+        48.7,
+        54.9,
+        58.6,
+        57,
+        62.5,
+        61.6,
+        62.2,
+        64
+      ]
+    },
+    {
+      "id": "export-controls",
+      "label": "Export Controls",
+      "category": "security",
+      "subscores": {
+        "momentum": 62,
+        "novelty": 52,
+        "policySalience": 76,
+        "bridgeImportance": 70
+      },
+      "score": 64.2,
+      "sourceIds": [
+        7
+      ],
+      "series": [
+        30.2,
+        33.2,
+        36.8,
+        41.9,
+        43.4,
+        48.8,
+        48.3,
+        54,
+        56.9,
+        58.3,
+        57.5,
+        62.4,
+        61.5,
+        62
+      ]
+    },
+    {
+      "id": "biosecurity",
+      "label": "Biosecurity",
+      "category": "bio",
+      "subscores": {
+        "momentum": 58,
+        "novelty": 64,
+        "policySalience": 66,
+        "bridgeImportance": 60
+      },
+      "score": 61.8,
+      "sourceIds": [
+        1
+      ],
+      "series": [
+        23.7,
+        29.8,
+        33.9,
+        39,
+        38.5,
+        43.5,
+        45.6,
+        49.9,
+        49.5,
+        53.8,
+        54.2,
+        56.2,
+        57.2,
+        58
+      ]
+    },
+    {
+      "id": "critical-minerals",
+      "label": "Critical Minerals",
+      "category": "resources",
+      "subscores": {
+        "momentum": 60,
+        "novelty": 50,
+        "policySalience": 62,
+        "bridgeImportance": 66
+      },
+      "score": 58.9,
+      "sourceIds": [
+        8
+      ],
+      "series": [
+        28.6,
+        30.7,
+        32.1,
+        36.3,
+        41.4,
+        46.2,
+        49.1,
+        50.1,
+        51.9,
+        56.3,
+        57.7,
+        57.7,
+        60.1,
+        60
+      ]
+    },
+    {
+      "id": "space-security",
+      "label": "Space Security",
+      "category": "resources",
+      "subscores": {
+        "momentum": 54,
+        "novelty": 66,
+        "policySalience": 46,
+        "bridgeImportance": 58
+      },
+      "score": 55.6,
+      "sourceIds": [
+        1
+      ],
+      "series": [
+        22.4,
+        27.4,
+        29.8,
+        32.8,
+        34.3,
+        40.3,
+        43.3,
+        45.7,
+        46.1,
+        48.2,
+        52.6,
+        51.8,
+        53.5,
+        54
+      ]
     }
   ]
 }
