@@ -57,8 +57,9 @@ export default function OmoikaneEssay() {
           <p>
             In February 2026, while sitting in my office, I opened a Flipboard
             notification about a confrontation between Anthropic and the
-            Pentagon in an AP article. The dispute concerned the conditions under
-            which the Department of Defense could use Claude. Anthropic refused
+            Pentagon in an AP article
+            <Citation id={1} />. The dispute concerned the conditions under which
+            the Department of Defense could use Claude. Anthropic refused
             to remove safeguards related to mass domestic surveillance and fully
             autonomous weapons, arguing that current frontier systems remained
             too unreliable for certain high-stakes uses. Pentagon officials
@@ -130,7 +131,7 @@ export default function OmoikaneEssay() {
             science, naval strategy, undersea infrastructure, critical minerals,
             Indigenous governance, and Russia-NATO relations. These issues do
             not fit neatly into one department, agency, or professional field.
-            <Citation id={1} />
+            <Citation id={2} />
           </p>
           <p>
             Disciplinary boundaries still matter. Universities divide knowledge
@@ -182,14 +183,14 @@ export default function OmoikaneEssay() {
             logic to research and policy navigation. It would not treat policy
             fields as isolated lanes. It would show where actors, documents,
             technical systems, and public decisions are starting to converge.
-            <Citation id={2} />
+            <Citation id={3} />
           </p>
           <p>
             AI governance is a clear example. Stanford&apos;s 2025 AI Index
             reports that legislative mentions of AI rose across 75 countries in
             2024, while U.S. federal agencies issued 59 AI-related regulations
             that year.
-            <Citation id={3} /> International institutions are also trying to
+            <Citation id={4} /> International institutions are also trying to
             keep pace: the OECD AI Principles were adopted in 2019 and updated
             in 2024, NIST created an AI Risk Management Framework to help
             organizations manage AI risks, and the European Commission describes
@@ -197,9 +198,9 @@ export default function OmoikaneEssay() {
             examples show that AI governance has moved beyond general concern
             and into a more formal policy field with rules, standards,
             measurement problems, and institutional competition.
-            <Citation id={4} />
             <Citation id={5} />
             <Citation id={6} />
+            <Citation id={7} />
           </p>
           <p>
             Strategic technology policy shows the same pattern. Semiconductor
@@ -207,14 +208,14 @@ export default function OmoikaneEssay() {
             for America, the U.S. government links semiconductor production to
             research and development, workforce capacity, supply-chain
             resilience, and national competitiveness.
-            <Citation id={7} /> Arctic policy also shows convergence in another
+            <Citation id={8} /> Arctic policy also shows convergence in another
             setting. The U.S. National Strategy for the Arctic Region connects
             security, climate change, economic development, Indigenous
             livelihoods, and international law into one policy agenda. These are
             different issue areas, but they point to the same problem: policy
             knowledge is being produced across institutions faster than most
             users can organize it.
-            <Citation id={8} />
+            <Citation id={9} />
           </p>
 
           <h2 id="how-the-platform-would-work">
@@ -272,7 +273,7 @@ export default function OmoikaneEssay() {
             emerging and disruptive technologies with collective defence and
             security needs. That is the kind of public-private-technical bridge
             Omoikane would make easier to see.
-            <Citation id={9} />
+            <Citation id={10} />
           </p>
           <PolicyConstellationMap />
 
