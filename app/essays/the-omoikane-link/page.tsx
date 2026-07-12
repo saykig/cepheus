@@ -4,7 +4,7 @@ import { EssayIndex } from 'app/components/essay-index'
 import { FrontierScoreExplorer } from 'app/components/frontier-score-explorer'
 import { GapMapMatrix } from 'app/components/gap-map-matrix'
 import { PolicyConstellationMap } from 'app/components/policy-constellation-map'
-import { SourceNotes } from 'app/components/source-notes'
+import sourcesData from '../../../public/data/sources.json'
 
 export const metadata: Metadata = {
   title: 'The Omoikane Link',
@@ -25,22 +25,20 @@ const sections = [
   { id: 'case-study-the-north', title: 'The North' },
   { id: 'strong-pilot', title: 'Pilot' },
   { id: 'what-this-makes-possible', title: 'Possible' },
-  { id: 'references-heading', title: 'References' },
 ]
 
-function Citation({ id }: { id: number }) {
-  return (
-    <sup className="citation" id={`ref-back-${id}`}>
-      <a href={`#ref-${id}`} aria-label={`Reference ${id}`}>
-        {id}
-      </a>
-    </sup>
-  )
-}
-
 function CitationLink({ children, id }: { children: ReactNode; id: number }) {
+  const source = sourcesData.sources.find((item) => item.id === id)
+
+  if (!source) return <>{children}</>
+
   return (
-    <a className="citation-link" href={`#ref-${id}`}>
+    <a
+      className="citation-link"
+      href={source.url}
+      rel="noreferrer"
+      target="_blank"
+    >
       {children}
     </a>
   )
@@ -68,8 +66,7 @@ export default function OmoikaneEssay() {
             notification about a confrontation between{' '}
             <CitationLink id={1}>
               Anthropic and the Pentagon in an AP article
-            </CitationLink>
-            <Citation id={1} />. The dispute concerned the conditions under which
+            </CitationLink>. The dispute concerned the conditions under which
             the Department of Defense could use Claude. Anthropic refused
             to remove safeguards related to mass domestic surveillance and fully
             autonomous weapons, arguing that current frontier systems remained
@@ -151,7 +148,6 @@ export default function OmoikaneEssay() {
               These issues do not fit neatly into one department, agency, or
               professional field.
             </CitationLink>
-            <Citation id={2} />
           </p>
           <p>
             Disciplinary boundaries still matter. Universities divide knowledge
@@ -201,8 +197,7 @@ export default function OmoikaneEssay() {
               The OECD describes mission-oriented innovation as a way for the
               public sector to convene and coordinate actors around complex
               problems that cannot be solved by individual actors alone.
-            </CitationLink>
-            <Citation id={3} /> Omoikane would apply a similar
+            </CitationLink>{' '}Omoikane would apply a similar
             logic to research and policy navigation. It would not treat policy
             fields as isolated lanes. It would show where actors, documents,
             technical systems, and public decisions are starting to converge.
@@ -213,23 +208,19 @@ export default function OmoikaneEssay() {
               Stanford&apos;s 2025 AI Index reports that legislative mentions of
               AI rose across 75 countries in 2024, while U.S. federal agencies
               issued 59 AI-related regulations that year.
-            </CitationLink>
-            <Citation id={4} /> International institutions are also trying to
+            </CitationLink>{' '}International institutions are also trying to
             keep pace:{' '}
             <CitationLink id={5}>
               the OECD AI Principles were adopted in 2019 and updated in 2024
-            </CitationLink>
-            <Citation id={5} />,{' '}
+            </CitationLink>,{' '}
             <CitationLink id={6}>
               NIST created an AI Risk Management Framework to help organizations
               manage AI risks
-            </CitationLink>
-            <Citation id={6} />, and{' '}
+            </CitationLink>, and{' '}
             <CitationLink id={7}>
               the European Commission describes the EU AI Act as the first legal
               framework on AI
-            </CitationLink>
-            <Citation id={7} />. Together, these
+            </CitationLink>. Together, these
             examples show that AI governance has moved beyond general concern
             and into a more formal policy field with rules, standards,
             measurement problems, and institutional competition.
@@ -241,15 +232,13 @@ export default function OmoikaneEssay() {
               Through CHIPS for America, the U.S. government links semiconductor
               production to research and development, workforce capacity,
               supply-chain resilience, and national competitiveness.
-            </CitationLink>
-            <Citation id={8} /> Arctic policy also shows convergence in another
+            </CitationLink>{' '}Arctic policy also shows convergence in another
             setting.{' '}
             <CitationLink id={9}>
               The U.S. National Strategy for the Arctic Region connects security,
               climate change, economic development, Indigenous livelihoods, and
               international law into one policy agenda.
-            </CitationLink>
-            <Citation id={9} /> These are
+            </CitationLink>{' '}These are
             different issue areas, but they point to the same problem: policy
             knowledge is being produced across institutions faster than most
             users can organize it.
@@ -310,8 +299,7 @@ export default function OmoikaneEssay() {
               NATO&apos;s Defence Innovation Accelerator for the North Atlantic,
               for example, exists to connect emerging and disruptive technologies
               with collective defence and security needs.
-            </CitationLink>
-            <Citation id={10} /> That is the kind of public-private-technical bridge
+            </CitationLink>{' '}That is the kind of public-private-technical bridge
             Omoikane would make easier to see.
           </p>
           <PolicyConstellationMap />
@@ -478,8 +466,6 @@ export default function OmoikaneEssay() {
             and where the gaps are, they can ask better questions before the
             issue becomes impossible to avoid.
           </p>
-
-          <SourceNotes />
         </div>
       </div>
     </article>
