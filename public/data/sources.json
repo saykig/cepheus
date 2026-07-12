@@ -3,54 +3,60 @@
   "sources": [
     {
       "id": 1,
+      "title": "Konstantin Toropin and Matt O'Brien, \"Anthropic CEO says it cannot 'accede' to Pentagon's demands for AI use,\" The Associated Press (2026).",
+      "url": "https://apnews.com/article/anthropic-ai-pentagon-hegseth-dario-amodei-9b28dda41bdb52b6a378fa9fc80b8fda",
+      "note": "Reports on the dispute between Anthropic and the Pentagon over safeguards governing military use of Claude."
+    },
+    {
+      "id": 2,
       "title": "National Academies of Sciences, Engineering, and Medicine, Convergence: Facilitating Transdisciplinary Integration of Life Sciences, Physical Sciences, Engineering, and Beyond (2014).",
       "url": "https://www.nationalacademies.org/projects/DELS-BLS-11-08/publication/18722",
       "note": "A foundational account of how complex problems increasingly require integration across fields."
     },
     {
-      "id": 2,
+      "id": 3,
       "title": "OECD, Mission-Oriented Innovation.",
       "url": "https://www.oecd.org/en/topics/sub-issues/mission-oriented-innovation.html",
       "note": "Explains how public institutions can convene actors around complex problems that do not yield to isolated interventions."
     },
     {
-      "id": 3,
+      "id": 4,
       "title": "Stanford Institute for Human-Centered Artificial Intelligence, 2025 AI Index Report: Policy and Governance.",
       "url": "https://hai.stanford.edu/ai-index/2025-ai-index-report/policy-and-governance",
       "note": "Tracks the growth of AI-related policy and regulatory activity."
     },
     {
-      "id": 4,
+      "id": 5,
       "title": "OECD, AI Principles, adopted in 2019 and updated in 2024.",
       "url": "https://www.oecd.org/en/topics/sub-issues/ai-principles.html",
       "note": "Sets out an international framework for trustworthy and human-centred AI."
     },
     {
-      "id": 5,
+      "id": 6,
       "title": "National Institute of Standards and Technology, Artificial Intelligence Risk Management Framework.",
       "url": "https://www.nist.gov/itl/ai-risk-management-framework",
       "note": "Provides practical guidance for identifying and managing AI risks."
     },
     {
-      "id": 6,
+      "id": 7,
       "title": "European Commission, AI Act: The First-Ever Legal Framework on AI.",
       "url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
       "note": "Describes the European Union's risk-based legal framework for AI."
     },
     {
-      "id": 7,
+      "id": 8,
       "title": "National Institute of Standards and Technology, CHIPS for America.",
       "url": "https://www.nist.gov/chips",
       "note": "Connects semiconductor manufacturing with research, workforce, supply-chain resilience, and national competitiveness."
     },
     {
-      "id": 8,
+      "id": 9,
       "title": "The White House, National Strategy for the Arctic Region (2022).",
       "url": "https://bidenwhitehouse.archives.gov/wp-content/uploads/2022/10/National-Strategy-for-the-Arctic-Region.pdf",
       "note": "Links security, climate, economic development, Indigenous livelihoods, and international cooperation in the Arctic."
     },
     {
-      "id": 9,
+      "id": 10,
       "title": "NATO, Defence Innovation Accelerator for the North Atlantic (DIANA).",
       "url": "https://www.nato.int/en/about-us/organization/nato-structure/defence-innovation-accelerator-for-the-north-atlantic-diana",
       "note": "Connects emerging technology with collective defence and security challenges."

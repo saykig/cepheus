@@ -722,6 +722,42 @@ button {
   margin: 0 0 1.25rem;
 }
 
+.essay-body strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.essay-body em {
+  color: var(--ink);
+  font-style: italic;
+}
+
+.essay-body .essay-questions {
+  margin: 0.25rem 0 2rem 2rem;
+  padding-left: 0;
+  list-style: none;
+  counter-reset: essay-question;
+}
+
+.essay-body .essay-questions li {
+  position: relative;
+  margin-bottom: 0.9rem;
+  padding-left: 2rem;
+  color: var(--ink);
+  font-size: 1.06rem;
+  line-height: 1.7;
+  counter-increment: essay-question;
+}
+
+.essay-body .essay-questions li::before {
+  position: absolute;
+  left: 0;
+  content: counter(essay-question) ".";
+  color: var(--olive);
+  font-family: var(--font-body), Georgia, serif;
+  font-style: normal;
+}
+
 /* lead paragraph */
 .essay-body > p:first-of-type {
   color: var(--ink);
@@ -972,99 +1008,25 @@ button {
   color: var(--ink);
 }
 
-.references {
-  margin-top: clamp(3.5rem, 6vw, 4.5rem);
-  padding-top: 1.9rem;
-  border-top: 1px solid var(--rule);
+.citation-link {
+  color: inherit;
+  text-decoration-color: color-mix(in oklab, var(--olive) 52%, transparent);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+  transition: color var(--dur-1) var(--ease-quart),
+    text-decoration-color var(--dur-1) var(--ease-quart);
 }
 
-.citation {
-  scroll-margin-top: 110px;
-}
-
-.citation a {
-  display: inline-block;
-  margin-left: 0.14rem;
-  color: var(--olive);
-  font-family: var(--font-display), "Iowan Old Style", "Palatino Linotype", serif;
-  font-size: 0.74em;
-  line-height: 1;
-  text-decoration: none;
-  transform: translateY(-0.2rem);
-}
-
-.citation a:hover {
+.citation-link:hover,
+.citation-link:focus-visible {
   color: var(--ink);
+  text-decoration-color: var(--olive);
 }
 
 .essay-body h2,
-.map-section,
-.references li {
+.map-section {
   scroll-margin-top: 108px;
-}
-
-.references a {
-  color: var(--ink-soft);
-}
-
-.references a:hover {
-  color: var(--olive);
-}
-
-.backlink {
-  margin-left: 0.6rem;
-  color: color-mix(in oklab, var(--olive) 62%, transparent) !important;
-  font-family: var(--font-text), Georgia, serif;
-  font-size: 0.74rem;
-  text-decoration: none;
-}
-
-.references h2 {
-  margin-top: 0;
-}
-
-.references ol {
-  margin: 1.7rem 0 0;
-  padding: 0;
-  list-style: none;
-  counter-reset: ref;
-  display: grid;
-  gap: 1.05rem;
-}
-
-.references li {
-  position: relative;
-  max-width: 64ch;
-  padding-left: 2rem;
-  counter-increment: ref;
-  font-size: 0.84rem;
-  line-height: 1.58;
-  color: var(--ink-soft);
-}
-
-.references li::before {
-  content: counter(ref);
-  position: absolute;
-  left: 0;
-  top: 0.02rem;
-  color: var(--olive);
-  font-family: var(--font-display), "Iowan Old Style", "Palatino Linotype", serif;
-  font-size: 0.92rem;
-  font-variant-numeric: lining-nums;
-}
-
-.references li > a:first-of-type {
-  color: var(--ink);
-  text-decoration-color: var(--rule-strong);
-}
-
-.source-note {
-  display: block;
-  max-width: 60ch;
-  margin-top: 0.28rem;
-  color: var(--ink-muted);
-  font-size: 0.8rem;
-  line-height: 1.55;
 }
 
 @media (max-width: 900px) {

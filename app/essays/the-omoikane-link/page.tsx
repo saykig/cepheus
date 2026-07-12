@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
+import type { ReactNode } from 'react'
 import { EssayIndex } from 'app/components/essay-index'
 import { FrontierScoreExplorer } from 'app/components/frontier-score-explorer'
 import { GapMapMatrix } from 'app/components/gap-map-matrix'
 import { PolicyConstellationMap } from 'app/components/policy-constellation-map'
-import { SourceNotes } from 'app/components/source-notes'
+import sourcesData from '../../../public/data/sources.json'
 
 export const metadata: Metadata = {
   title: 'The Omoikane Link',
@@ -24,18 +25,24 @@ const sections = [
   { id: 'case-study-the-north', title: 'The North' },
   { id: 'strong-pilot', title: 'Pilot' },
   { id: 'what-this-makes-possible', title: 'Possible' },
-  { id: 'references-heading', title: 'References' },
 ]
 
 const UPDATED = 'July 2026'
 
-function Citation({ id }: { id: number }) {
+function CitationLink({ children, id }: { children: ReactNode; id: number }) {
+  const source = sourcesData.sources.find((item) => item.id === id)
+
+  if (!source) return <>{children}</>
+
   return (
-    <sup className="citation" id={`ref-back-${id}`}>
-      <a href={`#ref-${id}`} aria-label={`Reference ${id}`}>
-        {id}
-      </a>
-    </sup>
+    <a
+      className="citation-link"
+      href={source.url}
+      rel="noreferrer"
+      target="_blank"
+    >
+      {children}
+    </a>
   )
 }
 
@@ -67,46 +74,78 @@ export default function OmoikaneEssay() {
 
         <div className="essay-body">
           <p>
-            Most people now have access to more policy information than they can
-            reasonably use. Governments publish strategies, universities produce
-            research, think tanks release reports, courts issue decisions,
-            international organizations write standards, and companies shape
-            technological fields before public institutions fully understand
-            what has changed. The hard problem is no longer only finding
-            information. It is understanding how separate pieces of information
-            fit together.
+            In February 2026, while sitting in my office, I opened a Flipboard
+            notification about a confrontation between{' '}
+            <CitationLink id={1}>
+              Anthropic and the Pentagon in an AP article
+            </CitationLink>. The dispute concerned the conditions under which
+            the Department of Defense could use Claude. Anthropic refused to
+            remove safeguards related to mass domestic surveillance and fully
+            autonomous weapons, arguing that current frontier systems remained
+            too unreliable for certain high-stakes uses. Pentagon officials
+            responded that a private company should not determine how the
+            military could lawfully use technology it had purchased. Both sides
+            claimed to be protecting national security. Both institutions
+            possessed something the other could not easily replace:{' '}
+            <strong>
+              the government held public authority, while Anthropic held
+              technical expertise and control over the system.
+            </strong>
           </p>
           <p>
-            This matters most in fields where technology, law, security, and
-            economics are beginning to overlap. A student interested in AI
-            governance may start with regulation or model safety, then quickly
-            run into cybersecurity, export controls, semiconductor supply
-            chains, military use, data infrastructure, and China policy. A
-            researcher working on Arctic security may begin with Russia or NATO,
-            then encounter climate science, undersea infrastructure, critical
-            minerals, submarine deterrence, maritime surveillance, and
-            Indigenous governance. These connections are not random. They show
-            that many important policy fields are becoming difficult to
-            understand through one discipline alone.
+            At first, I read it as a dispute over one government contract, but it
+            exposed a much larger institutional problem.{' '}
+            <strong>AI is being built in one world and governed in another.</strong>{' '}
+            The people developing the systems, the people legally empowered to
+            make public decisions, and the people who will bear the consequences
+            of failure are often not the same people.
           </p>
           <p>
-            Omoikane is a proposed research platform for making those
-            connections easier to see. It would help users understand where
-            policy attention is growing, which fields are starting to overlap,
-            which institutions are shaping the conversation, and where technical
-            knowledge and public decision-making are failing to meet. The
-            platform would be useful for students, researchers, analysts,
-            policymakers, and technical experts who need a clearer view of a
-            field before it becomes too crowded or too urgent to study carefully.
+            As a student, I had already watched ChatGPT and Claude develop at a
+            pace that was difficult to reconcile with the slower world of laws,
+            public institutions, and university disciplines. Their rapid
+            improvement made me wonder whether an equivalent policy world
+            existed around them. But the better question was not whether AI
+            policy existed. It clearly did. The real questions were more
+            difficult:
+          </p>
+          <ol className="essay-questions">
+            <li>
+              <em>Who has legal or political authority?</em>
+            </li>
+            <li>
+              <em>Who controls the technology or infrastructure?</em>
+            </li>
+            <li>
+              <em>
+                Why is there no reliable institution connecting these groups?
+              </em>
+            </li>
+          </ol>
+          <p>
+            The Anthropic-Pentagon dispute gave institutional form to a problem I
+            had previously understood only in the abstract. Governments cannot
+            govern advanced AI without access to technical knowledge. AI
+            companies cannot independently determine the public rules governing
+            defense, security, surveillance, or biological risk. And neither
+            side can simply replace the other. Yet, the institutions connecting
+            them remain fragmented, temporary, and frequently adversarial.
           </p>
           <p>
-            The platform would work as an interactive map of emerging global
-            policy fields. A user could begin with a topic such as AI
-            governance, Arctic security, semiconductor policy, or biosecurity,
-            then see the surrounding institutions, related fields, major
-            documents, and unresolved questions. A search engine returns sources
-            that match a query. Omoikane would show how those sources sit inside
-            a wider field of power, knowledge, regulation, and technical change.
+            This is where the thought process behind Omoikane began for me. In
+            Shinto tradition, Omoikane is associated with collective wisdom and
+            counsel, bringing together the thoughts of many deities when no
+            single participant possesses the entire answer. The significance of
+            the name is not that one intelligence knows everything. It is that
+            dispersed knowledge must be assembled before responsible decisions
+            can be made. The main claim is that the central governance problem of
+            frontier AI is the separation of technical knowledge and public
+            accountability. The greater the distance between who knows, who
+            decides, and who bears the risk, the more likely AI policy is to
+            become late, adversarial, or technically unworkable. Omoikane is
+            proposed as a policy-intelligence platform for mapping that distance
+            across government, industry, universities, and civil society,
+            beginning with cybersecurity, military AI, and biosecurity.
           </p>
 
           <h2 id="map-problem">The Map Problem</h2>
@@ -116,9 +155,11 @@ export default function OmoikaneEssay() {
             national security, labour policy, civil liberties, infrastructure,
             and international competition. Arctic security depends on climate
             science, naval strategy, undersea infrastructure, critical minerals,
-            Indigenous governance, and Russia-NATO relations. These issues do
-            not fit neatly into one department, agency, or professional field.
-            <Citation id={1} />
+            Indigenous governance, and Russia-NATO relations.{' '}
+            <CitationLink id={2}>
+              These issues do not fit neatly into one department, agency, or
+              professional field.
+            </CitationLink>
           </p>
           <p>
             Disciplinary boundaries still matter. Universities divide knowledge
@@ -163,46 +204,56 @@ export default function OmoikaneEssay() {
           </p>
           <p>
             This is also why governments have become more interested in
-            mission-oriented and cross-sector approaches. The OECD describes
-            mission-oriented innovation as a way for the public sector to
-            convene and coordinate actors around complex problems that cannot be
-            solved by individual actors alone. Omoikane would apply a similar
+            mission-oriented and cross-sector approaches.{' '}
+            <CitationLink id={3}>
+              The OECD describes mission-oriented innovation as a way for the
+              public sector to convene and coordinate actors around complex
+              problems that cannot be solved by individual actors alone.
+            </CitationLink>{' '}Omoikane would apply a similar
             logic to research and policy navigation. It would not treat policy
             fields as isolated lanes. It would show where actors, documents,
             technical systems, and public decisions are starting to converge.
-            <Citation id={2} />
           </p>
           <p>
-            AI governance is a clear example. Stanford&apos;s 2025 AI Index
-            reports that legislative mentions of AI rose across 75 countries in
-            2024, while U.S. federal agencies issued 59 AI-related regulations
-            that year.
-            <Citation id={3} /> International institutions are also trying to
-            keep pace: the OECD AI Principles were adopted in 2019 and updated
-            in 2024, NIST created an AI Risk Management Framework to help
-            organizations manage AI risks, and the European Commission describes
-            the EU AI Act as the first legal framework on AI. Together, these
+            AI governance is a clear example.{' '}
+            <CitationLink id={4}>
+              Stanford&apos;s 2025 AI Index reports that legislative mentions of
+              AI rose across 75 countries in 2024, while U.S. federal agencies
+              issued 59 AI-related regulations that year.
+            </CitationLink>{' '}International institutions are also trying to
+            keep pace:{' '}
+            <CitationLink id={5}>
+              the OECD AI Principles were adopted in 2019 and updated in 2024
+            </CitationLink>,{' '}
+            <CitationLink id={6}>
+              NIST created an AI Risk Management Framework to help organizations
+              manage AI risks
+            </CitationLink>, and{' '}
+            <CitationLink id={7}>
+              the European Commission describes the EU AI Act as the first legal
+              framework on AI
+            </CitationLink>. Together, these
             examples show that AI governance has moved beyond general concern
             and into a more formal policy field with rules, standards,
             measurement problems, and institutional competition.
-            <Citation id={4} />
-            <Citation id={5} />
-            <Citation id={6} />
           </p>
           <p>
             Strategic technology policy shows the same pattern. Semiconductor
-            policy is no longer only about manufacturing chips. Through CHIPS
-            for America, the U.S. government links semiconductor production to
-            research and development, workforce capacity, supply-chain
-            resilience, and national competitiveness.
-            <Citation id={7} /> Arctic policy also shows convergence in another
-            setting. The U.S. National Strategy for the Arctic Region connects
-            security, climate change, economic development, Indigenous
-            livelihoods, and international law into one policy agenda. These are
+            policy is no longer only about manufacturing chips.{' '}
+            <CitationLink id={8}>
+              Through CHIPS for America, the U.S. government links semiconductor
+              production to research and development, workforce capacity,
+              supply-chain resilience, and national competitiveness.
+            </CitationLink>{' '}Arctic policy also shows convergence in another
+            setting.{' '}
+            <CitationLink id={9}>
+              The U.S. National Strategy for the Arctic Region connects security,
+              climate change, economic development, Indigenous livelihoods, and
+              international law into one policy agenda.
+            </CitationLink>{' '}These are
             different issue areas, but they point to the same problem: policy
             knowledge is being produced across institutions faster than most
             users can organize it.
-            <Citation id={8} />
           </p>
 
           <h2 id="how-the-platform-would-work">
@@ -279,12 +330,13 @@ export default function OmoikaneEssay() {
               studying Arctic security might be led toward submarine deterrence,
               undersea infrastructure, critical minerals, maritime surveillance,
               and NATO planning. This matters because many policy frontiers
-              emerge at the intersection of fields. NATO&apos;s Defence
-              Innovation Accelerator for the North Atlantic, for example, exists
-              to connect emerging and disruptive technologies with collective
-              defence and security needs. That is the kind of
+              emerge at the intersection of fields.{' '}
+              <CitationLink id={10}>
+                NATO&apos;s Defence Innovation Accelerator for the North Atlantic,
+                for example, exists to connect emerging and disruptive technologies
+                with collective defence and security needs.
+              </CitationLink>{' '}That is the kind of
               public-private-technical bridge Omoikane would make easier to see.
-              <Citation id={9} />
             </p>
             <PolicyConstellationMap />
             <p className="tool-caption">
@@ -481,8 +533,6 @@ export default function OmoikaneEssay() {
             and where the gaps are, they can ask better questions before the
             issue becomes impossible to avoid.
           </p>
-
-          <SourceNotes />
         </div>
       </div>
     </article>
