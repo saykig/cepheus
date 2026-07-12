@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { useState } from 'react'
 
 type Point = {
@@ -139,25 +138,6 @@ export function LandingWatercolor() {
       </div>
       <div className="landing-lockup">
         <h1>Cepheus</h1>
-        <p className="landing-tagline">
-          Essays on power, technology, and policy.
-        </p>
-        <Link
-          href="/essays/the-omoikane-link"
-          className="landing-enter"
-          onClick={(event) => event.stopPropagation()}
-        >
-          Enter the essay
-          <svg width="16" height="10" viewBox="0 0 16 10" fill="none" aria-hidden="true">
-            <path
-              d="M1 5h13M10 1l4 4-4 4"
-              stroke="currentColor"
-              strokeWidth="1.1"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </Link>
       </div>
       <p className="landing-hint" aria-hidden="true">
         Click anywhere to trace a connection

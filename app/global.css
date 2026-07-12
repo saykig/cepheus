@@ -278,40 +278,6 @@ button {
   letter-spacing: 0;
 }
 
-.landing-tagline {
-  margin: 0;
-  color: var(--ink-soft);
-  font-family: var(--font-text), Georgia, serif;
-  font-size: 1.02rem;
-  font-style: italic;
-  line-height: 1.5;
-}
-
-.landing-enter {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  margin-top: 0.9rem;
-  color: var(--olive);
-  font-family: var(--font-text), Georgia, serif;
-  font-size: 0.82rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  text-decoration: none;
-}
-
-.landing-enter svg {
-  transition: transform var(--dur-2) var(--ease-expo);
-}
-
-.landing-enter:hover {
-  color: var(--olive-deep);
-}
-
-.landing-enter:hover svg {
-  transform: translateX(4px);
-}
-
 .landing-hint {
   position: absolute;
   left: 50%;
