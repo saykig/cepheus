@@ -1953,7 +1953,7 @@ input[type='email'] {
 .constellation-node circle {
   fill: var(--paper-bright);
   stroke: var(--sc);
-  stroke-width: 0.8;
+  stroke-width: 0.55;
   transform-box: fill-box;
   transform-origin: center;
   transition: fill var(--dur-2) var(--ease-quart), stroke-width var(--dur-2) var(--ease-quart),
@@ -1971,17 +1971,17 @@ input[type='email'] {
 .constellation-node text {
   fill: var(--ink-soft);
   font-family: var(--font-display), "Iowan Old Style", "Palatino Linotype", serif;
-  font-size: 3px;
+  font-size: 2.7px;
   text-anchor: middle;
   paint-order: stroke;
   stroke: var(--paper);
-  stroke-width: 0.7px;
+  stroke-width: 0.6px;
   transition: fill var(--dur-2) var(--ease-quart), opacity var(--dur-2) var(--ease-quart);
 }
 
 .constellation-node.is-institution circle {
   fill: color-mix(in oklab, var(--sc) 14%, var(--paper-bright));
-  stroke-dasharray: 1.4 1.1;
+  stroke-dasharray: 1.1 0.9;
 }
 
 .constellation-node.is-dim {
@@ -1992,7 +1992,7 @@ input[type='email'] {
 .constellation-node:hover circle,
 .constellation-node:focus-visible circle {
   fill: color-mix(in oklab, var(--sc) 26%, var(--paper-bright));
-  stroke-width: 1.4;
+  stroke-width: 1;
   transform: scale(1.08);
 }
 
@@ -2004,7 +2004,7 @@ input[type='email'] {
 .constellation-node:focus-visible circle,
 .bubble:focus-visible circle {
   stroke: var(--olive);
-  stroke-width: 1.7;
+  stroke-width: 1.3;
 }
 
 .node-halo {

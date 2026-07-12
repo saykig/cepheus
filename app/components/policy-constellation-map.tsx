@@ -41,10 +41,10 @@ type NetworkData = {
 const colorFor = (n: Node) => `var(--series-${n.series})`
 
 function edgeStyle(kind: EdgeKind, strength: number, on: boolean) {
-  if (kind === 'authority') return { width: on ? 1.1 + strength * 1.7 : 1.9, dash: undefined, arrow: false }
-  if (kind === 'interface') return { width: on ? 0.45 + strength * 0.8 : 0.65, dash: '2 1.6', arrow: false }
-  if (kind === 'dependency') return { width: on ? 0.45 + strength * 0.9 : 0.75, dash: undefined, arrow: true }
-  return { width: on ? 0.45 + strength * 1.0 : 0.75, dash: undefined, arrow: false } // knowledge
+  if (kind === 'authority') return { width: on ? 0.7 + strength * 0.9 : 1.1, dash: undefined, arrow: false }
+  if (kind === 'interface') return { width: on ? 0.3 + strength * 0.45 : 0.4, dash: '1.8 1.6', arrow: false }
+  if (kind === 'dependency') return { width: on ? 0.3 + strength * 0.55 : 0.45, dash: undefined, arrow: true }
+  return { width: on ? 0.3 + strength * 0.55 : 0.45, dash: undefined, arrow: false } // knowledge
 }
 
 // The function name is kept so the essay page import stays valid; the tool is
@@ -194,15 +194,15 @@ export function PolicyConstellationMap() {
 
       <div className="constellation-layout">
         <div className="constellation-canvas">
-          <svg viewBox="-8 -8 116 122" role="img" aria-label={`${data.title}: ${data.nodes.length} nodes`}>
+          <svg viewBox="-10 10 122 96" role="img" aria-label={`${data.title}: ${data.nodes.length} nodes`}>
             <defs>
               <marker
                 id="rel-arrow"
                 viewBox="0 0 10 10"
                 refX="8.5"
                 refY="5"
-                markerWidth="4.6"
-                markerHeight="4.6"
+                markerWidth="3.6"
+                markerHeight="3.6"
                 orient="auto-start-reverse"
               >
                 <path d="M0 0 L10 5 L0 10 z" fill="context-stroke" />
@@ -217,7 +217,7 @@ export function PolicyConstellationMap() {
               const len = Math.hypot(dx, dy) || 1
               const ux = dx / len
               const uy = dy / len
-              const back = style.arrow ? t!.size * 0.78 + 1.6 : 0
+              const back = style.arrow ? t!.size * 0.74 + 1.0 : 0
               const tx = t!.x - ux * back
               const ty = t!.y - uy * back
               const cx = (s!.x + tx) / 2 + (-uy) * len * 0.08
@@ -238,7 +238,7 @@ export function PolicyConstellationMap() {
             })}
 
             {orderedNodes.map((n) => {
-              const r = n.size * 0.78
+              const r = n.size * 0.74
               const dim = q ? !matches(n) : false
               const isSel = selectedId === n.id
               return (
@@ -258,9 +258,9 @@ export function PolicyConstellationMap() {
                     }
                   }}
                 >
-                  {isSel && <circle className="node-halo" cx={n.x} cy={n.y} r={r + 3.4} />}
+                  {isSel && <circle className="node-halo" cx={n.x} cy={n.y} r={r + 2.2} />}
                   <circle cx={n.x} cy={n.y} r={r} />
-                  <text x={n.x} y={n.y + r + 3.6}>
+                  <text x={n.x} y={n.y + r + 2.7}>
                     {n.label}
                   </text>
                 </g>
