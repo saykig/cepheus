@@ -115,22 +115,6 @@ export function PolicyConstellationMap() {
     (a, b) => Number(a.id === selectedId) - Number(b.id === selectedId),
   )
 
-  const NodeList = ({ items }: { items: Node[] }) => (
-    <>
-      {items.map((n) => (
-        <button
-          key={n.id}
-          type="button"
-          className="node-connection"
-          onClick={() => setSelectedId(n.id)}
-        >
-          <span>{n.label}</span>
-        </button>
-      ))}
-    </>
-  )
-  const none = <p className="node-none">None recorded</p>
-
   return (
     <section
       ref={ref}
@@ -281,56 +265,56 @@ export function PolicyConstellationMap() {
           <h5>{selected.label}</h5>
           <p className="node-profile-desc">{selected.description}</p>
 
-          <div className="node-connections">
-            <span className="tool-label">Relevant expertise</span>
-            {panel.knowledge.length ? <NodeList items={panel.knowledge} /> : none}
-          </div>
-          <div className="node-connections">
-            <span className="tool-label">Formal authority</span>
-            {panel.authority.length ? <NodeList items={panel.authority} /> : none}
-          </div>
-          <div className="node-connections">
-            <span className="tool-label">Main dependencies</span>
-            {panel.dependsOn.length > 0 && (
-              <>
-                <p className="node-rel-note">Relies on</p>
-                <NodeList items={panel.dependsOn} />
-              </>
-            )}
-            {panel.reliedOnBy.length > 0 && (
-              <>
-                <p className="node-rel-note">Relied on by</p>
-                <NodeList items={panel.reliedOnBy} />
-              </>
-            )}
-            {panel.dependsOn.length === 0 && panel.reliedOnBy.length === 0 && none}
-          </div>
-          <div className="node-connections">
-            <span className="tool-label">Interface mechanisms</span>
-            {panel.interfaces.length ? (
-              panel.interfaces.map((it, idx) => (
-                <button
-                  key={`${it.node.id}-${idx}`}
-                  type="button"
-                  className="node-connection"
-                  onClick={() => setSelectedId(it.node.id)}
-                >
-                  <span>{it.node.label}</span>
-                  <span className="val">{it.type}</span>
-                </button>
-              ))
-            ) : (
-              <p className="node-none">None recorded</p>
-            )}
-          </div>
-          <div className="node-connections">
-            <span className="tool-label">Connected nodes · {panel.connected.length}</span>
-            <NodeList items={panel.connected} />
-          </div>
-          <div className="node-connections">
-            <span className="tool-label">Main institutional gap</span>
+          <div className="node-facet">
+            <span className="tool-label">Main gap</span>
             <p className="node-gap">{selected.gap}</p>
           </div>
+
+          {(
+            [
+              { label: 'Expertise in', items: panel.knowledge },
+              { label: 'Authority over', items: panel.authority },
+              { label: 'Relies on', items: panel.dependsOn },
+              { label: 'Relied on by', items: panel.reliedOnBy },
+            ] as { label: string; items: Node[] }[]
+          )
+            .filter((f) => f.items.length > 0)
+            .map((f) => (
+              <div className="node-facet" key={f.label}>
+                <span className="tool-label">{f.label}</span>
+                <div className="node-tags">
+                  {f.items.map((n) => (
+                    <button
+                      key={n.id}
+                      type="button"
+                      className="node-tag"
+                      onClick={() => setSelectedId(n.id)}
+                    >
+                      {n.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+
+          {panel.interfaces.length > 0 && (
+            <div className="node-facet">
+              <span className="tool-label">Interfaces</span>
+              <div className="node-tags">
+                {panel.interfaces.map((it, idx) => (
+                  <button
+                    key={`${it.node.id}-${idx}`}
+                    type="button"
+                    className="node-tag"
+                    onClick={() => setSelectedId(it.node.id)}
+                  >
+                    {it.node.label}
+                    <span className="mech">{it.type}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </aside>
       </div>
     </section>

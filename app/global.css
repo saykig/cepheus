@@ -1912,7 +1912,7 @@ input[type='email'] {
 .constellation-canvas {
   position: relative;
   /* Fixed height so selecting a node never resizes or rescales the graph. */
-  height: 25rem;
+  height: 26rem;
   border-radius: var(--radius-sm);
   background: radial-gradient(
       120% 120% at 50% 30%,
@@ -2028,7 +2028,7 @@ input[type='email'] {
   display: flex;
   flex-direction: column;
   /* Fixed height + scroll so a node's content length can't change the layout. */
-  height: 25rem;
+  height: 26rem;
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 1.05rem 1.15rem;
@@ -2164,6 +2164,53 @@ input[type='email'] {
   font-family: var(--font-text), Georgia, serif;
   font-size: 0.82rem;
   line-height: 1.55;
+}
+
+/* compact, scannable facets with inline clickable tags */
+.node-facet {
+  margin-top: 0.62rem;
+  padding-top: 0.56rem;
+  border-top: 1px solid var(--rule);
+}
+
+.node-facet > .tool-label {
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.node-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.32rem;
+}
+
+.node-tag {
+  appearance: none;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.32rem;
+  padding: 0.16rem 0.55rem;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink-soft);
+  font-family: var(--font-text), Georgia, serif;
+  font-size: 0.76rem;
+  line-height: 1.25;
+  cursor: pointer;
+  transition: color var(--dur-1) var(--ease-quart), border-color var(--dur-1) var(--ease-quart),
+    background var(--dur-1) var(--ease-quart);
+}
+
+.node-tag:hover {
+  color: var(--olive);
+  border-color: color-mix(in oklab, var(--olive) 42%, transparent);
+  background: color-mix(in oklab, var(--olive) 7%, transparent);
+}
+
+.node-tag .mech {
+  color: var(--ink-faint);
+  font-size: 0.68rem;
 }
 
 /* =============================== Gap Map (quadrant scatter) */
