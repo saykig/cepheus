@@ -55,46 +55,70 @@ export default function OmoikaneEssay() {
 
         <div className="essay-body">
           <p>
-            Most people now have access to more policy information than they can
-            reasonably use. Governments publish strategies, universities produce
-            research, think tanks release reports, courts issue decisions,
-            international organizations write standards, and companies shape
-            technological fields before public institutions fully understand
-            what has changed. The hard problem is no longer only finding
-            information. It is understanding how separate pieces of information
-            fit together.
+            In February 2026, while sitting in my office, I opened a Flipboard
+            notification about a confrontation between Anthropic and the
+            Pentagon in an AP article. The dispute concerned the conditions under
+            which the Department of Defense could use Claude. Anthropic refused
+            to remove safeguards related to mass domestic surveillance and fully
+            autonomous weapons, arguing that current frontier systems remained
+            too unreliable for certain high-stakes uses. Pentagon officials
+            responded that a private company should not determine how the
+            military could lawfully use technology it had purchased. Both sides
+            claimed to be protecting national security. Both institutions
+            possessed something the other could not easily replace:{' '}
+            <strong>
+              the government held public authority, while Anthropic held
+              technical expertise and control over the system.
+            </strong>
           </p>
           <p>
-            This matters most in fields where technology, law, security, and
-            economics are beginning to overlap. A student interested in AI
-            governance may start with regulation or model safety, then quickly
-            run into cybersecurity, export controls, semiconductor supply
-            chains, military use, data infrastructure, and China policy. A
-            researcher working on Arctic security may begin with Russia or NATO,
-            then encounter climate science, undersea infrastructure, critical
-            minerals, submarine deterrence, maritime surveillance, and
-            Indigenous governance. These connections are not random. They show
-            that many important policy fields are becoming difficult to
-            understand through one discipline alone.
+            At first, I read it as a dispute over one government contract, but it
+            exposed a much larger institutional problem.{' '}
+            <strong>AI is being built in one world and governed in another.</strong>{' '}
+            The people developing the systems, the people legally empowered to
+            make public decisions, and the people who will bear the consequences
+            of failure are often not the same people.
           </p>
           <p>
-            Omoikane is a proposed research platform for making those
-            connections easier to see. It would help users understand where
-            policy attention is growing, which fields are starting to overlap,
-            which institutions are shaping the conversation, and where technical
-            knowledge and public decision-making are failing to meet. The
-            platform would be useful for students, researchers, analysts,
-            policymakers, and technical experts who need a clearer view of a
-            field before it becomes too crowded or too urgent to study carefully.
+            As a student, I had already watched ChatGPT and Claude develop at a
+            pace that was difficult to reconcile with the slower world of laws,
+            public institutions, and university disciplines. Their rapid
+            improvement made me wonder whether an equivalent policy world
+            existed around them. But the better question was not whether AI
+            policy existed. It clearly did. The real questions were more
+            difficult:{' '}
+            <em>
+              How does a government govern a system it does not build? How does
+              an AI company translate public law into technical restrictions
+              that a model can actually follow? Who should decide when technical
+              judgment and lawful public authority conflict? And where should
+              these disagreements be resolved before they become public crises?
+            </em>
           </p>
           <p>
-            The platform would work as an interactive map of emerging global
-            policy fields. A user could begin with a topic such as AI
-            governance, Arctic security, semiconductor policy, or biosecurity,
-            then see the surrounding institutions, related fields, major
-            documents, and unresolved questions. A search engine returns sources
-            that match a query. Omoikane would show how those sources sit inside
-            a wider field of power, knowledge, regulation, and technical change.
+            The Anthropic-Pentagon dispute gave institutional form to a problem I
+            had previously understood only in the abstract. Governments cannot
+            govern advanced AI without access to technical knowledge. AI
+            companies cannot independently determine the public rules governing
+            defense, security, surveillance, or biological risk. And neither
+            side can simply replace the other. Yet, the institutions connecting
+            them remain fragmented, temporary, and frequently adversarial.
+          </p>
+          <p>
+            This is where the thought process behind Omoikane began for me. In
+            Shinto tradition, Omoikane is associated with collective wisdom and
+            counsel, bringing together the thoughts of many deities when no
+            single participant possesses the entire answer. The significance of
+            the name is not that one intelligence knows everything. It is that
+            dispersed knowledge must be assembled before responsible decisions
+            can be made. The main claim is that the central governance problem of
+            frontier AI is the separation of technical knowledge and public
+            accountability. The greater the distance between who knows, who
+            decides, and who bears the risk, the more likely AI policy is to
+            become late, adversarial, or technically unworkable. Omoikane is
+            proposed as a policy-intelligence platform for mapping that distance
+            across government, industry, universities, and civil society,
+            beginning with cybersecurity, military AI, and biosecurity.
           </p>
 
           <h2 id="map-problem">The Map Problem</h2>
