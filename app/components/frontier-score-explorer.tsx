@@ -47,11 +47,11 @@ const RANGES = [
 
 // chart plot geometry (viewBox units)
 const VB_W = 300
-const VB_H = 172
+const VB_H = 208
 const PL = 30
 const PR = 294
 const PT = 12
-const PB = 146
+const PB = 178
 const GRID = [0, 25, 50, 75, 100]
 
 const xFor = (i: number, n: number) =>
@@ -67,6 +67,7 @@ export function FrontierScoreExplorer() {
   const [hidden, setHidden] = useState<Set<string>>(new Set())
   const [showAll, setShowAll] = useState(false)
   const [hover, setHover] = useState<number | null>(null)
+  const [focus, setFocus] = useState<string | null>(null)
   const svgRef = useRef<SVGSVGElement>(null)
 
   useEffect(() => {
@@ -243,10 +244,11 @@ export function FrontierScoreExplorer() {
             aria-label={`Momentum over time for ${chartTopics.map((t) => t.label).join(', ')}`}
           >
             <g className="chart-grid">
-              {GRID.map((g) => (
+              {GRID.filter((g) => g !== 0).map((g) => (
                 <line key={g} x1={PL} x2={PR} y1={yFor(g)} y2={yFor(g)} />
               ))}
             </g>
+            <line className="chart-axis" x1={PL} x2={PR} y1={yFor(0)} y2={yFor(0)} />
             {[0, 50, 100].map((g) => (
               <text
                 key={g}
@@ -273,34 +275,37 @@ export function FrontierScoreExplorer() {
             {chartTopics.map((t) => {
               const pts = t.series.slice(start).map((v, i) => [xFor(i, nQuarters), yFor(v)])
               const d = pts.map((p, i) => `${i ? 'L' : 'M'}${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(' ')
-              let len = 0
-              for (let i = 1; i < pts.length; i++) {
-                len += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1])
-              }
               const off = hidden.has(t.id)
+              const isFocus = focus === t.id
+              const dim = focus != null && !isFocus
               return (
                 <path
                   key={t.id}
-                  className={`chart-line draw${off ? ' is-off' : ''}`}
+                  className="chart-line"
                   d={d}
                   stroke={colorOf(t)}
-                  style={{ '--len': len, opacity: off ? 0.12 : 1 } as CSSProperties}
+                  style={{ strokeWidth: isFocus ? 2.4 : 1.6, opacity: off ? 0.1 : dim ? 0.22 : 1 }}
                 />
               )
             })}
 
             {chartTopics
               .filter((t) => !hidden.has(t.id))
-              .map((t) => (
-                <circle
-                  key={`end-${t.id}`}
-                  className="chart-end-dot"
-                  cx={xFor(nQuarters - 1, nQuarters)}
-                  cy={yFor(t.series[start + nQuarters - 1])}
-                  r={1.7}
-                  fill={colorOf(t)}
-                />
-              ))}
+              .map((t) => {
+                const isFocus = focus === t.id
+                const dim = focus != null && !isFocus
+                return (
+                  <circle
+                    key={`end-${t.id}`}
+                    className="chart-end-dot"
+                    cx={xFor(nQuarters - 1, nQuarters)}
+                    cy={yFor(t.series[start + nQuarters - 1])}
+                    r={isFocus ? 2.3 : 1.7}
+                    fill={colorOf(t)}
+                    style={{ opacity: dim ? 0.22 : 1 }}
+                  />
+                )
+              })}
 
             {hover != null && (
               <line
@@ -337,12 +342,20 @@ export function FrontierScoreExplorer() {
             />
           </svg>
 
-          <div className="frontier-readout" aria-hidden="true">
+          <div className="frontier-readout">
             {chartTopics.map((t) => (
               <button
                 key={t.id}
                 type="button"
                 className={`frontier-legend-row${hidden.has(t.id) ? ' is-off' : ''}`}
+                aria-pressed={!hidden.has(t.id)}
+                aria-label={`${t.label}, ${Math.round(
+                  t.series[start + activeIdx],
+                )} in ${periodsSlice[activeIdx]}. Toggle line.`}
+                onMouseEnter={() => setFocus(t.id)}
+                onMouseLeave={() => setFocus(null)}
+                onFocus={() => setFocus(t.id)}
+                onBlur={() => setFocus(null)}
                 onClick={() =>
                   setHidden((prev) => {
                     const next = new Set(prev)

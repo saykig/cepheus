@@ -1595,6 +1595,11 @@ input[type='email'] {
   stroke-width: 1.6;
   stroke-linecap: round;
   stroke-linejoin: round;
+  transition: stroke-width var(--dur-1) var(--ease-quart), opacity var(--dur-1) var(--ease-quart);
+}
+
+.chart-end-dot {
+  transition: opacity var(--dur-1) var(--ease-quart), r var(--dur-1) var(--ease-quart);
 }
 
 /* Entrance line/edge ink-draw removed for a calmer read; both render at rest. */
@@ -1988,8 +1993,10 @@ input[type='email'] {
   fill: var(--paper-bright);
   stroke: var(--sc);
   stroke-width: 0.8;
+  transform-box: fill-box;
+  transform-origin: center;
   transition: fill var(--dur-2) var(--ease-quart), stroke-width var(--dur-2) var(--ease-quart),
-    opacity var(--dur-2) var(--ease-quart);
+    opacity var(--dur-2) var(--ease-quart), transform var(--dur-1) var(--ease-quart);
 }
 
 .constellation-node.pop circle,
@@ -2025,6 +2032,7 @@ input[type='email'] {
 .constellation-node:focus-visible circle {
   fill: color-mix(in oklab, var(--sc) 26%, var(--paper-bright));
   stroke-width: 1.4;
+  transform: scale(1.08);
 }
 
 .constellation-node.is-selected text,
@@ -2262,7 +2270,10 @@ input[type='email'] {
   fill: color-mix(in oklab, var(--sc) 24%, transparent);
   stroke: color-mix(in oklab, var(--sc) 72%, transparent);
   stroke-width: 0.5;
-  transition: fill var(--dur-2) var(--ease-quart), stroke-width var(--dur-2) var(--ease-quart);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: fill var(--dur-2) var(--ease-quart), stroke-width var(--dur-2) var(--ease-quart),
+    transform var(--dur-1) var(--ease-quart);
 }
 
 .bubble.is-dim {
@@ -2273,6 +2284,7 @@ input[type='email'] {
 .bubble:focus-visible circle {
   fill: color-mix(in oklab, var(--sc) 40%, transparent);
   stroke-width: 1;
+  transform: scale(1.07);
 }
 
 .bubble.is-selected circle {
