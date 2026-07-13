@@ -149,20 +149,26 @@ export default function OmoikaneEssay() {
             them remain fragmented, temporary, and frequently adversarial.
           </p>
           <p>
-            This is where the thought process behind Omoikane began for me. In
-            Shinto tradition, Omoikane is associated with collective wisdom and
-            counsel, bringing together the thoughts of many deities when no
-            single participant possesses the entire answer. The significance of
-            the name is not that one intelligence knows everything. It is that
-            dispersed knowledge must be assembled before responsible decisions
-            can be made. The main claim is that the central governance problem of
-            frontier AI is the separation of technical knowledge and public
+            <strong>
+              What is expected of us, then, is neither perfect coordination nor
+              a single institution capable of seeing everything.
+            </strong>{' '}
+            What seems more realistic, and more useful, is to begin by seeing
+            the relationships clearly. Who understands the technology? Who can
+            make the decisions? I have found it helpful to think about these
+            questions as three maps of the same world. Each reveals something
+            the others cannot, and together they begin to show where AI and
+            policy meet, and where they still come apart.
+          </p>
+          <p>
+            This is where the thought process behind Omoikane began for me. The
+            main claim behind the project is that the central governance problem
+            of frontier AI is the separation of technical knowledge and public
             accountability. The greater the distance between who knows, who
             decides, and who bears the risk, the more likely AI policy is to
             become late, adversarial, or technically unworkable. Omoikane is
             proposed as a policy-intelligence platform for mapping that distance
-            across government, industry, universities, and civil society,
-            beginning with cybersecurity, military AI, and biosecurity.
+            across public and private institutions.
           </p>
 
           <h2 id="what-is-expected-of-us">
@@ -244,19 +250,6 @@ export default function OmoikaneEssay() {
             divisions also become the main way we understand issues that are
             already moving across them.
           </p>
-          <p>
-            <strong>
-              What is expected of us, then, is neither perfect coordination nor
-              a single institution capable of seeing everything.
-            </strong>{' '}
-            What seems more realistic, and more useful, is to begin by seeing
-            the relationships clearly. Who understands the technology? Who can
-            make the decisions? I have found it helpful to think about these
-            questions as three maps of the same world. Each reveals something
-            the others cannot, and together they begin to show where AI and
-            policy meet, and where they still come apart.
-          </p>
-
           <h2 id="three-maps">The Three Maps</h2>
 
           <EssayMapAccordion mapIds={MAP_IDS}>
