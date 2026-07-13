@@ -3,6 +3,7 @@
 import type { CSSProperties } from 'react'
 import { useEffect, useMemo, useState } from 'react'
 import { useInView } from './use-in-view'
+import { WatercolorNode, WatercolorNodeDefs } from './watercolor-node'
 
 type Topic = {
   id: string
@@ -30,7 +31,7 @@ type GapData = {
 
 const sx = (v: number) => v
 const sy = (v: number) => 100 - v
-const rFor = (v: number) => 2.4 + (Math.sqrt(v) / 10) * 5.0
+const rFor = (v: number) => 2 + (Math.sqrt(v) / 10) * 3.6
 
 const colorFor = (t: Topic) => `var(--series-${t.series})`
 
@@ -113,10 +114,25 @@ export function GapMapMatrix() {
           ))}
         </div>
         <span className="gap-legend-note">
-          <span className="bubbles">
-            <i style={{ width: '6px', height: '6px' }} />
-            <i style={{ width: '10px', height: '10px' }} />
-          </span>
+          <svg className="gap-size-key" viewBox="0 0 28 14" aria-hidden="true">
+            <defs>
+              <WatercolorNodeDefs id="gap-legend-watercolor" />
+            </defs>
+            <g style={{ '--sc': 'var(--olive)' } as CSSProperties}>
+              <WatercolorNode
+                cx={7}
+                cy={7}
+                radius={2.3}
+                filterId="gap-legend-watercolor"
+              />
+              <WatercolorNode
+                cx={20}
+                cy={7}
+                radius={4.2}
+                filterId="gap-legend-watercolor"
+              />
+            </g>
+          </svg>
           Circle size = importance
         </span>
       </div>
@@ -124,17 +140,17 @@ export function GapMapMatrix() {
       <div className="gap-layout">
         <div className="gap-plot">
           <svg viewBox="-15 -8 123 122" role="img" aria-label={`${data.title}: ${preset.label}`}>
+            <defs>
+              <WatercolorNodeDefs id="gap-node-watercolor" />
+            </defs>
             <line className="quadrant-line" x1={50} y1={0} x2={50} y2={100} />
             <line className="quadrant-line" x1={0} y1={50} x2={100} y2={50} />
             <line
+              className="gap-balance-line"
               x1={0}
               y1={100}
               x2={100}
               y2={0}
-              stroke="var(--olive)"
-              strokeWidth={0.35}
-              strokeDasharray="2 2.4"
-              opacity={0.3}
             />
             <line className="chart-axis" x1={0} y1={0} x2={0} y2={100} />
             <line className="chart-axis" x1={0} y1={100} x2={100} y2={100} />
@@ -171,7 +187,12 @@ export function GapMapMatrix() {
                 <g
                   key={t.id}
                   className={`bubble${isSel ? ' is-selected is-labeled' : ''}`}
-                  style={{ '--sc': colorFor(t) } as CSSProperties}
+                  style={
+                    {
+                      '--sc': colorFor(t),
+                      transform: `translate(${cx}px, ${cy}px)`,
+                    } as CSSProperties
+                  }
                   role="button"
                   tabIndex={0}
                   aria-pressed={isSel}
@@ -184,9 +205,15 @@ export function GapMapMatrix() {
                     }
                   }}
                 >
-                  {isSel && <circle className="bubble-halo" cx={cx} cy={cy} r={r + 2.6} />}
-                  <circle cx={cx} cy={cy} r={r} />
-                  <text x={cx} y={cy - r - 1.4}>
+                  <WatercolorNode
+                    cx={0}
+                    cy={0}
+                    radius={r}
+                    filterId="gap-node-watercolor"
+                    selected={isSel}
+                    hitRadius={r + 2.7}
+                  />
+                  <text x={0} y={-r - 1.4}>
                     {t.label}
                   </text>
                 </g>

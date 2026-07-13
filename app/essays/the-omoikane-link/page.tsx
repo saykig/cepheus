@@ -13,13 +13,17 @@ export const metadata: Metadata = {
 }
 
 const sections = [
-  { id: 'first-collision', title: 'First Collision' },
+  { id: 'first-collision', title: 'The First Collision' },
   { id: 'institutional-gap', title: 'Institutional Gap' },
-  { id: 'three-maps', title: 'Three Maps' },
-  { id: 'knowledge-map', title: 'Knowledge' },
-  { id: 'authority-map', title: 'Authority' },
-  { id: 'dependency-map', title: 'Dependency' },
-  { id: 'case-study-the-north', title: 'The North' },
+  {
+    id: 'three-maps',
+    title: 'Three Maps',
+    children: [
+      { id: 'knowledge-map', title: 'The Knowledge Map' },
+      { id: 'authority-map', title: 'The Authority Map' },
+      { id: 'dependency-map', title: 'The Dependency Map' },
+    ],
+  },
   { id: 'strong-pilot', title: 'Pilot' },
   { id: 'what-this-makes-possible', title: 'Possible' },
 ]
@@ -114,15 +118,15 @@ export default function OmoikaneEssay() {
           </p>
           <ol className="essay-questions">
             <li>
-              <em>Who has legal or political authority?</em>
+              <strong>Who has legal or political authority?</strong>
             </li>
             <li>
-              <em>Who controls the technology or infrastructure?</em>
+              <strong>Who controls the technology or infrastructure?</strong>
             </li>
             <li>
-              <em>
+              <strong>
                 Why is there no reliable institution connecting these groups?
-              </em>
+              </strong>
             </li>
           </ol>
           <p>
@@ -423,32 +427,6 @@ export default function OmoikaneEssay() {
               point to read the drivers behind its position.
             </p>
           </section>
-
-          <h2 id="case-study-the-north">Case Study: The North</h2>
-          <p>
-            Imagine a student wants to study Arctic security. A normal search
-            can return articles about Russia, NATO, climate change, shipping
-            routes, Indigenous governance, and naval strategy. Those sources are
-            useful, but they do not automatically show how the field is changing
-            or where a student might contribute something new.
-          </p>
-          <p>
-            Omoikane would show Arctic security as a cluster connected to NATO
-            strategy, submarine deterrence, undersea infrastructure, critical
-            minerals, climate security, Russia policy, China&apos;s polar
-            interests, maritime surveillance, and autonomous maritime systems.
-            The platform would not present these as disconnected topics. It
-            would show how they sit inside one widening policy ecosystem.
-          </p>
-          <p>
-            The map could then point to fast-growing related topics such as
-            undersea infrastructure, Arctic surveillance, critical minerals, and
-            NATO northern defence. It might also identify a knowledge gap:
-            public-facing work on Arctic policy often does not clearly connect
-            security debates with undersea infrastructure, autonomous systems,
-            and resource competition. That gives the student a stronger research
-            direction than a plain list of sources.
-          </p>
 
           <h2 id="strong-pilot">A Strong Pilot</h2>
           <p>

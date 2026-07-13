@@ -261,7 +261,11 @@ export function FrontierScoreExplorer() {
         <div className="frontier-panel">
           <div className="frontier-panel-head">
             <span className="tool-label">{layer} over time</span>
-            <div className="chip-row" role="group" aria-label="Time range">
+            <div
+              className="chip-row time-range-row"
+              role="group"
+              aria-label="Time range"
+            >
               {RANGES.map((r) => (
                 <button
                   key={r.id}

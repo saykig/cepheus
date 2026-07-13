@@ -1,8 +1,9 @@
 'use client'
 
 import type { CSSProperties } from 'react'
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useInView } from './use-in-view'
+import { WatercolorNode, WatercolorNodeDefs } from './watercolor-node'
 
 type Node = {
   id: string
@@ -56,6 +57,9 @@ export function PolicyConstellationMap() {
   const [filter, setFilter] = useState('all')
   const [query, setQuery] = useState('')
   const [strength, setStrength] = useState(true)
+  const profileRef = useRef<HTMLElement>(null)
+  const profileShellRef = useRef<HTMLDivElement>(null)
+  const [profileScrollable, setProfileScrollable] = useState(false)
 
   useEffect(() => {
     fetch('/data/relationships.json')
@@ -72,6 +76,46 @@ export function PolicyConstellationMap() {
   )
 
   const edgeVisible = (e: Edge) => filter === 'all' || e.kind === filter
+
+  const updateProfileScroll = useCallback(() => {
+    const profile = profileRef.current
+    const shell = profileShellRef.current
+    if (!profile || !shell) return
+
+    const available = profile.scrollHeight - profile.clientHeight
+    const canScroll = available > 2
+    const progress = canScroll ? profile.scrollTop / available : 0
+    shell.style.setProperty(
+      '--profile-scroll-position',
+      `${8 + Math.min(1, Math.max(0, progress)) * 84}%`,
+    )
+    setProfileScrollable((current) =>
+      current === canScroll ? current : canScroll,
+    )
+  }, [])
+
+  useEffect(() => {
+    if (!data) return
+    const profile = profileRef.current
+    if (!profile) return
+
+    profile.addEventListener('scroll', updateProfileScroll, { passive: true })
+    const observer = new ResizeObserver(updateProfileScroll)
+    observer.observe(profile)
+    updateProfileScroll()
+
+    return () => {
+      profile.removeEventListener('scroll', updateProfileScroll)
+      observer.disconnect()
+    }
+  }, [data, updateProfileScroll])
+
+  useEffect(() => {
+    const profile = profileRef.current
+    if (!profile) return
+    profile.scrollTop = 0
+    requestAnimationFrame(updateProfileScroll)
+  }, [selectedId, updateProfileScroll])
 
   const q = query.trim().toLowerCase()
   const matches = (n: Node) => !q || n.label.toLowerCase().includes(q)
@@ -107,8 +151,12 @@ export function PolicyConstellationMap() {
 
   const edgeEls = data.edges
     .map((e, i) => ({ e, i, s: nodesById.get(e.source), t: nodesById.get(e.target) }))
-    .filter((x) => x.s && x.t && edgeVisible(x.e))
-    .map((x) => ({ ...x, incident: x.e.source === selected.id || x.e.target === selected.id }))
+    .filter((x) => x.s && x.t)
+    .map((x) => ({
+      ...x,
+      visible: edgeVisible(x.e),
+      incident: x.e.source === selected.id || x.e.target === selected.id,
+    }))
     .sort((a, b) => Number(a.incident) - Number(b.incident))
 
   const orderedNodes = [...data.nodes].sort(
@@ -180,6 +228,7 @@ export function PolicyConstellationMap() {
         <div className="constellation-canvas">
           <svg viewBox="-10 10 122 96" role="img" aria-label={`${data.title}: ${data.nodes.length} nodes`}>
             <defs>
+              <WatercolorNodeDefs id="constellation-node-watercolor" />
               <marker
                 id="rel-arrow"
                 viewBox="0 0 10 10"
@@ -193,7 +242,7 @@ export function PolicyConstellationMap() {
               </marker>
             </defs>
 
-            {edgeEls.map(({ e, i, s, t, incident }) => {
+            {edgeEls.map(({ e, i, s, t, incident, visible }) => {
               const dim = !!q && !(matches(s!) && matches(t!))
               const style = edgeStyle(e.kind, e.strength, strength)
               const dx = t!.x - s!.x
@@ -207,17 +256,28 @@ export function PolicyConstellationMap() {
               const cx = (s!.x + tx) / 2 + (-uy) * len * 0.08
               const cy = (s!.y + ty) / 2 + ux * len * 0.08
               return (
-                <path
+                <g
                   key={`${e.source}-${e.target}-${i}`}
-                  className={`constellation-edge${incident ? ' is-highlighted' : ''}${dim ? ' is-dim' : ''}`}
-                  d={`M ${s!.x} ${s!.y} Q ${cx.toFixed(2)} ${cy.toFixed(2)} ${tx.toFixed(2)} ${ty.toFixed(2)}`}
-                  strokeWidth={style.width}
-                  strokeDasharray={style.dash}
-                  markerEnd={style.arrow ? 'url(#rel-arrow)' : undefined}
+                  className={`constellation-edge-group${incident ? ' is-highlighted' : ''}${dim ? ' is-dim' : ''}${visible ? '' : ' is-filtered'}`}
                   style={{ '--sc': incident ? colorFor(selected) : undefined } as CSSProperties}
+                  aria-hidden={!visible || undefined}
                 >
-                  <title>{e.description}</title>
-                </path>
+                  <path
+                    className="constellation-edge-wash"
+                    d={`M ${s!.x} ${s!.y} Q ${cx.toFixed(2)} ${cy.toFixed(2)} ${tx.toFixed(2)} ${ty.toFixed(2)}`}
+                    strokeWidth={style.width * 3.1}
+                    strokeDasharray={style.dash}
+                  />
+                  <path
+                    className="constellation-edge-core"
+                    d={`M ${s!.x} ${s!.y} Q ${cx.toFixed(2)} ${cy.toFixed(2)} ${tx.toFixed(2)} ${ty.toFixed(2)}`}
+                    strokeWidth={style.width * 0.68}
+                    strokeDasharray={style.dash}
+                    markerEnd={style.arrow ? 'url(#rel-arrow)' : undefined}
+                  >
+                    <title>{e.description}</title>
+                  </path>
+                </g>
               )
             })}
 
@@ -242,8 +302,15 @@ export function PolicyConstellationMap() {
                     }
                   }}
                 >
-                  {isSel && <circle className="node-halo" cx={n.x} cy={n.y} r={r + 2.2} />}
-                  <circle cx={n.x} cy={n.y} r={r} />
+                  <WatercolorNode
+                    cx={n.x}
+                    cy={n.y}
+                    radius={r}
+                    filterId="constellation-node-watercolor"
+                    kind={n.kind}
+                    selected={isSel}
+                    hitRadius={r + 2.1}
+                  />
                   <text x={n.x} y={n.y + r + 2.7}>
                     {n.label}
                   </text>
@@ -253,69 +320,78 @@ export function PolicyConstellationMap() {
           </svg>
         </div>
 
-        <aside
-          className="node-profile"
-          style={{ '--sc': colorFor(selected) } as CSSProperties}
-          aria-live="polite"
+        <div
+          ref={profileShellRef}
+          className={`node-profile-shell${profileScrollable ? ' is-scrollable' : ''}`}
         >
-          <span className="node-profile-kind">
-            <span className="dot" />
-            {selected.type}
-          </span>
-          <h5>{selected.label}</h5>
-          <p className="node-profile-desc">{selected.description}</p>
+          <aside
+            ref={profileRef}
+            className="node-profile"
+            style={{ '--sc': colorFor(selected) } as CSSProperties}
+            aria-live="polite"
+          >
+            <span className="node-profile-kind">
+              <span className="dot" />
+              {selected.type}
+            </span>
+            <h5>{selected.label}</h5>
+            <p className="node-profile-desc">{selected.description}</p>
 
-          <div className="node-facet">
-            <span className="tool-label">Main gap</span>
-            <p className="node-gap">{selected.gap}</p>
-          </div>
+            <div className="node-facet">
+              <span className="tool-label">Main gap</span>
+              <p className="node-gap">{selected.gap}</p>
+            </div>
 
-          {(
-            [
-              { label: 'Expertise in', items: panel.knowledge },
-              { label: 'Authority over', items: panel.authority },
-              { label: 'Relies on', items: panel.dependsOn },
-              { label: 'Relied on by', items: panel.reliedOnBy },
-            ] as { label: string; items: Node[] }[]
-          )
-            .filter((f) => f.items.length > 0)
-            .map((f) => (
-              <div className="node-facet" key={f.label}>
-                <span className="tool-label">{f.label}</span>
+            {(
+              [
+                { label: 'Expertise in', items: panel.knowledge },
+                { label: 'Authority over', items: panel.authority },
+                { label: 'Relies on', items: panel.dependsOn },
+                { label: 'Relied on by', items: panel.reliedOnBy },
+              ] as { label: string; items: Node[] }[]
+            )
+              .filter((f) => f.items.length > 0)
+              .map((f) => (
+                <div className="node-facet" key={f.label}>
+                  <span className="tool-label">{f.label}</span>
+                  <div className="node-tags">
+                    {f.items.map((n) => (
+                      <button
+                        key={n.id}
+                        type="button"
+                        className="node-tag"
+                        onClick={() => setSelectedId(n.id)}
+                      >
+                        {n.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ))}
+
+            {panel.interfaces.length > 0 ? (
+              <div className="node-facet">
+                <span className="tool-label">Interfaces</span>
                 <div className="node-tags">
-                  {f.items.map((n) => (
+                  {panel.interfaces.map((it, idx) => (
                     <button
-                      key={n.id}
+                      key={`${it.node.id}-${idx}`}
                       type="button"
                       className="node-tag"
-                      onClick={() => setSelectedId(n.id)}
+                      onClick={() => setSelectedId(it.node.id)}
                     >
-                      {n.label}
+                      {it.node.label}
+                      <span className="mech">{it.type}</span>
                     </button>
                   ))}
                 </div>
               </div>
-            ))}
-
-          {panel.interfaces.length > 0 && (
-            <div className="node-facet">
-              <span className="tool-label">Interfaces</span>
-              <div className="node-tags">
-                {panel.interfaces.map((it, idx) => (
-                  <button
-                    key={`${it.node.id}-${idx}`}
-                    type="button"
-                    className="node-tag"
-                    onClick={() => setSelectedId(it.node.id)}
-                  >
-                    {it.node.label}
-                    <span className="mech">{it.type}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-        </aside>
+            ) : null}
+          </aside>
+          <span className="node-scroll-rail" aria-hidden="true">
+            <span className="node-scroll-thumb" />
+          </span>
+        </div>
       </div>
     </section>
   )

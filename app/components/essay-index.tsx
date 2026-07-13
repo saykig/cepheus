@@ -1,11 +1,12 @@
 'use client'
 
 import type { CSSProperties } from 'react'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 type Section = {
   id: string
   title: string
+  children?: Section[]
 }
 
 export function EssayIndex({
@@ -18,6 +19,10 @@ export function EssayIndex({
   const [activeId, setActiveId] = useState(sections[0]?.id)
   const [progress, setProgress] = useState(0)
   const [noteOpacity, setNoteOpacity] = useState(1)
+  const flatSections = useMemo(
+    () => sections.flatMap((section) => [section, ...(section.children ?? [])]),
+    [sections],
+  )
 
   useEffect(() => {
     const update = () => {
@@ -27,11 +32,11 @@ export function EssayIndex({
       setProgress(Math.min(1, Math.max(0, next)))
       setNoteOpacity(Math.max(0.5, 1 - window.scrollY / 360))
 
-      const current = sections.reduce((active, section) => {
+      const current = flatSections.reduce((active, section) => {
         const element = document.getElementById(section.id)
         if (!element) return active
         return element.getBoundingClientRect().top <= 320 ? section.id : active
-      }, sections[0]?.id)
+      }, flatSections[0]?.id)
       setActiveId(current)
     }
 
@@ -42,11 +47,80 @@ export function EssayIndex({
       window.removeEventListener('scroll', update)
       window.removeEventListener('resize', update)
     }
-  }, [sections])
+  }, [flatSections])
+
+  useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1))
+    if (!id) return
+
+    let cancelled = false
+    const cancel = () => {
+      cancelled = true
+    }
+    const alignHashTarget = () => {
+      if (cancelled) return
+      const target = document.getElementById(id)
+      if (!target) return
+
+      const root = document.documentElement
+      const previousBehavior = root.style.scrollBehavior
+      root.style.scrollBehavior = 'auto'
+      const offset = window.innerWidth <= 780 ? 76 : 104
+      window.scrollTo({
+        top: window.scrollY + target.getBoundingClientRect().top - offset,
+      })
+      root.style.scrollBehavior = previousBehavior
+    }
+
+    const timers = [0, 350, 1000].map((delay) =>
+      window.setTimeout(alignHashTarget, delay),
+    )
+    window.addEventListener('wheel', cancel, { passive: true, once: true })
+    window.addEventListener('touchstart', cancel, { passive: true, once: true })
+    window.addEventListener('pointerdown', cancel, { passive: true, once: true })
+
+    return () => {
+      timers.forEach(window.clearTimeout)
+      window.removeEventListener('wheel', cancel)
+      window.removeEventListener('touchstart', cancel)
+      window.removeEventListener('pointerdown', cancel)
+    }
+  }, [])
 
   const handleDownload = useCallback(() => {
     window.print()
   }, [])
+
+  const activeIndex = flatSections.findIndex((section) => section.id === activeId)
+
+  const renderIndexLink = (
+    section: Section,
+    { child = false, tabIndex }: { child?: boolean; tabIndex?: number } = {},
+  ) => {
+    const index = flatSections.findIndex((item) => item.id === section.id)
+    const isReached = index >= 0 && index <= activeIndex
+    const isActive = activeId === section.id
+
+    return (
+      <a
+        className={[
+          'essay-index-item',
+          child ? 'is-child' : '',
+          isActive ? 'is-active' : '',
+          isReached ? 'is-reached' : '',
+        ]
+          .filter(Boolean)
+          .join(' ')}
+        href={`#${section.id}`}
+        key={section.id}
+        aria-current={isActive ? 'true' : undefined}
+        tabIndex={tabIndex}
+      >
+        <span className="essay-index-dot" aria-hidden="true" />
+        <span>{section.title}</span>
+      </a>
+    )
+  }
 
   return (
     <aside
@@ -65,28 +139,31 @@ export function EssayIndex({
       </p>
 
       <nav className="essay-scroll-index" aria-label="Sections">
-        {sections.map((section, index) => {
-          const sectionProgress =
-            sections.length > 1 ? index / (sections.length - 1) : 0
-          const isReached = progress + 0.035 >= sectionProgress
-          const isActive = activeId === section.id
+        {sections.map((section) => {
+          const childIds = section.children?.map((child) => child.id) ?? []
+          const branchOpen =
+            childIds.length > 0 &&
+            (activeId === section.id || childIds.includes(activeId ?? ''))
 
           return (
-            <a
-              className={[
-                'essay-index-item',
-                isActive ? 'is-active' : '',
-                isReached ? 'is-reached' : '',
-              ]
-                .filter(Boolean)
-                .join(' ')}
-              href={`#${section.id}`}
-              key={section.id}
-              aria-current={isActive ? 'true' : undefined}
-            >
-              <span className="essay-index-dot" aria-hidden="true" />
-              <span>{section.title}</span>
-            </a>
+            <div className="essay-index-group" key={section.id}>
+              {renderIndexLink(section)}
+              {section.children ? (
+                <div
+                  className={`essay-index-branch${branchOpen ? ' is-open' : ''}`}
+                  aria-hidden={!branchOpen}
+                >
+                  <div className="essay-index-branch-inner">
+                    {section.children.map((child) =>
+                      renderIndexLink(child, {
+                        child: true,
+                        tabIndex: branchOpen ? undefined : -1,
+                      }),
+                    )}
+                  </div>
+                </div>
+              ) : null}
+            </div>
           )
         })}
       </nav>
