@@ -140,11 +140,12 @@
         {
           "type": "source",
           "sourceId": 14,
-          "text": "“What's Expected of Us,”"
+          "text": "“What's Expected of Us”",
+          "italic": true
         },
         {
           "type": "text",
-          "text": " "
+          "text": " ("
         },
         {
           "type": "source",
@@ -153,7 +154,7 @@
         },
         {
           "type": "text",
-          "text": ", the story considers what happens when people come to believe that the future is already fixed and that their choices no longer matter. I am using it here less as an argument about free will than as a warning against the passive language that often surrounds technology. We say that models will improve and governments will eventually adapt, as though these were natural events rather than the accumulated result of decisions made by companies, researchers, and institutions."
+          "text": "), the story considers what happens when people come to believe that the future is already fixed and that their choices no longer matter. I am using it here less as an argument about free will than as a warning against the passive language that often surrounds technology. We say that models will improve and governments will eventually adapt, as though these were natural events rather than the accumulated result of decisions made by companies, researchers, and institutions."
         }
       ]
     },
