@@ -628,6 +628,10 @@ button {
   border-bottom: 1px solid var(--rule);
 }
 
+.essay-hero-inner {
+  margin-left: calc(236px + clamp(38px, 5vw, 76px));
+}
+
 .essay-kicker {
   display: inline-flex;
   align-items: center;
@@ -650,25 +654,29 @@ button {
 }
 
 .essay-hero h1 {
-  max-width: 19ch;
+  max-width: none;
   margin: 0;
   color: var(--ink);
   font-family: var(--font-display), "Iowan Old Style", "Palatino Linotype", serif;
-  font-size: var(--t-hero);
+  font-size: clamp(3.05rem, 6.7vw, 5rem);
   font-weight: 400;
   line-height: 1.02;
   letter-spacing: -0.012em;
-  text-wrap: balance;
+}
+
+.essay-hero h1 span {
+  display: block;
+  white-space: nowrap;
 }
 
 .essay-subtitle {
   max-width: 42ch;
-  margin: 1.8rem 0 0;
+  margin: 1.5rem 0 0;
   color: var(--ink-soft);
   font-family: var(--font-text), Georgia, serif;
-  font-size: var(--t-lead);
+  font-size: 1.02rem;
   font-style: italic;
-  line-height: 1.6;
+  line-height: 1.45;
 }
 
 .essay-meta {
@@ -786,38 +794,101 @@ button {
   margin-top: 0;
 }
 
-/* --- Numbered "map" sections (the coordinates) --- */
+/* --- Expandable map sections --- */
+.map-accordion {
+  margin-top: 1.1rem;
+  border-top: 1px solid var(--rule);
+}
+
 .map-section {
-  margin: clamp(3.4rem, 6vw, 5rem) 0 0;
-}
-
-.map-head {
-  display: grid;
-  grid-template-columns: auto minmax(2rem, 1fr);
-  align-items: center;
-  gap: 1.15rem;
-  margin: 0 0 1.4rem;
-}
-
-.map-head h3 {
   margin: 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.map-section > h3 {
+  margin: 0;
+}
+
+.map-accordion-trigger {
+  appearance: none;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) 1rem;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.05rem 0;
+  border: 0;
+  background: transparent;
   color: var(--ink);
+  cursor: pointer;
   font-family: var(--font-display), "Iowan Old Style", "Palatino Linotype", serif;
   font-size: var(--t-h3);
   font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: -0.003em;
+  line-height: 1.08;
+  text-align: left;
+  transition: color var(--dur-1) var(--ease-quart);
 }
 
-.map-head h3 .map-index {
+.map-accordion-trigger:hover {
+  color: var(--olive);
+}
+
+.map-accordion-trigger .map-index {
   color: var(--olive);
   font-variant-numeric: lining-nums;
 }
 
-.map-head::after {
+.map-accordion-icon {
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  color: var(--olive);
+}
+
+.map-accordion-icon::before,
+.map-accordion-icon::after {
   content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.72rem;
   height: 1px;
-  background: var(--rule);
+  background: currentColor;
+  transform: translate(-50%, -50%);
+  transition: transform var(--dur-2) var(--ease-expo),
+    opacity var(--dur-1) var(--ease-quart);
+}
+
+.map-accordion-icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.map-accordion-item.is-open .map-accordion-icon::after {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(90deg) scaleX(0.25);
+}
+
+.map-accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition: grid-template-rows 520ms var(--ease-expo),
+    opacity 260ms var(--ease-quart), visibility 0s linear 520ms;
+}
+
+.map-accordion-item.is-open .map-accordion-panel {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  transition: grid-template-rows 620ms var(--ease-expo),
+    opacity 360ms var(--ease-quart), visibility 0s linear;
+}
+
+.map-accordion-panel-inner {
+  min-height: 0;
+  overflow: hidden;
+  padding: 0.55rem 0 2.5rem;
 }
 
 .map-lead {
@@ -826,6 +897,71 @@ button {
 
 .map-prompt {
   margin: 0 0 0.85rem;
+}
+
+.footnote-ref {
+  margin-left: 0.12em;
+  color: var(--olive);
+  font-family: var(--font-text), Georgia, serif;
+  font-size: 0.58em;
+  font-weight: 700;
+  line-height: 0;
+  text-decoration: none;
+}
+
+.footnote-ref:hover,
+.footnote-ref:focus-visible {
+  color: var(--olive-deep);
+}
+
+.essay-endnotes {
+  max-width: 66ch;
+  margin-top: 3.2rem;
+  padding-top: 1.35rem;
+  border-top: 1px solid var(--rule);
+}
+
+.essay-endnotes h3 {
+  margin: 0 0 1rem;
+  color: var(--ink);
+  font-family: var(--font-display), "Iowan Old Style", "Palatino Linotype", serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+}
+
+.essay-endnotes ol {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  counter-reset: essay-endnote;
+}
+
+.essay-body .essay-endnotes li {
+  position: relative;
+  color: var(--ink-muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  padding-left: 1.65rem;
+  counter-increment: essay-endnote;
+}
+
+.essay-body .essay-endnotes li::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: counter(essay-endnote) ".";
+  color: var(--olive);
+  font-variant-numeric: lining-nums;
+}
+
+.essay-body .essay-endnotes li + li {
+  margin-top: 0.85rem;
+}
+
+.footnote-back {
+  color: var(--olive);
+  font-size: 0.76rem;
+  white-space: nowrap;
 }
 
 /* --- Left rail --- */
@@ -1099,6 +1235,10 @@ button {
 @media (max-width: 900px) {
   .essay-page {
     width: min(100% - 36px, 760px);
+  }
+
+  .essay-hero-inner {
+    margin-left: 0;
   }
 
   .essay-layout {
@@ -2774,6 +2914,21 @@ html {
   }
 }
 
+@media (max-width: 560px) {
+  .essay-hero h1 {
+    font-size: clamp(2.55rem, 13vw, 3.3rem);
+  }
+
+  .essay-subtitle {
+    max-width: 32ch;
+  }
+
+  .map-accordion-trigger {
+    grid-template-columns: auto minmax(0, 1fr) 1rem;
+    font-size: 1.3rem;
+  }
+}
+
 /* ============================================================ Print */
 @media print {
   html,
@@ -2810,5 +2965,15 @@ html {
   .map-section,
   .references {
     break-inside: avoid;
+  }
+
+  .map-accordion-panel {
+    grid-template-rows: 1fr !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  .map-accordion-icon {
+    display: none;
   }
 }

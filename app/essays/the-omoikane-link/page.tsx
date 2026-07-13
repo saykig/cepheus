@@ -1,6 +1,10 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import { EssayIndex } from 'app/components/essay-index'
+import {
+  EssayMapAccordion,
+  EssayMapPanel,
+} from 'app/components/essay-map-accordion'
 import { FrontierScoreExplorer } from 'app/components/frontier-score-explorer'
 import { GapMapMatrix } from 'app/components/gap-map-matrix'
 import { PolicyConstellationMap } from 'app/components/policy-constellation-map'
@@ -13,7 +17,7 @@ export const metadata: Metadata = {
 
 const sections = [
   { id: 'first-collision', title: 'The First Collision' },
-  { id: 'institutional-gap', title: 'Institutional Gap' },
+  { id: 'what-is-expected-of-us', title: 'What Is Expected of Us¹' },
   {
     id: 'three-maps',
     title: 'Three Maps',
@@ -24,8 +28,10 @@ const sections = [
     ],
   },
   { id: 'strong-pilot', title: 'Pilot' },
-  { id: 'what-this-makes-possible', title: 'Possible' },
+  { id: 'what-we-owe-to-each-other', title: 'What We Owe to Each Other' },
 ]
+
+const MAP_IDS = ['knowledge-map', 'authority-map', 'dependency-map']
 
 const UPDATED = 'July 2026'
 
@@ -46,26 +52,40 @@ function CitationLink({ children, id }: { children: ReactNode; id: number }) {
   )
 }
 
+function FootnoteRef({ number }: { number: number }) {
+  return (
+    <a
+      className="footnote-ref"
+      href={`#footnote-${number}`}
+      id={`footnote-ref-${number}`}
+      aria-label={`Footnote ${number}`}
+    >
+      <sup>{number}</sup>
+    </a>
+  )
+}
+
 export default function OmoikaneEssay() {
   return (
     <article className="essay-page">
       <header className="essay-hero">
-        <p className="essay-kicker">The Omoikane Link</p>
-        <h1>What We Owe to Each Other</h1>
-        <p className="essay-subtitle">
-          What Technology and Policy can Offer to Humanity
-        </p>
-        <p className="essay-meta">
-          <span className="author">Sara Kim</span>
-          <span className="sep" aria-hidden="true">
-            /
-          </span>
-          <span>A 12-minute read</span>
-          <span className="sep" aria-hidden="true">
-            /
-          </span>
-          <span>Updated {UPDATED}</span>
-        </p>
+        <div className="essay-hero-inner">
+          <p className="essay-kicker">The Omoikane Link</p>
+          <h1>
+            <span>What We Owe</span>
+            <span>to Each Other</span>
+          </h1>
+          <p className="essay-subtitle">
+            What Technology and Policy can Offer to Humanity
+          </p>
+          <p className="essay-meta">
+            <span className="author">Sara Kim</span>
+            <span className="sep" aria-hidden="true">
+              /
+            </span>
+            <span>Updated {UPDATED}</span>
+          </p>
+        </div>
       </header>
 
       <div className="essay-layout">
@@ -153,117 +173,98 @@ export default function OmoikaneEssay() {
             beginning with cybersecurity, military AI, and biosecurity.
           </p>
 
-          <h2 id="institutional-gap">The Institutional Gap</h2>
+          <h2 id="what-is-expected-of-us">
+            What Is Expected of Us
+            <FootnoteRef number={1} />
+          </h2>
           <p>
-            Frontier AI is still being built largely inside a small group of
-            private companies. They recruit much of the technical talent,
-            control the computing infrastructure, develop and evaluate the
-            models, and decide how those systems can be accessed.{' '}
-            <CitationLink id={13}>
-              According to Stanford&apos;s 2025 AI Index, industry produced nearly
-              90 percent of the notable AI models identified in 2024.
-            </CitationLink>{' '}At the same time, the{' '}
+            AI is often described as something that is simply happening to us,
+            passively. Models will become more capable, competition will
+            intensify, and governments will eventually have to adapt. This
+            language captures the speed of change, but it can also make
+            responsibility disappear. Before asking whether policy can keep up,
+            we should ask a more basic question:{' '}
+            <em>what is expected of us?</em> Here, I would put the problem more
+            simply: rooms full of experts, but too few hallways between them.
+          </p>
+          <p>
+            Much of frontier AI is developed inside a small number of private
+            companies. These companies recruit the technical talent, operate the
+            computing infrastructure, evaluate their models, and control how
+            those models are released.{' '}
+            <CitationLink id={13}>Stanford&apos;s 2025 AI Index</CitationLink>{' '}
+            found that industry produced roughly 90 per cent of the notable AI
+            models identified in 2024. At the same time,{' '}
             <CitationLink id={12}>
-              U.S. Government Accountability Office has pointed to a serious
-              shortage of AI expertise across the federal workforce, made worse
-              by slow hiring systems and less competitive pay.
-            </CitationLink>{' '}Governments are not without technical capacity,
-            but much of the knowledge needed to understand the frontier sits
-            outside the institutions expected to govern it.
+              the U.S. Government Accountability Office
+            </CitationLink>{' '}
+            has warned of serious shortages of AI expertise across the federal
+            workforce. The people closest to the technology are therefore often
+            separated from the institutions expected to govern its public
+            consequences.
           </p>
           <p>
-            Public authority, meanwhile, is spread across legislatures, defence
-            departments, intelligence agencies, courts, and international
-            alliances. Here, each institution sees only part of the system.
-            Legislators may write the rules, defence departments procure the
-            technology, courts determine whether its use is lawful, and
-            standards bodies translate broad principles into technical guidance.
-            The result here would therefore not be a complete absence of
-            governance, but a system in which responsibility is divided among
-            institutions that do not always work from the same information.
+            Authority is divided in a different way. Governments distribute
+            responsibility across legislatures, courts, defence departments,
+            regulators, and international bodies. Each sees the technology
+            through its own mandate. One institution may write the rules,
+            another may purchase the system, and another may only become
+            involved after something has gone wrong. Responsibility still
+            exists, but it is spread across institutions that may not share the
+            same information or even agree on what the main problem is.
           </p>
           <p>
-            They do not always speak the same language either. Engineers may
-            focus on architecture and benchmarks, while policymakers are more
-            concerned with authority and jurisdiction. Private firms may be
-            thinking about deployment, competition, and contractual obligations.
-            These groups can be discussing the same technology while disagreeing
-            about what the real problem is.
+            The divide is also linguistic. Engineers tend to ask whether a
+            system works and how reliably it performs. Policymakers are more
+            likely to ask who is authorized to use it and who will be held
+            responsible if it fails. Companies must also consider deployment,
+            competition, and their obligations to customers or investors. They
+            may all be discussing the same model while approaching it as a
+            different kind of problem.
           </p>
           <p>
-            They also work on different timelines. Models can change within
-            weeks or months, while judicial review and international
-            coordination can take years.{' '}
-            <strong>
-              It is easy to reduce this to the claim that policy moves too
-              slowly, but that misses part of the issue.
-            </strong>{' '}Public institutions move cautiously because they are
-            expected to follow procedures, justify decisions, assign
-            responsibility, and remain accountable to law. Private companies can
-            move faster due to less guardrails, but speed does not give them
-            public legitimacy either.
+            Their timelines rarely match either, as models can change within
+            weeks, while legislation, judicial review, and international effort
+            can take years. It is tempting to reduce this to the claim that
+            policy moves too slowly, but caution is part of what public
+            institutions are for. They are expected to follow procedures and
+            remain accountable to law. Private firms can usually move faster
+            because they are not bound by the same public processes, but speed
+            does alone does not give them public legitimacy.
           </p>
           <p>
-            Now, this becomes more serious when private technical decisions begin
-            to carry public consequences. Choices about safeguards, model
-            access, cybersecurity, biological capabilities, or military use may
-            be made inside companies, even though their effects reach national
-            security, civil liberties, critical infrastructure, and public
-            safety. Governments can then become dependent on systems they cannot
-            fully inspect, and may not be able to replace.
+            This mismatch becomes more serious when private technical choices
+            begin to shape public life. A decision about model access or
+            safeguards may be made inside a company, yet its consequences can
+            reach national security, civil liberties, and critical
+            infrastructure. Governments may then depend on systems they cannot
+            fully inspect, meanwhile the company understands the technology but
+            does not possess the authority to decide every public use. In
+            return, the government possesses that authority but may lack the
+            knowledge needed to exercise it well.
           </p>
           <p>
-            The problem is therefore not simply that AI cuts across many
-            disciplines, as the institutions responsible for understanding,
-            building, and using it are organized separately. For example,
-            universities divide knowledge into departments because
-            specialization produces depth. These divisions are necessary, but
-            they become a problem when they are also the main way we understand
-            issues that already move across them.
-          </p>
-          <p>
-            This helps explain why governments have become more interested in
-            mission-oriented and cross-sector approaches.{' '}
-            <CitationLink id={3}>
-              The OECD describes mission-oriented innovation as a way for public
-              institutions to bring together actors around problems that no
-              single organization can solve alone.
-            </CitationLink>{' '}AI governance is already moving in this
-            direction.{' '}
-            <CitationLink id={4}>
-              Stanford&apos;s 2025 AI Index found that legislative mentions of AI
-              increased across 75 countries in 2024, while U.S. federal agencies
-              issued 59 AI-related regulations that year.
-            </CitationLink>{' '}International institutions have also moved from
-            broad concern toward more formal rules and standards through the{' '}
-            <CitationLink id={5}>OECD AI Principles</CitationLink>,{' '}
-            <CitationLink id={6}>
-              NIST&apos;s AI Risk Management Framework
-            </CitationLink>, and the{' '}
-            <CitationLink id={7}>EU AI Act</CitationLink>.
-          </p>
-          <p>
-            Furthermore, these efforts show that AI governance is becoming a
-            real policy field. They also show why the field remains difficult to
-            navigate. Rules, expertise, infrastructure, and authority are being
-            developed in different places, often without a clear view of how they
-            fit together.
+            I therefore do not think the central problem is a simple shortage
+            of expertise. The expertise exists already, but it is distributed
+            across institutions that organize knowledge and authority
+            separately. Specialization still matters too, because it gives us
+            depth and makes complex work possible. The problem begins when those
+            divisions also become the main way we understand issues that are
+            already moving across them.
           </p>
           <p>
             <strong>
-              The future is not arranged by university department, but many of
-              our knowledge systems still are. The same is true of governments
-              and companies.
-            </strong>{' '}Specialization gives us rooms full of experts, but very
-            few hallways between them.
-          </p>
-          <p>
-            The answer, then, is not to remove those rooms. It is important to
-            note that engineers, policymakers, scientists, and governments have
-            different roles for good reasons. The task is to make the
-            connections between them easier to see, especially where knowledge,
-            authority, and responsibility overlap without a reliable institution
-            linking them; and that is the gap Omoikane is meant to map.
+              What is expected of us, then, is neither perfect coordination nor
+              a single institution capable of seeing everything.
+            </strong>{' '}
+            I do not think the answer is perfect coordination, nor do I think
+            one institution could ever understand the entire system on its own.
+            What seems more realistic, and more useful, is to begin by seeing
+            the relationships clearly. Who understands the technology? Who can
+            make the decisions? I have found it helpful to think about these
+            questions as three maps of the same world. Each reveals something
+            the others cannot, and together they begin to show where AI and
+            policy meet, and where they still come apart.
           </p>
 
           <h2 id="three-maps">The Three Maps</h2>
@@ -273,63 +274,55 @@ export default function OmoikaneEssay() {
             same policy ecosystem.
           </p>
 
-          <section
-            className="map-section"
-            id="knowledge-map"
-            aria-labelledby="knowledge-map-h"
-          >
-            <div className="map-head">
-              <h3 id="knowledge-map-h">
-                <span className="map-index">1.</span> The Knowledge Map
-              </h3>
-            </div>
-            <p className="map-prompt">
-              <strong>
-                <em>Who can actually decide?</em>
-              </strong>
-            </p>
-            <p className="map-lead">
-              Authority can include the power to regulate, procure, deploy,
-              restrict, investigate, fund, audit, prosecute, or establish
-              standards. These powers rarely belong to the same institution.
-            </p>
-            <p className="map-lead">
-              In cybersecurity, a government agency may issue guidance or
-              investigate an attack, while private companies still control the
-              affected networks and infrastructure. In military AI, elected
-              governments and defence institutions hold authority over military
-              operations, but contractors and AI companies may control the
-              systems through which those decisions are carried out. In
-              biosecurity, authority may be divided among health agencies,
-              research regulators, laboratories, security institutions, and
-              international bodies.
-            </p>
-            <p className="map-lead">
-              The Anthropic-Pentagon dispute belongs partly on this map. The
-              Pentagon argued that military decisions belonged to the state.
-              Anthropic accepted that principle but argued that it should not be
-              required to provide a system for uses it considered technically
-              unreliable or incompatible with basic safeguards. The dispute was
-              not simply about whether the military or the company had authority.
-              It was about which kind of authority applied to which decision.
-            </p>
-            <FrontierScoreExplorer />
-            <p className="tool-caption">
-              Adjust the weights to test how knowledge, authority, dependency,
-              and coordination change the ranking.
-            </p>
-          </section>
+          <EssayMapAccordion mapIds={MAP_IDS}>
+            <EssayMapPanel
+              id="knowledge-map"
+              index={1}
+              title="The Knowledge Map"
+            >
+              <p className="map-prompt">
+                <strong>
+                  <em>Who can actually decide?</em>
+                </strong>
+              </p>
+              <p className="map-lead">
+                Authority can include the power to regulate, procure, deploy,
+                restrict, investigate, fund, audit, prosecute, or establish
+                standards. These powers rarely belong to the same institution.
+              </p>
+              <p className="map-lead">
+                In cybersecurity, a government agency may issue guidance or
+                investigate an attack, while private companies still control the
+                affected networks and infrastructure. In military AI, elected
+                governments and defence institutions hold authority over
+                military operations, but contractors and AI companies may
+                control the systems through which those decisions are carried
+                out. In biosecurity, authority may be divided among health
+                agencies, research regulators, laboratories, security
+                institutions, and international bodies.
+              </p>
+              <p className="map-lead">
+                The Anthropic-Pentagon dispute belongs partly on this map. The
+                Pentagon argued that military decisions belonged to the state.
+                Anthropic accepted that principle but argued that it should not
+                be required to provide a system for uses it considered
+                technically unreliable or incompatible with basic safeguards.
+                The dispute was not simply about whether the military or the
+                company had authority. It was about which kind of authority
+                applied to which decision.
+              </p>
+              <FrontierScoreExplorer />
+              <p className="tool-caption">
+                Adjust the weights to test how knowledge, authority, dependency,
+                and coordination change the ranking.
+              </p>
+            </EssayMapPanel>
 
-          <section
-            className="map-section"
-            id="authority-map"
-            aria-labelledby="authority-map-h"
-          >
-            <div className="map-head">
-              <h3 id="authority-map-h">
-                <span className="map-index">2.</span> The Authority Map
-              </h3>
-            </div>
+            <EssayMapPanel
+              id="authority-map"
+              index={2}
+              title="The Authority Map"
+            >
             <p className="map-prompt">
               <strong>
                 <em>Who depends on whom?</em>
@@ -376,18 +369,13 @@ export default function OmoikaneEssay() {
               move through it. Filter to institutions or funding links to see who
               holds the field together.
             </p>
-          </section>
+            </EssayMapPanel>
 
-          <section
-            className="map-section"
-            id="dependency-map"
-            aria-labelledby="dependency-map-h"
-          >
-            <div className="map-head">
-              <h3 id="dependency-map-h">
-                <span className="map-index">3.</span> The Dependency Map
-              </h3>
-            </div>
+            <EssayMapPanel
+              id="dependency-map"
+              index={3}
+              title="The Dependency Map"
+            >
             <p className="map-prompt">
               <strong>
                 <em>Where do these institutions meet?</em>
@@ -424,7 +412,8 @@ export default function OmoikaneEssay() {
               limited policy authority or accountability. Hover or select any
               point to read the drivers behind its position.
             </p>
-          </section>
+            </EssayMapPanel>
+          </EssayMapAccordion>
 
           <h2 id="strong-pilot">A Strong Pilot</h2>
           <p>
@@ -457,28 +446,107 @@ export default function OmoikaneEssay() {
             to one another.
           </p>
 
-          <h2 id="what-this-makes-possible">What This Makes Possible</h2>
+          <h2 id="what-we-owe-to-each-other">What We Owe to Each Other</h2>
           <p>
-            The world does not need another database of documents. It needs
-            better ways to understand how ideas move. Omoikane would map the
-            global policy frontier by identifying emerging ideas, tracing how
-            they move across institutions, and exposing gaps between technical
-            knowledge and public decision-making.
+            Then, as people working in policy and technology, we have to ask
+            ourselves: what is expected of us? More importantly, what do we owe
+            one another<FootnoteRef number={2} />, and what should that require
+            of us? I do not think the answer is that engineers should become
+            policymakers, or that policymakers need to understand every
+            technical detail. These fields exist separately for good reasons.
+            But once the same systems begin to shape public life, that
+            separation can no longer excuse the distance it has.
           </p>
           <p>
-            For students, it would help identify research opportunities before a
-            field becomes crowded. For policymakers, it would show where
-            expertise is missing. For technical experts, it would show how their
-            work connects to law, security, economics, and governance. For
-            institutions, it would show where silos need to be bridged rather
-            than ignored.
+            When different institutions each hold part of the knowledge needed
+            to understand a serious risk, they have some responsibility to make
+            those parts intelligible to one another. The failure in this
+            challenge is simply allowing the gaps and distance between them to
+            remain even after their consequences have become visible.
           </p>
           <p>
-            The goal is to make the structure of global policy easier to see. If
-            people can understand how an issue is forming, who is shaping it,
-            and where the gaps are, they can ask better questions before the
-            issue becomes impossible to avoid.
+            Alignment, then, is not a matter of policy catching up with
+            technology, or technology simply submitting to policy. It should
+            create enough shared understanding where each side can see what the
+            other knows, what it cannot know, and where responsibility cannot
+            simply be passed along. The goal is not to arrive at some perfect
+            agreement as we try to close this gap.<FootnoteRef number={3} /> What
+            matters is that the institutions involved can explain their
+            decisions to one another and to the people who will live with their
+            consequences.
           </p>
+          <p>
+            Omoikane is my attempt to make those relationships easier to see. It
+            would not tell institutions what to decide, nor would it remove
+            disagreement between them. It would show where knowledge sits,
+            where authority lies, and where one institution has become
+            dependent on another. I think that matters a lot, because good
+            judgment depends, at least in part, on having an honest picture of
+            the system in which decisions are being made.
+          </p>
+          <p>
+            Perhaps this is what the worlds of policy and technology owe one
+            another: not to become the same, but to make a serious effort to
+            render their knowledge understandable across the boundary between
+            them.
+          </p>
+
+          <section
+            className="essay-endnotes"
+            aria-labelledby="essay-notes-title"
+          >
+            <h3 id="essay-notes-title">Notes</h3>
+            <ol>
+              <li id="footnote-1">
+                In Ted Chiang&apos;s 2005 short story{' '}
+                <CitationLink id={14}>
+                  “What&apos;s Expected of Us,”
+                </CitationLink>{' '}
+                <CitationLink id={15}>PDF</CitationLink>, the story considers what
+                happens when people come to believe that the future is already
+                fixed and that their choices no longer matter. I am using it
+                here less as an argument about free will than as a warning
+                against the passive language that often surrounds technology.
+                We say that models will improve and governments will eventually
+                adapt, as though these were natural events rather than the
+                accumulated result of decisions made by companies, researchers,
+                and institutions. No one person controls the whole direction of
+                change, but that does not make judgment irrelevant. Someone
+                still chooses what is built, funded, regulated, or left alone.{' '}
+                <a className="footnote-back" href="#footnote-ref-1">
+                  Back to text
+                </a>
+              </li>
+              <li id="footnote-2">
+                I am using this phrase from T. M. Scanlon&apos;s{' '}
+                <CitationLink id={16}>
+                  <em>What We Owe to Each Other</em>
+                </CitationLink>{' '}
+                in a institutional sense. When technical and policy institutions
+                jointly shape systems that affect public life, neither can treat
+                the knowledge or responsibilities of the other as someone
+                else&apos;s problem.{' '}
+                <a className="footnote-back" href="#footnote-ref-2">
+                  Back to text
+                </a>
+              </li>
+              <li id="footnote-3">
+                <CitationLink id={17}>Scanlon&apos;s contractualism</CitationLink>{' '}
+                centres on whether conduct can be justified to others while
+                respecting their separate interests, rather than securing
+                agreement or producing a preferred overall outcome. I borrow
+                that distinction to claim that the worlds of policy and
+                technology do not need to agree on everything, but the decisions
+                they make together should be defensible to the people affected
+                by them. They may not owe one another agreement, but they do owe
+                one another enough openness to make their decisions defensible
+                to the people who will live with them.{' '}
+                <a className="footnote-back" href="#footnote-ref-3">
+                  Back to text
+                </a>
+              </li>
+            </ol>
+          </section>
         </div>
       </div>
     </article>
