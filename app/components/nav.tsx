@@ -2,48 +2,19 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
-
-type Theme = 'light' | 'dark'
-
-const THEME_KEY = 'cepheus-theme'
+import { useState } from 'react'
 
 export function Navbar() {
   const pathname = usePathname()
   const showHome = pathname !== '/'
-  const [theme, setTheme] = useState<Theme>('light')
-
-  useEffect(() => {
-    const syncTheme = () => {
-      setTheme(
-        document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
-      )
-    }
-    const handleStorage = (event: StorageEvent) => {
-      if (event.key !== THEME_KEY) return
-      const nextTheme: Theme = event.newValue === 'dark' ? 'dark' : 'light'
-      document.documentElement.dataset.theme = nextTheme
-      setTheme(nextTheme)
-    }
-
-    syncTheme()
-    window.addEventListener('storage', handleStorage)
-    return () => window.removeEventListener('storage', handleStorage)
-  }, [])
+  const [darkMode, setDarkMode] = useState(false)
 
   const toggleTheme = () => {
-    const nextTheme: Theme =
-      document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'
-    document.documentElement.dataset.theme = nextTheme
-    try {
-      window.localStorage.setItem(THEME_KEY, nextTheme)
-    } catch {
-      // The theme still applies for this page when storage is unavailable.
-    }
-    setTheme(nextTheme)
+    const nextDarkMode = !darkMode
+    document.documentElement.dataset.theme = nextDarkMode ? 'dark' : 'light'
+    setDarkMode(nextDarkMode)
   }
 
-  const darkMode = theme === 'dark'
   const themeLabel = darkMode ? 'Switch to light mode' : 'Switch to dark mode'
 
   return (

@@ -49,17 +49,6 @@ export const metadata: Metadata = {
 
 const cx = (...classes: Array<string | undefined>) => classes.filter(Boolean).join(' ')
 
-const themeScript = `
-  (function () {
-    try {
-      var storedTheme = window.localStorage.getItem('cepheus-theme');
-      document.documentElement.dataset.theme = storedTheme === 'dark' ? 'dark' : 'light';
-    } catch (error) {
-      document.documentElement.dataset.theme = 'light';
-    }
-  })();
-`
-
 export default function RootLayout({
   children,
 }: {
@@ -69,15 +58,11 @@ export default function RootLayout({
     <html
       lang="en"
       data-theme="light"
-      suppressHydrationWarning
       className={cx(
         display.variable,
         text.variable
       )}
     >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-      </head>
       <body>
         <main>
           <Navbar />
