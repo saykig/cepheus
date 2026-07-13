@@ -1,5 +1,10 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
+import {
+  EssayEndnotes,
+  EssayFootnoteProvider,
+  FootnoteRef,
+} from 'app/components/essay-footnotes'
 import { EssayIndex } from 'app/components/essay-index'
 import {
   EssayMapAccordion,
@@ -52,19 +57,6 @@ function CitationLink({ children, id }: { children: ReactNode; id: number }) {
   )
 }
 
-function FootnoteRef({ number }: { number: number }) {
-  return (
-    <a
-      className="footnote-ref"
-      href={`#footnote-${number}`}
-      id={`footnote-ref-${number}`}
-      aria-label={`Footnote ${number}`}
-    >
-      <sup>{number}</sup>
-    </a>
-  )
-}
-
 export default function OmoikaneEssay() {
   return (
     <article className="essay-page">
@@ -91,7 +83,8 @@ export default function OmoikaneEssay() {
       <div className="essay-layout">
         <EssayIndex sections={sections} updated={UPDATED} />
 
-        <div className="essay-body">
+        <EssayFootnoteProvider>
+          <div className="essay-body">
           <h2 className="essay-opening-heading" id="first-collision">
             The First Collision
           </h2>
@@ -491,63 +484,9 @@ export default function OmoikaneEssay() {
             them.
           </p>
 
-          <section
-            className="essay-endnotes"
-            aria-labelledby="essay-notes-title"
-          >
-            <h3 id="essay-notes-title">Notes</h3>
-            <ol>
-              <li id="footnote-1">
-                In Ted Chiang&apos;s 2005 short story{' '}
-                <CitationLink id={14}>
-                  “What&apos;s Expected of Us,”
-                </CitationLink>{' '}
-                <CitationLink id={15}>PDF</CitationLink>, the story considers what
-                happens when people come to believe that the future is already
-                fixed and that their choices no longer matter. I am using it
-                here less as an argument about free will than as a warning
-                against the passive language that often surrounds technology.
-                We say that models will improve and governments will eventually
-                adapt, as though these were natural events rather than the
-                accumulated result of decisions made by companies, researchers,
-                and institutions. No one person controls the whole direction of
-                change, but that does not make judgment irrelevant. Someone
-                still chooses what is built, funded, regulated, or left alone.{' '}
-                <a className="footnote-back" href="#footnote-ref-1">
-                  Back to text
-                </a>
-              </li>
-              <li id="footnote-2">
-                I am using this phrase from T. M. Scanlon&apos;s{' '}
-                <CitationLink id={16}>
-                  <em>What We Owe to Each Other</em>
-                </CitationLink>{' '}
-                in a institutional sense. When technical and policy institutions
-                jointly shape systems that affect public life, neither can treat
-                the knowledge or responsibilities of the other as someone
-                else&apos;s problem.{' '}
-                <a className="footnote-back" href="#footnote-ref-2">
-                  Back to text
-                </a>
-              </li>
-              <li id="footnote-3">
-                <CitationLink id={17}>Scanlon&apos;s contractualism</CitationLink>{' '}
-                centres on whether conduct can be justified to others while
-                respecting their separate interests, rather than securing
-                agreement or producing a preferred overall outcome. I borrow
-                that distinction to claim that the worlds of policy and
-                technology do not need to agree on everything, but the decisions
-                they make together should be defensible to the people affected
-                by them. They may not owe one another agreement, but they do owe
-                one another enough openness to make their decisions defensible
-                to the people who will live with them.{' '}
-                <a className="footnote-back" href="#footnote-ref-3">
-                  Back to text
-                </a>
-              </li>
-            </ol>
-          </section>
-        </div>
+            <EssayEndnotes />
+          </div>
+        </EssayFootnoteProvider>
       </div>
     </article>
   )

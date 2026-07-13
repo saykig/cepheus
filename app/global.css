@@ -615,7 +615,7 @@ button {
 
 /* ============================================================ Essay chrome */
 .essay-page {
-  width: min(100% - 48px, 1188px);
+  width: min(100% - 48px, 1320px);
   margin: 0 auto;
   padding: clamp(108px, 12vw, 148px) 0 0;
 }
@@ -629,7 +629,7 @@ button {
 }
 
 .essay-hero-inner {
-  margin-left: calc(236px + clamp(38px, 5vw, 76px));
+  margin-left: 240px;
 }
 
 .essay-kicker {
@@ -701,13 +701,14 @@ button {
 /* --- Two-column reading layout --- */
 .essay-layout {
   display: grid;
-  grid-template-columns: 236px minmax(0, 1fr);
-  gap: clamp(38px, 5vw, 76px);
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: 40px;
   align-items: start;
 }
 
 .essay-body {
-  max-width: 864px;
+  min-width: 0;
+  max-width: none;
   padding-bottom: clamp(3rem, 6vw, 5rem);
 }
 
@@ -717,7 +718,17 @@ button {
 .essay-body > .soft-note,
 .essay-body > .comparison,
 .map-lead {
-  max-width: 66ch;
+  max-width: 58ch;
+}
+
+.essay-body > p,
+.essay-body > h2 {
+  position: relative;
+}
+
+/* Heading-relative annotations should share the prose edge, not the h2 ch unit. */
+.essay-body > h2 {
+  max-width: 42rem;
 }
 
 .essay-body p,
@@ -899,23 +910,157 @@ button {
   margin: 0 0 0.85rem;
 }
 
+.footnote-control {
+  display: inline;
+  white-space: nowrap;
+}
+
 .footnote-ref {
-  margin-left: 0.12em;
+  appearance: none;
+  display: inline-grid;
+  place-items: center;
+  width: 1.08rem;
+  height: 1.08rem;
+  margin-left: 0.16em;
+  padding: 0;
+  border: 1px solid color-mix(in oklab, var(--olive) 24%, transparent);
+  border-radius: 3px;
+  background: color-mix(in oklab, var(--olive) 11%, var(--paper-bright));
   color: var(--olive);
+  cursor: help;
   font-family: var(--font-text), Georgia, serif;
-  font-size: 0.58em;
+  font-size: 0.66rem;
   font-weight: 700;
-  line-height: 0;
+  line-height: 1;
   text-decoration: none;
+  vertical-align: super;
+  transform: translateY(-0.04em);
+  transition: border-color var(--dur-1) var(--ease-quart),
+    background var(--dur-1) var(--ease-quart),
+    color var(--dur-1) var(--ease-quart);
 }
 
 .footnote-ref:hover,
 .footnote-ref:focus-visible {
+  border-color: color-mix(in oklab, var(--olive) 46%, transparent);
+  background: color-mix(in oklab, var(--olive) 18%, var(--paper-bright));
   color: var(--olive-deep);
 }
 
+.footnote-popover {
+  z-index: 15;
+  position: absolute;
+  top: 0;
+  left: calc(100% + 28px);
+  box-sizing: border-box;
+  width: 18rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid color-mix(in oklab, var(--olive) 23%, transparent);
+  border-radius: 6px;
+  background: color-mix(in oklab, var(--olive) 13%, var(--paper-bright));
+  box-shadow: 0 10px 28px -18px color-mix(in oklab, var(--ink) 28%, transparent),
+    0 1px 2px color-mix(in oklab, var(--ink) 8%, transparent);
+  color: var(--ink-soft);
+  font-family: var(--font-text), Georgia, serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+  white-space: normal;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(-0.38rem);
+  transition: opacity 280ms var(--ease-quart) 100ms,
+    transform 280ms var(--ease-quart) 100ms,
+    visibility 0s linear 380ms;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.footnote-popover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -28px;
+  width: 28px;
+}
+
+.footnote-popover .citation-link {
+  color: var(--ink);
+}
+
+.footnote-popover em {
+  color: inherit;
+}
+
+.footnote-read-more {
+  color: var(--olive-deep);
+  font-style: italic;
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in oklab, var(--olive) 60%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+}
+
+@media (hover: hover) {
+  .footnote-control:hover .footnote-popover,
+  .footnote-control:focus-within .footnote-popover {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(0);
+    transition: opacity 180ms var(--ease-quart),
+      transform 180ms var(--ease-quart), visibility 0s linear;
+  }
+}
+
+@media (hover: none) {
+  .footnote-control.is-touch-open .footnote-popover {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(0);
+    transition: opacity 180ms var(--ease-quart),
+      transform 180ms var(--ease-quart), visibility 0s linear;
+  }
+}
+
+@media (max-width: 1279px), (hover: none) {
+  .footnote-popover {
+    position: fixed;
+    top: auto;
+    right: auto;
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    left: 50%;
+    width: min(22rem, calc(100vw - 2rem));
+    max-height: min(70vh, 28rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    transform: translate(-50%, 0.45rem);
+  }
+
+  .footnote-popover::before {
+    display: none;
+  }
+}
+
+@media (max-width: 1279px) and (hover: hover) {
+  .footnote-control:hover .footnote-popover,
+  .footnote-control:focus-within .footnote-popover {
+    transform: translate(-50%, 0);
+  }
+}
+
+@media (hover: none) {
+  .footnote-control.is-touch-open .footnote-popover {
+    transform: translate(-50%, 0);
+  }
+}
+
 .essay-endnotes {
-  max-width: 66ch;
+  max-width: 58ch;
   margin-top: 3.2rem;
   padding-top: 1.35rem;
   border-top: 1px solid var(--rule);
@@ -2938,6 +3083,7 @@ html {
 
   .site-header,
   .essay-side,
+  .footnote-popover,
   .colophon-nav,
   .tool-about,
   .tool-info,
@@ -2975,5 +3121,14 @@ html {
 
   .map-accordion-icon {
     display: none;
+  }
+
+  .footnote-ref {
+    width: auto;
+    height: auto;
+    margin-left: 0.1em;
+    border: 0;
+    background: transparent;
+    color: inherit;
   }
 }

@@ -103,5 +103,81 @@
       "url": "https://plato.stanford.edu/entries/contractualism/",
       "note": "An overview of contractualism and Scanlon's account of justifiability to others."
     }
+  ],
+  "footnotes": [
+    {
+      "id": 1,
+      "readMore": true,
+      "body": [
+        {
+          "type": "text",
+          "text": "In Ted Chiang's 2005 short story "
+        },
+        {
+          "type": "source",
+          "sourceId": 14,
+          "text": "“What's Expected of Us,”"
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "source",
+          "sourceId": 15,
+          "text": "PDF"
+        },
+        {
+          "type": "text",
+          "text": ", the story considers what happens when people come to believe that the future is already fixed and that their choices no longer matter. I am using it here less as an argument about free will than as a warning against the passive language that often surrounds technology. We say that models will improve and governments will eventually adapt, as though these were natural events rather than the accumulated result of decisions made by companies, researchers, and institutions."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "readMore": false,
+      "body": [
+        {
+          "type": "text",
+          "text": "I am using this phrase from T. M. Scanlon's "
+        },
+        {
+          "type": "source",
+          "sourceId": 16,
+          "text": "What We Owe to Each Other",
+          "italic": true
+        },
+        {
+          "type": "text",
+          "text": " in a institutional sense. When technical and policy institutions jointly shape systems that affect public life, neither can treat the knowledge or responsibilities of the other as someone else's problem."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "readMore": true,
+      "preview": [
+        {
+          "type": "source",
+          "sourceId": 17,
+          "text": "Scanlon's contractualism"
+        },
+        {
+          "type": "text",
+          "text": " centres on whether conduct can be justified to others while respecting their separate interests, rather than securing agreement or producing a preferred overall outcome."
+        }
+      ],
+      "body": [
+        {
+          "type": "source",
+          "sourceId": 17,
+          "text": "Scanlon's contractualism"
+        },
+        {
+          "type": "text",
+          "text": " centres on whether conduct can be justified to others while respecting their separate interests, rather than securing agreement or producing a preferred overall outcome. I borrow that distinction to claim that the worlds of policy and technology do not need to agree on everything, but the decisions they make together should be defensible to the people affected by them. They may not owe one another agreement, but they do owe one another enough openness to make their decisions defensible to the people who will live with them."
+        }
+      ]
+    }
   ]
 }
