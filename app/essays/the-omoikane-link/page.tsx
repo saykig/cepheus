@@ -249,8 +249,6 @@ export default function OmoikaneEssay() {
               What is expected of us, then, is neither perfect coordination nor
               a single institution capable of seeing everything.
             </strong>{' '}
-            I do not think the answer is perfect coordination, nor do I think
-            one institution could ever understand the entire system on its own.
             What seems more realistic, and more useful, is to begin by seeing
             the relationships clearly. Who understands the technology? Who can
             make the decisions? I have found it helpful to think about these
