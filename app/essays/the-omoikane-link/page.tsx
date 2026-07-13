@@ -7,9 +7,8 @@ import { PolicyConstellationMap } from 'app/components/policy-constellation-map'
 import sourcesData from '../../../public/data/sources.json'
 
 export const metadata: Metadata = {
-  title: 'The Omoikane Link',
-  description:
-    'Can we build a better map of how power, technology, and policy are beginning to connect?',
+  title: 'What We Owe to Each Other',
+  description: 'What Technology and Policy can Offer to Humanity',
 }
 
 const sections = [
@@ -52,10 +51,9 @@ export default function OmoikaneEssay() {
     <article className="essay-page">
       <header className="essay-hero">
         <p className="essay-kicker">The Omoikane Link</p>
-        <h1>Mapping the Global Policy Frontier</h1>
+        <h1>What We Owe to Each Other</h1>
         <p className="essay-subtitle">
-          Can we build a better map of how power, technology, and policy are
-          beginning to connect?
+          What Technology and Policy can Offer to Humanity
         </p>
         <p className="essay-meta">
           <span className="author">Sara Kim</span>
