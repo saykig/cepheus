@@ -270,12 +270,16 @@ button {
 
 .header-actions {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 18px;
   pointer-events: auto;
 }
 
 .essay-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 20px;
   pointer-events: auto;
 }
 
@@ -285,7 +289,7 @@ button {
   flex: none;
   width: 40px;
   height: 20px;
-  margin: -2px 0 0;
+  margin: 0;
   padding: 0;
   border: 1px solid color-mix(in oklab, var(--ink) 72%, transparent);
   border-radius: var(--radius-pill);
