@@ -25,14 +25,13 @@ const sections = [
   { id: 'what-is-expected-of-us', title: 'What Is Expected of Us¹' },
   {
     id: 'three-maps',
-    title: 'Three Maps',
+    title: 'The Three Maps',
     children: [
       { id: 'knowledge-map', title: 'The Knowledge Map' },
       { id: 'authority-map', title: 'The Authority Map' },
       { id: 'dependency-map', title: 'The Dependency Map' },
     ],
   },
-  { id: 'strong-pilot', title: 'Pilot' },
   { id: 'what-we-owe-to-each-other', title: 'What We Owe to Each Other' },
 ]
 
@@ -261,11 +260,6 @@ export default function OmoikaneEssay() {
           </p>
 
           <h2 id="three-maps">The Three Maps</h2>
-          <p className="map-lead">
-            The platform would organize the field through three maps. These maps
-            are not separate products. They are different ways of reading the
-            same policy ecosystem.
-          </p>
 
           <EssayMapAccordion mapIds={MAP_IDS}>
             <EssayMapPanel
@@ -407,37 +401,6 @@ export default function OmoikaneEssay() {
             </p>
             </EssayMapPanel>
           </EssayMapAccordion>
-
-          <h2 id="strong-pilot">A Strong Pilot</h2>
-          <p>
-            The strongest pilot would map the cluster around AI, security, and
-            strategic technology. This would include AI governance,
-            cybersecurity, military AI, AI safety, compute governance, export
-            controls, semiconductor policy, supply chains, critical minerals,
-            economic security, defence innovation, Arctic security, undersea
-            infrastructure, autonomous maritime systems, and strategic
-            foresight.
-          </p>
-          <p>
-            This cluster works because several worlds are already colliding
-            there: technology, defence, economics, law, and international
-            relations. AI systems are developing quickly. Governments are trying
-            to regulate systems they often do not fully understand. Military
-            planners are thinking about autonomy, undersea warfare, and
-            deterrence in settings where technical details matter. Universities
-            and think tanks are producing research, but that research does not
-            always reach the institutions making decisions.
-          </p>
-          <p>
-            The theory behind Omoikane is simple: a field becomes politically
-            important when new technology creates new capabilities, geopolitical
-            pressure raises the stakes, and existing institutions are too
-            fragmented to respond clearly. Omoikane would make those mismatches
-            easier to see by showing where the map is crowded, where language
-            breaks down, where research is missing, and where decisions are
-            being made before the relevant communities have learned how to talk
-            to one another.
-          </p>
 
           <h2 id="what-we-owe-to-each-other">What We Owe to Each Other</h2>
           <p>

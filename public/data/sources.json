@@ -108,6 +108,30 @@
     {
       "id": 1,
       "readMore": true,
+      "preview": [
+        {
+          "type": "text",
+          "text": "In Ted Chiang's 2005 short story "
+        },
+        {
+          "type": "source",
+          "sourceId": 14,
+          "text": "“What's Expected of Us,”"
+        },
+        {
+          "type": "text",
+          "text": " "
+        },
+        {
+          "type": "source",
+          "sourceId": 15,
+          "text": "PDF"
+        },
+        {
+          "type": "text",
+          "text": ", the story considers what happens when people come to believe that the future is already fixed and that their choices no longer matter. I am using it here less as an argument about free will than as a warning against the passive language that often surrounds technology."
+        }
+      ],
       "body": [
         {
           "type": "text",
