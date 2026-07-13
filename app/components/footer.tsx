@@ -35,7 +35,7 @@ export default function Footer() {
           <div>
             <div className="colophon-word">Cepheus</div>
             <p className="colophon-tagline">
-              Essays on power, technology, and policy.
+              Bridging the gap between policy and technology.
             </p>
           </div>
         </div>

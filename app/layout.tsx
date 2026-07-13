@@ -25,10 +25,10 @@ export const metadata: Metadata = {
     default: 'Cepheus',
     template: '%s | Cepheus',
   },
-  description: 'Essays on power, technology, and policy.',
+  description: 'Bridging the gap between policy and technology.',
   openGraph: {
     title: 'Cepheus',
-    description: 'Essays on power, technology, and policy.',
+    description: 'Bridging the gap between policy and technology.',
     url: baseUrl,
     siteName: 'Cepheus',
     locale: 'en_US',

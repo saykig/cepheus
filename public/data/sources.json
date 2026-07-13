@@ -116,11 +116,11 @@
         {
           "type": "source",
           "sourceId": 14,
-          "text": "“What's Expected of Us,”"
+          "text": "“What's Expected of Us”"
         },
         {
           "type": "text",
-          "text": " "
+          "text": " ("
         },
         {
           "type": "source",
@@ -129,7 +129,7 @@
         },
         {
           "type": "text",
-          "text": ", the story considers what happens when people come to believe that the future is already fixed and that their choices no longer matter. I am using it here less as an argument about free will than as a warning against the passive language that often surrounds technology."
+          "text": "), the story considers what happens when people come to believe that the future is already fixed and that their choices no longer matter. I am using it here less as an argument about free will than as a warning against the passive language that often surrounds technology."
         }
       ],
       "body": [

@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 const sections = [
   { id: 'first-collision', title: 'The First Collision' },
-  { id: 'what-is-expected-of-us', title: 'What Is Expected of Us¹' },
+  { id: 'what-is-expected-of-us', title: 'What Is Expected of Us' },
   {
     id: 'three-maps',
     title: 'The Three Maps',

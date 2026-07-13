@@ -144,8 +144,8 @@ export function EssayIndex({
       }
     >
       <p className="essay-side-note">
-        A research platform for seeing where emerging fields begin to overlap,
-        accelerate, and harden into public decisions.
+        Technology is often built in one world and governed in another. Omoikane
+        maps the distance between them.
       </p>
 
       <nav className="essay-scroll-index" aria-label="Sections">
