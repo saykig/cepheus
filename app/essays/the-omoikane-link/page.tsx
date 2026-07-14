@@ -197,11 +197,23 @@ export default function OmoikaneEssay() {
           </p>
           <p>
             I have found it helpful to think of these as three views of the same
-            system. The Gap Matrix shows where technical knowledge and public
-            authority separate. The Institutional Friction Index shows how that
-            mismatch differs across fields. The Institutional Link Map traces
-            the dependencies and interfaces through which these institutions
-            might be connected.
+            system. The{' '}
+            <a className="citation-link" href="#gap-matrix">
+              Gap Matrix
+            </a>{' '}
+            shows where technical knowledge and public authority separate. The{' '}
+            <a
+              className="citation-link"
+              href="#institutional-friction-explorer"
+            >
+              Friction Index
+            </a>{' '}
+            shows how that mismatch differs across fields. The{' '}
+            <a className="citation-link" href="#omoikane-map">
+              Institutional Link Map
+            </a>{' '}
+            traces the dependencies and interfaces through which these
+            institutions might be connected.
           </p>
           <p>
             This is the core claim of the Omoikane Link. Its central claim is
