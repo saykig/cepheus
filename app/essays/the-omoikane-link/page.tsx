@@ -151,6 +151,11 @@ export default function OmoikaneEssay() {
 
           <section className="essay-visual-block" id="gap-matrix">
             <GapMapMatrix />
+            <p className="tool-caption">
+              Fields far below the diagonal draw heavy technical activity with
+              limited policy authority or accountability. Hover or select any
+              point to read the drivers behind its position.
+            </p>
             <EssayDisclosure title="Where do these institutions meet?">
               <p>
                 The answer may include procurement contracts, model-use policies,
@@ -176,11 +181,6 @@ export default function OmoikaneEssay() {
                 contested interface. The contract connected a private model to a
                 public mission, but it did not produce agreement over who could
                 define the acceptable conditions of use.
-              </p>
-              <p className="disclosure-caption">
-                Fields far below the diagonal draw heavy technical activity with
-                limited policy authority or accountability. Hover or select any
-                point to read the drivers behind its position.
               </p>
             </EssayDisclosure>
           </section>
@@ -290,6 +290,10 @@ export default function OmoikaneEssay() {
             id="institutional-friction-explorer"
           >
             <FrontierScoreExplorer />
+            <p className="tool-caption">
+              Adjust the weights to test how knowledge, authority, dependency,
+              and coordination change the ranking.
+            </p>
             <EssayDisclosure title="Who can actually decide?">
               <p>
                 Authority can include the power to regulate, procure, deploy,
@@ -316,10 +320,6 @@ export default function OmoikaneEssay() {
                 The dispute was not simply about whether the military or the
                 company had authority. It was about which kind of authority
                 applied to which decision.
-              </p>
-              <p className="disclosure-caption">
-                Adjust the weights to test how knowledge, authority, dependency,
-                and coordination change the ranking.
               </p>
             </EssayDisclosure>
           </section>
@@ -392,6 +392,11 @@ export default function OmoikaneEssay() {
 
           <section className="essay-visual-block" id="omoikane-map">
             <PolicyConstellationMap />
+            <p className="tool-caption">
+              Select any point to read how influence, information, and funding
+              move through it. Filter to institutions or funding links to see
+              who holds the field together.
+            </p>
             <EssayDisclosure title="Who depends on whom?">
               <p>
                 A government may possess legal authority while depending on a
@@ -429,11 +434,6 @@ export default function OmoikaneEssay() {
                 The Institutional Link Map would make these
                 relationships visible because dependency can shape decisions as
                 strongly as law does.
-              </p>
-              <p className="disclosure-caption">
-                Select any point to read how influence, information, and funding
-                move through it. Filter to institutions or funding links to see
-                who holds the field together.
               </p>
             </EssayDisclosure>
           </section>

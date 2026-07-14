@@ -36,7 +36,7 @@ export function EssayIndex({
         document.documentElement.scrollHeight - window.innerHeight
       const next = scrollable > 0 ? window.scrollY / scrollable : 0
       setProgress(Math.min(1, Math.max(0, next)))
-      setNoteOpacity(Math.max(0.5, 1 - window.scrollY / 360))
+      setNoteOpacity(Math.max(0.78, 1 - window.scrollY / 1800))
 
       const current = flatSections.reduce((active, section) => {
         const element = document.getElementById(section.id)
