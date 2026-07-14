@@ -186,10 +186,10 @@ export default function OmoikaneEssay() {
           </section>
 
           <p>
+            The third question is key.{' '}
             <strong>
-              The last question is the key one. What is expected of us, then,
-              is neither perfect coordination nor a single institution capable
-              of seeing everything.
+              What is expected of us, then, is neither perfect coordination nor
+              a single institution capable of seeing everything.
             </strong>{' '}
             A more realistic starting point is to make the relationships
             visible: who understands the technology, who can make the

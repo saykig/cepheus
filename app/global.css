@@ -33,6 +33,7 @@
   --paper-sink: oklch(0.886 0.030 81);
   --ink: oklch(0.285 0.043 47);
   --ink-soft: oklch(0.405 0.050 44);
+  --essay-prose: oklch(0.355 0.048 44);
   --ink-muted: oklch(0.520 0.038 46);
   --ink-faint: oklch(0.620 0.028 50);
 
@@ -144,6 +145,7 @@ html[data-theme="dark"] {
   --paper-sink: #151413;
   --ink: #f0eee6;
   --ink-soft: #d8d3c9;
+  --essay-prose: #d8d3c9;
   --ink-muted: #aaa59b;
   --ink-faint: #817d75;
   --olive: #a5b889;
@@ -889,6 +891,11 @@ html[data-theme="dark"] .theme-toggle::after {
   color: var(--ink-soft);
   font-size: var(--t-body);
   line-height: 1.82;
+}
+
+.essay-body > p,
+.essay-body .essay-questions li {
+  color: var(--essay-prose);
 }
 
 .essay-body p {
@@ -3495,6 +3502,7 @@ html {
     --paper-sink: oklch(0.886 0.030 81);
     --ink: oklch(0.285 0.043 47);
     --ink-soft: oklch(0.405 0.050 44);
+    --essay-prose: oklch(0.355 0.048 44);
     --ink-muted: oklch(0.520 0.038 46);
     --ink-faint: oklch(0.620 0.028 50);
     --olive: oklch(0.470 0.083 133);
