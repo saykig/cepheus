@@ -921,13 +921,17 @@ html[data-theme="dark"] .theme-toggle::after {
 
 .essay-body .essay-questions li {
   position: relative;
-  margin-bottom: 0.18rem;
+  margin-bottom: 0;
   padding-left: 2rem;
   color: var(--ink-soft);
   font-size: var(--t-body);
   font-weight: 700;
   line-height: 1.48;
   counter-increment: essay-question;
+}
+
+.essay-body .essay-questions li + li {
+  margin-top: 0.5625rem;
 }
 
 .essay-body .essay-questions strong {
@@ -979,6 +983,10 @@ html[data-theme="dark"] .theme-toggle::after {
 @media (min-width: 901px) {
   .essay-layout {
     gap: 72px;
+  }
+
+  .essay-body .essay-questions {
+    margin-left: 3.5rem;
   }
 
   .essay-body {
