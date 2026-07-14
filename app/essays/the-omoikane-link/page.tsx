@@ -21,7 +21,7 @@ const sections = [
   {
     id: 'first-collision',
     title: 'The First Collision',
-    children: [{ id: 'gap-matrix', title: 'Gap Matrix' }],
+    children: [{ id: 'gap-matrix', title: 'The Gap' }],
   },
   {
     id: 'what-is-expected-of-us',
@@ -29,14 +29,14 @@ const sections = [
     children: [
       {
         id: 'institutional-friction-explorer',
-        title: 'Institutional Friction Explorer',
+        title: 'The Friction',
       },
     ],
   },
   {
     id: 'what-do-we-owe-to-each-other',
     title: 'What Do We Owe to Each Other?',
-    children: [{ id: 'omoikane-map', title: 'The Omoikane Link' }],
+    children: [{ id: 'omoikane-map', title: 'The Link' }],
   },
 ]
 
@@ -187,23 +187,28 @@ export default function OmoikaneEssay() {
 
           <p>
             <strong>
-              What is expected of us, then, is neither perfect coordination nor
-              a single institution capable of seeing everything.
+              The last question is the key one. What is expected of us, then,
+              is neither perfect coordination nor a single institution capable
+              of seeing everything.
             </strong>{' '}
-            What seems more realistic, and more useful, is to begin by seeing
-            the relationships clearly. Who understands the technology? Who can
-            make the decisions? I have found it helpful to think about these
-            questions as three maps of the same world. Each reveals something
-            the others cannot, and together they begin to show where AI and
-            policy meet, and where they still come apart.
+            A more realistic starting point is to make the relationships
+            visible: who understands the technology, who can make the
+            decisions, and where responsibility sits.
           </p>
           <p>
-            This is where the thought process behind Omoikane began for me. The
-            main claim behind the project is that the central governance problem
-            of frontier AI is the separation of technical knowledge and public
-            accountability. The greater the distance between who knows, who
-            decides, and who bears the risk, the more likely AI policy is to
-            become late, adversarial, or technically unworkable. Omoikane is
+            I have found it helpful to think of these as three views of the same
+            system. The Gap Matrix shows where technical knowledge and public
+            authority separate. The Institutional Friction Index shows how that
+            mismatch differs across fields. The Institutional Link Map traces
+            the dependencies and interfaces through which these institutions
+            might be connected.
+          </p>
+          <p>
+            This is the core claim of the Omoikane Link. Its central claim is
+            that the governance problem of frontier AI lies in the distance
+            between who knows, who decides, and who bears the risk. The greater
+            that distance, the more likely AI policy is to become late,
+            adversarial, or technically unworkable. Omoikane is therefore
             proposed as a policy-intelligence platform for mapping that distance
             across public and private institutions.
           </p>
@@ -409,7 +414,7 @@ export default function OmoikaneEssay() {
                 and proprietary AI tools.
               </p>
               <p>
-                The Institutional Constellation Map would make these
+                The Institutional Link Map would make these
                 relationships visible because dependency can shape decisions as
                 strongly as law does.
               </p>

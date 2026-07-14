@@ -969,6 +969,34 @@ html[data-theme="dark"] .theme-toggle::after {
   background: color-mix(in oklab, var(--olive) 5%, var(--paper-bright));
 }
 
+@media (min-width: 901px) {
+  .essay-body {
+    --essay-reading-width: 45.15625rem;
+  }
+
+  .essay-body > p,
+  .essay-body > .soft-note,
+  .essay-body > .comparison {
+    max-width: min(100%, var(--essay-reading-width));
+  }
+
+  .essay-visual-block {
+    margin-bottom: 20px;
+  }
+
+  .essay-visual-block > .tool {
+    box-sizing: border-box;
+    width: min(1000px, calc(100% - 32px));
+    margin-left: -16px;
+  }
+
+  .essay-visual-block > .essay-disclosure {
+    box-sizing: border-box;
+    width: min(100%, var(--essay-reading-width));
+    margin-top: 0.72rem;
+  }
+}
+
 .essay-disclosure > h3 {
   margin: 0;
 }
