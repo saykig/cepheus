@@ -970,6 +970,10 @@ html[data-theme="dark"] .theme-toggle::after {
 }
 
 @media (min-width: 901px) {
+  .essay-layout {
+    gap: 72px;
+  }
+
   .essay-body {
     --essay-reading-width: 45.15625rem;
   }
@@ -986,8 +990,8 @@ html[data-theme="dark"] .theme-toggle::after {
 
   .essay-visual-block > .tool {
     box-sizing: border-box;
-    width: min(1000px, calc(100% - 32px));
-    margin-left: -16px;
+    width: min(100%, var(--essay-reading-width));
+    margin-left: 0;
   }
 
   .essay-visual-block > .essay-disclosure {
@@ -1215,7 +1219,7 @@ html[data-theme="dark"] .theme-toggle::after {
   }
 }
 
-@media (max-width: 1279px), (hover: none) {
+@media (max-width: 1339px), (hover: none) {
   .footnote-popover {
     position: fixed;
     top: auto;
@@ -1234,7 +1238,7 @@ html[data-theme="dark"] .theme-toggle::after {
   }
 }
 
-@media (max-width: 1279px) and (hover: hover) {
+@media (max-width: 1339px) and (hover: hover) {
   .footnote-control:hover .footnote-popover,
   .footnote-control:focus-within .footnote-popover {
     transform: translate(-50%, 0);

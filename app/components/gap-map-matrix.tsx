@@ -31,7 +31,7 @@ type GapData = {
 
 const sx = (v: number) => v
 const sy = (v: number) => 100 - v
-const rFor = (v: number) => 2 + (Math.sqrt(v) / 10) * 3.6
+const rFor = (v: number) => (2 + (Math.sqrt(v) / 10) * 3.6) * 1.16
 
 const colorFor = (t: Topic) => `var(--series-${t.series})`
 
@@ -128,7 +128,7 @@ export function GapMapMatrix() {
               <WatercolorNode
                 cx={20}
                 cy={7}
-                radius={4.2}
+                radius={4.9}
                 filterId="gap-legend-watercolor"
               />
             </g>
@@ -139,7 +139,7 @@ export function GapMapMatrix() {
 
       <div className="gap-layout">
         <div className="gap-plot">
-          <svg viewBox="-15 -8 123 122" role="img" aria-label={`${data.title}: ${preset.label}`}>
+          <svg viewBox="-12 -5 116 117" role="img" aria-label={`${data.title}: ${preset.label}`}>
             <defs>
               <WatercolorNodeDefs id="gap-node-watercolor" />
             </defs>
@@ -170,10 +170,10 @@ export function GapMapMatrix() {
             </text>
             <text
               className="gap-axis-title"
-              x={-11}
+              x={-8}
               y={50}
               textAnchor="middle"
-              transform="rotate(-90 -11 50)"
+              transform="rotate(-90 -8 50)"
             >
               {preset.y.label}
             </text>

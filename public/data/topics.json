@@ -45,21 +45,6 @@
     }
   },
   {
-    "id": "data-governance",
-    "label": "Data Governance",
-    "series": 4,
-    "importance": 74,
-    "description": "Control over how data is collected, shared, protected, and used.",
-    "gapType": "Weak oversight",
-    "gap": "Broad public stakes with no clear owner and limited oversight of large private data systems.",
-    "coords": {
-      "knowledge": 66,
-      "authority": 44,
-      "dependency": 78,
-      "oversight": 34
-    }
-  },
-  {
     "id": "biosecurity",
     "label": "Biosecurity",
     "series": 5,

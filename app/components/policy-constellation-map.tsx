@@ -226,7 +226,7 @@ export function PolicyConstellationMap() {
 
       <div className="constellation-layout">
         <div className="constellation-canvas">
-          <svg viewBox="-10 10 122 96" role="img" aria-label={`${data.title}: ${data.nodes.length} nodes`}>
+          <svg viewBox="2 17 100 82" role="img" aria-label={`${data.title}: ${data.nodes.length} nodes`}>
             <defs>
               <WatercolorNodeDefs id="constellation-node-watercolor" />
               <marker

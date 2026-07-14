@@ -63,18 +63,6 @@
       "size": 4.75
     },
     {
-      "id": "data-governance",
-      "label": "Data Governance",
-      "kind": "topic",
-      "type": "Field",
-      "series": 4,
-      "description": "Control over how data is collected, shared, protected, and used.",
-      "gap": "Broad public stakes with no clear owner and limited oversight of large private data systems.",
-      "x": 39,
-      "y": 29,
-      "size": 4.51
-    },
-    {
       "id": "biosecurity",
       "label": "Biosecurity",
       "kind": "topic",
@@ -191,15 +179,6 @@
       "interfaceType": null
     },
     {
-      "source": "nist",
-      "target": "data-governance",
-      "kind": "knowledge",
-      "strength": 0.66,
-      "description": "NIST expertise extends to data protection and measurement.",
-      "directed": false,
-      "interfaceType": null
-    },
-    {
       "source": "cisa",
       "target": "cybersecurity",
       "kind": "knowledge",
@@ -254,15 +233,6 @@
       "interfaceType": null
     },
     {
-      "source": "openai",
-      "target": "data-governance",
-      "kind": "knowledge",
-      "strength": 0.62,
-      "description": "Model training makes data practice a core competence.",
-      "directed": false,
-      "interfaceType": null
-    },
-    {
       "source": "anthropic",
       "target": "ai-governance",
       "kind": "knowledge",
@@ -295,15 +265,6 @@
       "kind": "knowledge",
       "strength": 0.86,
       "description": "Biological research and evaluation live in universities.",
-      "directed": false,
-      "interfaceType": null
-    },
-    {
-      "source": "universities",
-      "target": "data-governance",
-      "kind": "knowledge",
-      "strength": 0.7,
-      "description": "Independent research on data and privacy.",
       "directed": false,
       "interfaceType": null
     },
