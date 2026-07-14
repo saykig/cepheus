@@ -1,6 +1,6 @@
 'use client'
 
-import type { ReactNode } from 'react'
+import type { MouseEvent, ReactNode } from 'react'
 import {
   createContext,
   useCallback,
@@ -9,6 +9,7 @@ import {
   useState,
 } from 'react'
 import sourcesData from '../../public/data/sources.json'
+import { scrollToEssayTarget } from './essay-scroll'
 
 type FootnoteSegment = {
   type: 'text' | 'source'
@@ -173,6 +174,14 @@ export function FootnoteRef({ number }: { number: number }) {
 }
 
 export function EssayEndnotes() {
+  const handleBackToText = (
+    event: MouseEvent<HTMLAnchorElement>,
+    number: number,
+  ) => {
+    event.preventDefault()
+    scrollToEssayTarget(`footnote-ref-${number}`, true)
+  }
+
   return (
     <section className="essay-endnotes" aria-labelledby="essay-notes-title">
       <h3 id="essay-notes-title">Notes</h3>
@@ -180,7 +189,11 @@ export function EssayEndnotes() {
         {footnotes.map((note) => (
           <li id={`footnote-${note.id}`} key={note.id}>
             <FootnoteContent segments={note.body} />{' '}
-            <a className="footnote-back" href={`#footnote-ref-${note.id}`}>
+            <a
+              className="footnote-back"
+              href={`#footnote-ref-${note.id}`}
+              onClick={(event) => handleBackToText(event, note.id)}
+            >
               Back to text
             </a>
           </li>

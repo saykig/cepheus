@@ -2,6 +2,7 @@
 
 import type { CSSProperties } from 'react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { getEssayTargetOffset } from './essay-scroll'
 
 type Section = {
   id: string
@@ -17,10 +18,15 @@ export function EssayIndex({
   updated?: string
 }) {
   const [activeId, setActiveId] = useState(sections[0]?.id)
+  const [visibleChildId, setVisibleChildId] = useState<string | null>(null)
   const [progress, setProgress] = useState(0)
   const [noteOpacity, setNoteOpacity] = useState(1)
   const flatSections = useMemo(
     () => sections.flatMap((section) => [section, ...(section.children ?? [])]),
+    [sections],
+  )
+  const childSections = useMemo(
+    () => sections.flatMap((section) => section.children ?? []),
     [sections],
   )
 
@@ -38,6 +44,25 @@ export function EssayIndex({
         return element.getBoundingClientRect().top <= 320 ? section.id : active
       }, flatSections[0]?.id)
       setActiveId(current)
+
+      const visibleChild = childSections.find((section) => {
+        const element = document.getElementById(section.id)
+        if (!element) return false
+        const rect = element.getBoundingClientRect()
+        return rect.top < window.innerHeight && rect.bottom > 0
+      })
+
+      setVisibleChildId((previous) => {
+        if (visibleChild) return visibleChild.id
+        if (!previous) return null
+
+        const previousElement = document.getElementById(previous)
+        if (!previousElement) return null
+        const rect = previousElement.getBoundingClientRect()
+        return rect.top < window.innerHeight && rect.bottom > -48
+          ? previous
+          : null
+      })
     }
 
     update()
@@ -47,7 +72,7 @@ export function EssayIndex({
       window.removeEventListener('scroll', update)
       window.removeEventListener('resize', update)
     }
-  }, [flatSections])
+  }, [childSections, flatSections])
 
   useEffect(() => {
     const id = decodeURIComponent(window.location.hash.slice(1))
@@ -65,7 +90,7 @@ export function EssayIndex({
       const root = document.documentElement
       const previousBehavior = root.style.scrollBehavior
       root.style.scrollBehavior = 'auto'
-      const offset = window.innerWidth <= 780 ? 76 : 104
+      const offset = getEssayTargetOffset(id)
       window.scrollTo({
         top: window.scrollY + target.getBoundingClientRect().top - offset,
       })
@@ -99,7 +124,11 @@ export function EssayIndex({
   ) => {
     const index = flatSections.findIndex((item) => item.id === section.id)
     const isReached = index >= 0 && index <= activeIndex
-    const isActive = activeId === section.id
+    const activeChildIsHidden =
+      !child &&
+      section.children?.some((item) => item.id === activeId) &&
+      visibleChildId !== activeId
+    const isActive = activeId === section.id || Boolean(activeChildIsHidden)
 
     return (
       <a
@@ -141,9 +170,7 @@ export function EssayIndex({
       <nav className="essay-scroll-index" aria-label="Sections">
         {sections.map((section) => {
           const childIds = section.children?.map((child) => child.id) ?? []
-          const branchOpen =
-            childIds.length > 0 &&
-            (activeId === section.id || childIds.includes(activeId ?? ''))
+          const branchOpen = childIds.includes(visibleChildId ?? '')
 
           return (
             <div className="essay-index-group" key={section.id}>

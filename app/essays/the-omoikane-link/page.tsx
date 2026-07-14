@@ -34,8 +34,8 @@ const sections = [
     ],
   },
   {
-    id: 'what-we-owe-to-each-other',
-    title: 'What We Owe to Each Other',
+    id: 'what-do-we-owe-to-each-other',
+    title: 'What Do We Owe to Each Other?',
     children: [{ id: 'omoikane-map', title: 'The Omoikane Link' }],
   },
 ]
@@ -74,10 +74,6 @@ export default function OmoikaneEssay() {
           </p>
           <p className="essay-meta">
             <span className="author">Sara Kim</span>
-            <span className="sep" aria-hidden="true">
-              /
-            </span>
-            <span>Updated {UPDATED}</span>
           </p>
         </div>
       </header>
@@ -331,7 +327,9 @@ export default function OmoikaneEssay() {
             divisions also become the main way we understand issues that are
             already moving across them.
           </p>
-          <h2 id="what-we-owe-to-each-other">What We Owe to Each Other</h2>
+          <h2 id="what-do-we-owe-to-each-other">
+            What Do We Owe to Each Other?
+          </h2>
           <p>
             Then, as people working in policy and technology, we have to ask
             ourselves: what is expected of us? More importantly, what do we owe

@@ -119,6 +119,10 @@
   --dur-3: 620ms;
   --dur-draw: 1300ms;
 
+  /* --- In-page return positioning --- */
+  --footnote-return-context: 118px;
+  --footnote-scroll-margin: 168px;
+
   /* --- Syntax highlight (blog leftover) --- */
   --sh-class: #2d5e9d;
   --sh-identifier: #354150;
@@ -774,9 +778,8 @@ html[data-theme="dark"] .theme-toggle::after {
 /* --- Hero --- */
 .essay-hero {
   max-width: 960px;
-  margin-bottom: clamp(3rem, 6vw, 5rem);
-  padding-bottom: clamp(2rem, 4vw, 2.8rem);
-  border-bottom: 1px solid var(--rule);
+  margin-bottom: 2.4rem;
+  padding-bottom: 0;
 }
 
 .essay-hero-inner {
@@ -934,13 +937,6 @@ html[data-theme="dark"] .theme-toggle::after {
   font-style: normal;
 }
 
-/* lead paragraph */
-.essay-body > p:first-of-type {
-  color: var(--ink);
-  font-size: 1.16rem;
-  line-height: 1.72;
-}
-
 .essay-body h2 {
   margin: clamp(3rem, 5vw, 4.2rem) 0 1.35rem;
   color: var(--ink);
@@ -1058,10 +1054,19 @@ html[data-theme="dark"] .theme-toggle::after {
 }
 
 .essay-body .essay-disclosure-panel-inner .disclosure-caption {
+  display: block;
+  max-width: none;
+  margin-top: 0.72rem;
   color: var(--ink-muted);
   font-size: 0.78rem;
   font-style: italic;
   line-height: 1.45;
+  white-space: normal;
+  word-spacing: normal;
+}
+
+.essay-body .essay-disclosure-panel-inner .disclosure-caption::before {
+  content: "* ";
 }
 
 .footnote-control {
@@ -1078,6 +1083,7 @@ html[data-theme="dark"] .theme-toggle::after {
   margin-left: 0.16em;
   padding: 0;
   border: 1px solid color-mix(in oklab, var(--olive) 24%, transparent);
+  scroll-margin-top: var(--footnote-scroll-margin);
   border-radius: 3px;
   background: color-mix(in oklab, var(--olive) 11%, var(--paper-bright));
   color: var(--olive);
@@ -3249,17 +3255,199 @@ html {
 }
 
 @media (max-width: 560px) {
+  :root {
+    --t-body: 0.92rem;
+    --t-h2: 1.64rem;
+    --t-tool: 1.08rem;
+    --t-small: 0.78rem;
+    --t-label: 0.64rem;
+    --t-tick: 0.58rem;
+    --footnote-return-context: 198px;
+    --footnote-scroll-margin: 240px;
+  }
+
+  .essay-hero {
+    margin-bottom: 1.75rem;
+  }
+
   .essay-hero h1 {
-    font-size: clamp(2.55rem, 13vw, 3.3rem);
+    font-size: 2.38rem;
+    line-height: 1.03;
   }
 
   .essay-subtitle {
     max-width: 32ch;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .essay-meta {
+    margin-top: 1.25rem;
+    font-size: 0.74rem;
+  }
+
+  .essay-side {
+    margin-bottom: 1.85rem;
+    padding-bottom: 1.15rem;
+  }
+
+  .essay-side-note {
+    margin-bottom: 1.15rem;
+    font-size: 0.76rem;
+    line-height: 1.45;
+  }
+
+  .essay-rail-actions {
+    gap: 0.25rem;
+    margin-top: 1rem;
+  }
+
+  .rail-download {
+    font-size: 0.58rem;
+    line-height: 1.25;
+  }
+
+  .rail-download svg {
+    width: 9px;
+    height: 9px;
+  }
+
+  .rail-updated {
+    font-size: 0.56rem;
+  }
+
+  .essay-body p,
+  .essay-body li {
+    font-size: var(--t-body);
+    line-height: 1.68;
+  }
+
+  .essay-body p {
+    margin-bottom: 1rem;
+  }
+
+  .essay-body h2 {
+    margin: 2.4rem 0 1rem;
+    font-size: var(--t-h2);
+  }
+
+  .essay-body .essay-opening-heading {
+    margin-top: 0;
+  }
+
+  .essay-body .essay-questions li {
+    font-size: var(--t-body);
+    line-height: 1.42;
+  }
+
+  .footnote-ref {
+    width: 0.96rem;
+    height: 0.96rem;
+    font-size: 0.68rem;
+  }
+
+  .footnote-popover {
+    font-size: 0.74rem;
+    line-height: 1.45;
+  }
+
+  .essay-body .essay-endnotes li {
+    font-size: 0.74rem;
+    line-height: 1.48;
+  }
+
+  .footnote-back {
+    font-size: 0.66rem;
   }
 
   .essay-disclosure-trigger {
-    padding: 0.85rem 0.9rem;
-    font-size: 0.94rem;
+    padding: 0.75rem 0.82rem;
+    font-size: 0.83rem;
+    line-height: 1.25;
+  }
+
+  .essay-body .essay-disclosure-panel-inner p {
+    font-size: 0.8rem;
+    line-height: 1.46;
+  }
+
+  .essay-body .essay-disclosure-panel-inner .disclosure-caption {
+    font-size: 0.7rem;
+    line-height: 1.4;
+  }
+
+  .tool {
+    padding: 1rem;
+  }
+
+  .tool-title {
+    font-size: var(--t-tool);
+  }
+
+  .tool .tool-subtitle {
+    margin: 0.55rem 0 0.9rem;
+    font-size: 0.78rem;
+    line-height: 1.3;
+  }
+
+  .tool-about > summary {
+    font-size: 0.67rem;
+  }
+
+  .tool-about-body {
+    font-size: 0.73rem;
+    line-height: 1.45;
+  }
+
+  .tool-label {
+    font-size: var(--t-label);
+  }
+
+  .chip,
+  .toggle,
+  .search-box input {
+    font-size: 0.67rem;
+  }
+
+  .chip {
+    padding: 0.25rem 0.56rem;
+  }
+
+  .gap-legend-note,
+  .frontier-legend-row,
+  .node-profile .node-profile-desc,
+  .node-profile .node-gap,
+  .gap-panel .gap-insight {
+    font-size: 0.69rem;
+    line-height: 1.3;
+  }
+
+  .gap-panel h5,
+  .node-profile h5 {
+    font-size: 1.1rem;
+  }
+
+  .gap-panel .gap-panel-quadrant,
+  .node-connection,
+  .node-none,
+  .node-rel-note,
+  .gap-meter-head,
+  .rank-row,
+  .weight-row,
+  .frontier-readout {
+    font-size: 0.67rem;
+  }
+
+  .gap-axis-title {
+    font-size: 3.1px;
+  }
+
+  .gap-axis-end,
+  .diagonal-label,
+  .bubble text,
+  .constellation-node text {
+    font-size: 2.7px;
   }
 }
 
