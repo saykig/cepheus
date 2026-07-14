@@ -5,11 +5,8 @@ import {
   EssayFootnoteProvider,
   FootnoteRef,
 } from 'app/components/essay-footnotes'
+import { EssayDisclosure } from 'app/components/essay-disclosure'
 import { EssayIndex } from 'app/components/essay-index'
-import {
-  EssayMapAccordion,
-  EssayMapPanel,
-} from 'app/components/essay-map-accordion'
 import { FrontierScoreExplorer } from 'app/components/frontier-score-explorer'
 import { GapMapMatrix } from 'app/components/gap-map-matrix'
 import { PolicyConstellationMap } from 'app/components/policy-constellation-map'
@@ -21,21 +18,27 @@ export const metadata: Metadata = {
 }
 
 const sections = [
-  { id: 'first-collision', title: 'The First Collision' },
-  { id: 'what-is-expected-of-us', title: 'What Is Expected of Us' },
   {
-    id: 'three-maps',
-    title: 'The Three Maps',
+    id: 'first-collision',
+    title: 'The First Collision',
+    children: [{ id: 'gap-matrix', title: 'Gap Matrix' }],
+  },
+  {
+    id: 'what-is-expected-of-us',
+    title: 'What Is Expected of Us',
     children: [
-      { id: 'knowledge-map', title: 'The Knowledge Map' },
-      { id: 'authority-map', title: 'The Authority Map' },
-      { id: 'dependency-map', title: 'The Dependency Map' },
+      {
+        id: 'institutional-friction-explorer',
+        title: 'Institutional Friction Explorer',
+      },
     ],
   },
-  { id: 'what-we-owe-to-each-other', title: 'What We Owe to Each Other' },
+  {
+    id: 'what-we-owe-to-each-other',
+    title: 'What We Owe to Each Other',
+    children: [{ id: 'omoikane-map', title: 'The Omoikane Link' }],
+  },
 ]
-
-const MAP_IDS = ['knowledge-map', 'authority-map', 'dependency-map']
 
 const UPDATED = 'July 2026'
 
@@ -118,6 +121,16 @@ export default function OmoikaneEssay() {
             of failure are often not the same people.
           </p>
           <p>
+            The clash between Anthropic and the Pentagon gave institutional
+            form to a problem I had previously understood only in the abstract.
+            Governments cannot govern advanced AI without access to technical
+            knowledge. AI companies cannot independently determine the public
+            rules governing defense, security, surveillance, or biological risk.
+            And neither side can simply replace the other. Yet, the institutions
+            connecting them remain fragmented, temporary, and frequently
+            adversarial.
+          </p>
+          <p>
             As a student, I had already watched ChatGPT and Claude develop at a
             pace that was difficult to reconcile with the slower world of laws,
             public institutions, and university disciplines. Their rapid
@@ -139,15 +152,43 @@ export default function OmoikaneEssay() {
               </strong>
             </li>
           </ol>
-          <p>
-            The Anthropic-Pentagon dispute gave institutional form to a problem I
-            had previously understood only in the abstract. Governments cannot
-            govern advanced AI without access to technical knowledge. AI
-            companies cannot independently determine the public rules governing
-            defense, security, surveillance, or biological risk. And neither
-            side can simply replace the other. Yet, the institutions connecting
-            them remain fragmented, temporary, and frequently adversarial.
-          </p>
+
+          <section className="essay-visual-block" id="gap-matrix">
+            <GapMapMatrix />
+            <EssayDisclosure title="Where do these institutions meet?">
+              <p>
+                The answer may include procurement contracts, model-use policies,
+                reporting requirements, safety evaluations, licensing systems,
+                technical standards, joint research programs, advisory bodies,
+                red-team exercises, and public-private partnerships.
+              </p>
+              <p>
+                These interfaces translate public goals into technical
+                requirements. A law may state that an AI system must be safe or
+                accountable, but that principle must eventually become an
+                evaluation, an access control, a reporting process, a contract
+                clause, or an operational restriction.{' '}
+                <CitationLink id={6}>
+                  NIST&apos;s AI Risk Management Framework is one example of an
+                  institution
+                </CitationLink>{' '}
+                trying to create a shared structure that different organizations
+                can use when designing, deploying, and evaluating AI systems.
+              </p>
+              <p>
+                The Anthropic-Pentagon confrontation can be understood as a
+                contested interface. The contract connected a private model to a
+                public mission, but it did not produce agreement over who could
+                define the acceptable conditions of use.
+              </p>
+              <p className="disclosure-caption">
+                Fields far below the diagonal draw heavy technical activity with
+                limited policy authority or accountability. Hover or select any
+                point to read the drivers behind its position.
+              </p>
+            </EssayDisclosure>
+          </section>
+
           <p>
             <strong>
               What is expected of us, then, is neither perfect coordination nor
@@ -230,6 +271,46 @@ export default function OmoikaneEssay() {
             because they are not bound by the same public processes, but speed
             does alone does not give them public legitimacy.
           </p>
+
+          <section
+            className="essay-visual-block"
+            id="institutional-friction-explorer"
+          >
+            <FrontierScoreExplorer />
+            <EssayDisclosure title="Who can actually decide?">
+              <p>
+                Authority can include the power to regulate, procure, deploy,
+                restrict, investigate, fund, audit, prosecute, or establish
+                standards. These powers rarely belong to the same institution.
+              </p>
+              <p>
+                In cybersecurity, a government agency may issue guidance or
+                investigate an attack, while private companies still control the
+                affected networks and infrastructure. In military AI, elected
+                governments and defence institutions hold authority over
+                military operations, but contractors and AI companies may control
+                the systems through which those decisions are carried out. In
+                biosecurity, authority may be divided among health agencies,
+                research regulators, laboratories, security institutions, and
+                international bodies.
+              </p>
+              <p>
+                The Anthropic-Pentagon dispute belongs partly on this map. The
+                Pentagon argued that military decisions belonged to the state.
+                Anthropic accepted that principle but argued that it should not
+                be required to provide a system for uses it considered
+                technically unreliable or incompatible with basic safeguards.
+                The dispute was not simply about whether the military or the
+                company had authority. It was about which kind of authority
+                applied to which decision.
+              </p>
+              <p className="disclosure-caption">
+                Adjust the weights to test how knowledge, authority, dependency,
+                and coordination change the ranking.
+              </p>
+            </EssayDisclosure>
+          </section>
+
           <p>
             This mismatch becomes more serious when private technical choices
             begin to shape public life. A decision about model access or
@@ -250,149 +331,6 @@ export default function OmoikaneEssay() {
             divisions also become the main way we understand issues that are
             already moving across them.
           </p>
-          <h2 id="three-maps">The Three Maps</h2>
-
-          <EssayMapAccordion mapIds={MAP_IDS}>
-            <EssayMapPanel
-              id="knowledge-map"
-              index={1}
-              title="The Knowledge Map"
-            >
-              <p className="map-prompt">
-                <strong>
-                  <em>Who can actually decide?</em>
-                </strong>
-              </p>
-              <p className="map-lead">
-                Authority can include the power to regulate, procure, deploy,
-                restrict, investigate, fund, audit, prosecute, or establish
-                standards. These powers rarely belong to the same institution.
-              </p>
-              <p className="map-lead">
-                In cybersecurity, a government agency may issue guidance or
-                investigate an attack, while private companies still control the
-                affected networks and infrastructure. In military AI, elected
-                governments and defence institutions hold authority over
-                military operations, but contractors and AI companies may
-                control the systems through which those decisions are carried
-                out. In biosecurity, authority may be divided among health
-                agencies, research regulators, laboratories, security
-                institutions, and international bodies.
-              </p>
-              <p className="map-lead">
-                The Anthropic-Pentagon dispute belongs partly on this map. The
-                Pentagon argued that military decisions belonged to the state.
-                Anthropic accepted that principle but argued that it should not
-                be required to provide a system for uses it considered
-                technically unreliable or incompatible with basic safeguards.
-                The dispute was not simply about whether the military or the
-                company had authority. It was about which kind of authority
-                applied to which decision.
-              </p>
-              <FrontierScoreExplorer />
-              <p className="tool-caption">
-                Adjust the weights to test how knowledge, authority, dependency,
-                and coordination change the ranking.
-              </p>
-            </EssayMapPanel>
-
-            <EssayMapPanel
-              id="authority-map"
-              index={2}
-              title="The Authority Map"
-            >
-            <p className="map-prompt">
-              <strong>
-                <em>Who depends on whom?</em>
-              </strong>
-            </p>
-            <p className="map-lead">
-              A government may possess legal authority while depending on a
-              private company for access to a frontier model, cloud
-              infrastructure, computing capacity, technical maintenance, or
-              system evaluation. A private company may depend on government
-              contracts, public research, regulation, security clearances, or
-              access to government data.
-            </p>
-            <p className="map-lead">
-              In cybersecurity, governments and infrastructure operators often
-              rely on private firms to detect vulnerabilities and share threat
-              information.{' '}
-              <CitationLink id={11}>
-                CISA&apos;s Joint Cyber Defense Collaborative was created around
-                this basic reality
-              </CitationLink>, providing a mechanism for government and industry
-              to coordinate on cybersecurity threats.
-            </p>
-            <p className="map-lead">
-              In military AI, defence institutions may rely on commercial models
-              and cloud systems that they do not fully own. The Anthropic dispute
-              demonstrated what happens when a government becomes operationally
-              interested in a system while the supplier retains control over
-              important conditions of use.
-            </p>
-            <p className="map-lead">
-              In biosecurity, AI companies may depend on external scientists to
-              evaluate biological capabilities, while public-health institutions
-              may depend on private laboratories, commercial data, and
-              proprietary AI tools.
-            </p>
-            <p className="map-lead">
-              The Dependency Map would make these relationships visible because
-              dependency can shape decisions as strongly as law does.
-            </p>
-            <PolicyConstellationMap />
-            <p className="tool-caption">
-              Select any point to read how influence, information, and funding
-              move through it. Filter to institutions or funding links to see who
-              holds the field together.
-            </p>
-            </EssayMapPanel>
-
-            <EssayMapPanel
-              id="dependency-map"
-              index={3}
-              title="The Dependency Map"
-            >
-            <p className="map-prompt">
-              <strong>
-                <em>Where do these institutions meet?</em>
-              </strong>
-            </p>
-            <p className="map-lead">
-              The answer may include procurement contracts, model-use policies,
-              reporting requirements, safety evaluations, licensing systems,
-              technical standards, joint research programs, advisory bodies,
-              red-team exercises, and public-private partnerships.
-            </p>
-            <p className="map-lead">
-              These interfaces translate public goals into technical
-              requirements. A law may state that an AI system must be safe or
-              accountable, but that principle must eventually become an
-              evaluation, an access control, a reporting process, a contract
-              clause, or an operational restriction.{' '}
-              <CitationLink id={6}>
-                NIST&apos;s AI Risk Management Framework is one example of an
-                institution
-              </CitationLink>{' '}trying to create a shared structure that
-              different organizations can use when designing, deploying, and
-              evaluating AI systems.
-            </p>
-            <p className="map-lead">
-              The Anthropic-Pentagon confrontation can be understood as a
-              contested interface. The contract connected a private model to a
-              public mission, but it did not produce agreement over who could
-              define the acceptable conditions of use.
-            </p>
-            <GapMapMatrix />
-            <p className="tool-caption">
-              Fields far below the diagonal draw heavy technical activity with
-              limited policy authority or accountability. Hover or select any
-              point to read the drivers behind its position.
-            </p>
-            </EssayMapPanel>
-          </EssayMapAccordion>
-
           <h2 id="what-we-owe-to-each-other">What We Owe to Each Other</h2>
           <p>
             Then, as people working in policy and technology, we have to ask
@@ -430,6 +368,66 @@ export default function OmoikaneEssay() {
             dependent on another. I think that matters a lot, because good
             judgment depends, at least in part, on having an honest picture of
             the system in which decisions are being made.
+          </p>
+          <p>
+            These relationships form something closer to an institutional
+            system than a simple divide between government and industry. The
+            constellation below is a preliminary picture of that system.
+          </p>
+
+          <section className="essay-visual-block" id="omoikane-map">
+            <PolicyConstellationMap />
+            <EssayDisclosure title="Who depends on whom?">
+              <p>
+                A government may possess legal authority while depending on a
+                private company for access to a frontier model, cloud
+                infrastructure, computing capacity, technical maintenance, or
+                system evaluation. A private company may depend on government
+                contracts, public research, regulation, security clearances, or
+                access to government data.
+              </p>
+              <p>
+                In cybersecurity, governments and infrastructure operators often
+                rely on private firms to detect vulnerabilities and share threat
+                information.{' '}
+                <CitationLink id={11}>
+                  CISA&apos;s Joint Cyber Defense Collaborative was created around
+                  this basic reality
+                </CitationLink>
+                {', '}providing a mechanism for government and industry to
+                coordinate on cybersecurity threats.
+              </p>
+              <p>
+                In military AI, defence institutions may rely on commercial
+                models and cloud systems that they do not fully own. The Anthropic
+                dispute demonstrated what happens when a government becomes
+                operationally interested in a system while the supplier retains
+                control over important conditions of use.
+              </p>
+              <p>
+                In biosecurity, AI companies may depend on external scientists
+                to evaluate biological capabilities, while public-health
+                institutions may depend on private laboratories, commercial data,
+                and proprietary AI tools.
+              </p>
+              <p>
+                The Institutional Constellation Map would make these
+                relationships visible because dependency can shape decisions as
+                strongly as law does.
+              </p>
+              <p className="disclosure-caption">
+                Select any point to read how influence, information, and funding
+                move through it. Filter to institutions or funding links to see
+                who holds the field together.
+              </p>
+            </EssayDisclosure>
+          </section>
+
+          <p>
+            It is important to note that, no map can decide what these
+            institutions should do. It can, however, make it harder for any
+            institution to claim that the relevant knowledge or responsibility
+            belonged entirely to someone else.
           </p>
           <p>
             Perhaps this is what the worlds of policy and technology owe one

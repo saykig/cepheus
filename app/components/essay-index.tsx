@@ -2,7 +2,6 @@
 
 import type { CSSProperties } from 'react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { openEssayMap } from './essay-map-accordion'
 
 type Section = {
   id: string
@@ -116,15 +115,6 @@ export function EssayIndex({
         key={section.id}
         aria-current={isActive ? 'true' : undefined}
         tabIndex={tabIndex}
-        onClick={
-          child
-            ? (event) => {
-                event.preventDefault()
-                window.history.pushState(null, '', `#${section.id}`)
-                openEssayMap(section.id)
-              }
-            : undefined
-        }
       >
         <span className="essay-index-dot" aria-hidden="true" />
         <span>{section.title}</span>
