@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
+import { notFound } from 'next/navigation'
 import {
   EssayEndnotes,
   EssayFootnoteProvider,
@@ -9,38 +10,21 @@ import { EssayDisclosure } from 'app/components/essay-disclosure'
 import { EssayIndex } from 'app/components/essay-index'
 import { FrontierScoreExplorer } from 'app/components/frontier-score-explorer'
 import { GapMapMatrix } from 'app/components/gap-map-matrix'
-import { PolicyConstellationMap } from 'app/components/policy-constellation-map'
-import sourcesData from '../../../public/data/sources.json'
+import { InstitutionalLinkMap } from 'app/components/institutional-link-map'
+import sourcesData from '../../../../public/data/sources.json'
+import { essayLabels } from 'app/lib/essay-copy'
+import { isLocale } from 'app/lib/i18n'
+import { LocalizedEssayDraft } from 'app/components/localized-essay-draft'
 
-export const metadata: Metadata = {
-  title: 'What We Owe to Each Other',
-  description: 'What Technology and Policy can Offer to Humanity',
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const labels = isLocale(locale) ? essayLabels[locale] : essayLabels.en
+  return { title: labels.titleLineOne + ' ' + labels.titleLineTwo, description: labels.subtitle }
 }
-
-const sections = [
-  {
-    id: 'first-collision',
-    title: 'The First Collision',
-    children: [{ id: 'gap-matrix', title: 'The Gap' }],
-  },
-  {
-    id: 'what-is-expected-of-us',
-    title: 'What Is Expected of Us',
-    children: [
-      {
-        id: 'institutional-friction-explorer',
-        title: 'The Friction',
-      },
-    ],
-  },
-  {
-    id: 'what-do-we-owe-to-each-other',
-    title: 'What Do We Owe to Each Other?',
-    children: [{ id: 'omoikane-map', title: 'The Link' }],
-  },
-]
-
-const UPDATED = 'July 2026'
 
 function CitationLink({ children, id }: { children: ReactNode; id: number }) {
   const source = sourcesData.sources.find((item) => item.id === id)
@@ -59,18 +43,47 @@ function CitationLink({ children, id }: { children: ReactNode; id: number }) {
   )
 }
 
-export default function OmoikaneEssay() {
+export default async function CepheusEssay({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  if (!isLocale(locale)) notFound()
+  const labels = essayLabels[locale]
+  const sections = [
+    {
+      id: 'first-collision',
+      title: labels.firstCollision,
+      children: [{ id: 'gap-matrix', title: labels.gap }],
+    },
+    {
+      id: 'what-is-expected-of-us',
+      title: labels.expected,
+      children: [
+        { id: 'institutional-friction-explorer', title: labels.friction },
+      ],
+    },
+    {
+      id: 'what-do-we-owe-to-each-other',
+      title: labels.owe,
+      children: [{ id: 'cepheus-map', title: labels.link }],
+    },
+  ]
+
+  if (locale !== 'en') return <LocalizedEssayDraft locale={locale} />
+
   return (
     <article className="essay-page">
       <header className="essay-hero">
         <div className="essay-hero-inner">
-          <p className="essay-kicker">The Omoikane Link</p>
+          <p className="essay-kicker">{labels.kicker}</p>
           <h1>
-            <span>What We Owe</span>
-            <span>to Each Other</span>
+            <span>{labels.titleLineOne}</span>
+            <span>{labels.titleLineTwo}</span>
           </h1>
           <p className="essay-subtitle">
-            What Technology and Policy can Offer to Humanity
+            {labels.subtitle}
           </p>
           <p className="essay-meta">
             <span className="author">Sara Kim</span>
@@ -79,12 +92,12 @@ export default function OmoikaneEssay() {
       </header>
 
       <div className="essay-layout">
-        <EssayIndex sections={sections} updated={UPDATED} />
+        <EssayIndex sections={sections} updated={labels.updated} locale={locale} />
 
         <EssayFootnoteProvider>
           <div className="essay-body">
           <h2 className="essay-opening-heading" id="first-collision">
-            The First Collision
+            {labels.firstCollision}
           </h2>
           <p>
             In February 2026, while sitting in my office, I opened a Flipboard
@@ -150,7 +163,7 @@ export default function OmoikaneEssay() {
           </ol>
 
           <section className="essay-visual-block" id="gap-matrix">
-            <GapMapMatrix />
+            <GapMapMatrix locale={locale} />
             <p className="tool-caption">
               Fields far below the diagonal draw heavy technical activity with
               limited policy authority or accountability. Hover or select any
@@ -209,24 +222,24 @@ export default function OmoikaneEssay() {
               Friction Index
             </a>{' '}
             shows how that mismatch differs across fields. The{' '}
-            <a className="citation-link" href="#omoikane-map">
+            <a className="citation-link" href="#cepheus-map">
               Institutional Link Map
             </a>{' '}
             traces the dependencies and interfaces through which these
             institutions might be connected.
           </p>
           <p>
-            This is the core claim of the Omoikane Link. Its central claim is
+            This is the core of the Cepheus Link. Its central claim is
             that the governance problem of frontier AI lies in the distance
             between who knows, who decides, and who bears the risk. The greater
             that distance, the more likely AI policy is to become late,
-            adversarial, or technically unworkable. Omoikane is therefore
+            adversarial, or technically unworkable. Cepheus is therefore
             proposed as a policy-intelligence platform for mapping that distance
             across public and private institutions.
           </p>
 
           <h2 id="what-is-expected-of-us">
-            What Is Expected of Us
+            {labels.expected}
             <FootnoteRef number={1} />
           </h2>
           <p>
@@ -282,14 +295,14 @@ export default function OmoikaneEssay() {
             institutions are for. They are expected to follow procedures and
             remain accountable to law. Private firms can usually move faster
             because they are not bound by the same public processes, but speed
-            does alone does not give them public legitimacy.
+            alone does not give them public legitimacy.
           </p>
 
           <section
             className="essay-visual-block"
             id="institutional-friction-explorer"
           >
-            <FrontierScoreExplorer />
+            <FrontierScoreExplorer locale={locale} />
             <p className="tool-caption">
               Adjust the weights to test how knowledge, authority, dependency,
               and coordination change the ranking.
@@ -345,7 +358,7 @@ export default function OmoikaneEssay() {
             already moving across them.
           </p>
           <h2 id="what-do-we-owe-to-each-other">
-            What Do We Owe to Each Other?
+            {labels.owe}
           </h2>
           <p>
             Then, as people working in policy and technology, we have to ask
@@ -376,7 +389,7 @@ export default function OmoikaneEssay() {
             consequences.
           </p>
           <p>
-            Omoikane is my attempt to make those relationships easier to see. It
+            Cepheus is my attempt to make those relationships easier to see. It
             would not tell institutions what to decide, nor would it remove
             disagreement between them. It would show where knowledge sits,
             where authority lies, and where one institution has become
@@ -385,13 +398,13 @@ export default function OmoikaneEssay() {
             the system in which decisions are being made.
           </p>
           <p>
-            These relationships form something closer to an institutional
+            Thus, these relationships form something closer to an institutional
             system than a simple divide between government and industry. The
-            constellation below is a preliminary picture of that system.
+            map below is a preliminary picture of that system:
           </p>
 
-          <section className="essay-visual-block" id="omoikane-map">
-            <PolicyConstellationMap />
+          <section className="essay-visual-block" id="cepheus-map">
+            <InstitutionalLinkMap locale={locale} />
             <p className="tool-caption">
               Select any point to read how influence, information, and funding
               move through it. Filter to institutions or funding links to see

@@ -2,10 +2,13 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { localizeHref, stripLocale, type Locale } from 'app/lib/i18n'
+import { siteCopy } from 'app/lib/site-copy'
 
-export default function Footer() {
+export default function Footer({ locale }: { locale: Locale }) {
   const pathname = usePathname()
-  if (pathname === '/') return null
+  const copy = siteCopy[locale]
+  if (stripLocale(pathname) === '/') return null
 
   const toTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
@@ -35,23 +38,21 @@ export default function Footer() {
           <div>
             <div className="colophon-word">Cepheus</div>
             <p className="colophon-tagline">
-              Bridging the gap between policy and technology.
+              {copy.tagline}
             </p>
           </div>
         </div>
 
-        <nav className="colophon-nav" aria-label="Footer">
-          <Link href="/">Home</Link>
+        <nav className="colophon-nav" aria-label={copy.footer}>
+          <Link href={localizeHref('/', locale)}>{copy.home}</Link>
           <button type="button" onClick={toTop}>
-            Back to top
+            {copy.backToTop}
           </button>
         </nav>
       </div>
 
       <p className="colophon-note">
-        The instruments in this essay are illustrative. Omoikane is a proposed
-        platform; the figures are synthetic and drawn from the cited sources to
-        show how such a map might read.
+        {copy.disclaimer}
       </p>
     </footer>
   )

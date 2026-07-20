@@ -147,4 +147,4 @@ Shared **Tool Card**: header (title · inline info tooltip `ⓘ` · "About this 
 
 ## 9. Content honesty
 
-Instrument data is illustrative (Omoikane is a proposal). Keep a light "illustrative, drawn from cited sources" note near the instruments, and wire every data point's citations to the References list. Never imply live or authoritative figures.
+Instrument data is illustrative (Cepheus is a proposal). Keep a light "illustrative, drawn from cited sources" note near the instruments, and wire every data point's citations to the References list. Never imply live or authoritative figures.

@@ -4,6 +4,8 @@ import type { CSSProperties } from 'react'
 import { useEffect, useMemo, useState } from 'react'
 import { useInView } from './use-in-view'
 import { WatercolorNode, WatercolorNodeDefs } from './watercolor-node'
+import type { Locale } from 'app/lib/i18n'
+import { visualCopy } from 'app/lib/visual-copy'
 
 type Topic = {
   id: string
@@ -35,7 +37,8 @@ const rFor = (v: number) => (2 + (Math.sqrt(v) / 10) * 3.6) * 1.16
 
 const colorFor = (t: Topic) => `var(--series-${t.series})`
 
-export function GapMapMatrix() {
+export function GapMapMatrix({ locale = 'en' }: { locale?: Locale }) {
+  const copy = visualCopy[locale]
   const { ref, inView } = useInView<HTMLElement>()
   const [data, setData] = useState<GapData | null>(null)
   const [selectedId, setSelectedId] = useState<string | null>(null)
@@ -75,20 +78,20 @@ export function GapMapMatrix() {
   const meters = [
     { label: preset.x.label, value: xv(selected) },
     { label: preset.y.label, value: yv(selected) },
-    { label: 'Importance', value: selected.importance },
+    { label: copy.importance, value: selected.importance },
   ]
 
   return (
     <section
       ref={ref}
       className={`tool gap reveal${inView ? ' is-in' : ''}`}
-      aria-label={data.title}
+      aria-label={copy.gapTitle}
     >
       <div className="tool-head">
         <div className="tool-heading">
-          <h4 className="tool-title">{data.title}</h4>
+          <h4 className="tool-title">{copy.gapTitle}</h4>
           <details className="tool-about">
-            <summary>About this tool</summary>
+            <summary>{copy.about}</summary>
             <div className="tool-about-body">
               Each field is placed by two institutional measures. The dashed
               diagonal is where the two are balanced; points below it are where
@@ -97,10 +100,10 @@ export function GapMapMatrix() {
           </details>
         </div>
       </div>
-      <p className="tool-subtitle">{data.description}</p>
+      <p className="tool-subtitle">{copy.gapDescription}</p>
 
       <div className="gap-toolbar">
-        <div className="chip-row" role="group" aria-label="Choose axes">
+        <div className="chip-row" role="group" aria-label={copy.chooseAxes}>
           {data.presets.map((p) => (
             <button
               key={p.id}
@@ -133,7 +136,7 @@ export function GapMapMatrix() {
               />
             </g>
           </svg>
-          Circle size = importance
+          {copy.circleImportance}
         </span>
       </div>
 
@@ -156,7 +159,7 @@ export function GapMapMatrix() {
             <line className="chart-axis" x1={0} y1={100} x2={100} y2={100} />
 
             <text className="diagonal-label" x={72} y={26} transform="rotate(-45 72 26)">
-              in balance
+              {copy.inBalance}
             </text>
 
             <text className="gap-axis-title" x={50} y={112} textAnchor="middle">

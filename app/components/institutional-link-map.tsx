@@ -4,6 +4,8 @@ import type { CSSProperties } from 'react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useInView } from './use-in-view'
 import { WatercolorNode, WatercolorNodeDefs } from './watercolor-node'
+import type { Locale } from 'app/lib/i18n'
+import { visualCopy } from 'app/lib/visual-copy'
 
 type Node = {
   id: string
@@ -50,7 +52,8 @@ function edgeStyle(kind: EdgeKind, strength: number, on: boolean) {
 
 // The function name is kept so the essay page import stays valid; the tool is
 // the Institutional Relationship Map.
-export function PolicyConstellationMap() {
+export function InstitutionalLinkMap({ locale = 'en' }: { locale?: Locale }) {
+  const copy = visualCopy[locale]
   const { ref, inView } = useInView<HTMLElement>()
   const [data, setData] = useState<NetworkData | null>(null)
   const [selectedId, setSelectedId] = useState<string | null>(null)
@@ -167,13 +170,13 @@ export function PolicyConstellationMap() {
     <section
       ref={ref}
       className={`tool constellation reveal${inView ? ' is-in' : ''}`}
-      aria-label={data.title}
+      aria-label={copy.linkTitle}
     >
       <div className="tool-head">
         <div className="tool-heading">
-          <h4 className="tool-title">{data.title}</h4>
+          <h4 className="tool-title">{copy.linkTitle}</h4>
           <details className="tool-about">
-            <summary>About this tool</summary>
+            <summary>{copy.about}</summary>
             <div className="tool-about-body">
               Solid lines are knowledge, thick lines are authority, arrows are
               dependency, and dashed lines are interface mechanisms. Solid circles
@@ -182,10 +185,10 @@ export function PolicyConstellationMap() {
           </details>
         </div>
       </div>
-      <p className="tool-subtitle">{data.description}</p>
+      <p className="tool-subtitle">{copy.linkDescription}</p>
 
       <div className="constellation-toolbar">
-        <div className="chip-row" role="group" aria-label="Filter relationships">
+        <div className="chip-row" role="group" aria-label={copy.filter}>
           {data.filters.map((f) => (
             <button
               key={f.id}
@@ -206,7 +209,7 @@ export function PolicyConstellationMap() {
               onChange={(e) => setStrength(e.target.checked)}
             />
             <span className="toggle-track" />
-            Line strength
+            {copy.lineStrength}
           </label>
           <div className="search-box">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
@@ -215,10 +218,10 @@ export function PolicyConstellationMap() {
             </svg>
             <input
               type="search"
-              placeholder="Search nodes"
+              placeholder={copy.search}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              aria-label="Search nodes"
+              aria-label={copy.search}
             />
           </div>
         </div>
@@ -338,16 +341,16 @@ export function PolicyConstellationMap() {
             <p className="node-profile-desc">{selected.description}</p>
 
             <div className="node-facet">
-              <span className="tool-label">Main gap</span>
+              <span className="tool-label">{copy.mainGap}</span>
               <p className="node-gap">{selected.gap}</p>
             </div>
 
             {(
               [
-                { label: 'Expertise in', items: panel.knowledge },
-                { label: 'Authority over', items: panel.authority },
-                { label: 'Relies on', items: panel.dependsOn },
-                { label: 'Relied on by', items: panel.reliedOnBy },
+                { label: copy.expertise, items: panel.knowledge },
+                { label: copy.authorityOver, items: panel.authority },
+                { label: copy.reliesOn, items: panel.dependsOn },
+                { label: copy.reliedOnBy, items: panel.reliedOnBy },
               ] as { label: string; items: Node[] }[]
             )
               .filter((f) => f.items.length > 0)
@@ -371,7 +374,7 @@ export function PolicyConstellationMap() {
 
             {panel.interfaces.length > 0 ? (
               <div className="node-facet">
-                <span className="tool-label">Interfaces</span>
+                <span className="tool-label">{copy.interfaces}</span>
                 <div className="node-tags">
                   {panel.interfaces.map((it, idx) => (
                     <button

@@ -10,6 +10,8 @@ import {
   useState,
 } from 'react'
 import { useInView } from './use-in-view'
+import type { Locale } from 'app/lib/i18n'
+import { visualCopy } from 'app/lib/visual-copy'
 
 type Dim = { key: string; label: string }
 type Layer = 'knowledge' | 'authority'
@@ -58,7 +60,8 @@ const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v
 
 // The function name is kept so the essay page import stays valid; the tool is
 // the Institutional Capacity Explorer.
-export function FrontierScoreExplorer() {
+export function FrontierScoreExplorer({ locale = 'en' }: { locale?: Locale }) {
+  const copy = visualCopy[locale]
   const { ref, inView } = useInView<HTMLElement>()
   const [data, setData] = useState<CapacityData | null>(null)
   const [topic, setTopic] = useState<string | null>(null)
@@ -203,13 +206,13 @@ export function FrontierScoreExplorer() {
     <section
       ref={ref}
       className={`tool frontier reveal${inView ? ' is-in' : ''}`}
-      aria-label={data.title}
+      aria-label={copy.frictionTitle}
     >
       <div className="tool-head">
         <div className="tool-heading">
-          <h4 className="tool-title">{data.title}</h4>
+          <h4 className="tool-title">{copy.frictionTitle}</h4>
           <details className="tool-about">
-            <summary>About this tool</summary>
+            <summary>{copy.about}</summary>
             <div className="tool-about-body">
               A capacity score is a weighted average of an institution&apos;s{' '}
               {layer} dimensions for the chosen field. Move the sliders to
@@ -219,12 +222,12 @@ export function FrontierScoreExplorer() {
           </details>
         </div>
       </div>
-      <p className="tool-subtitle">{data.description}</p>
+      <p className="tool-subtitle">{copy.frictionDescription}</p>
 
       <div className="tool-controls">
         <div className="tool-control-group">
-          <span className="tool-label">Field</span>
-          <div className="chip-row" role="group" aria-label="Select field">
+          <span className="tool-label">{copy.field}</span>
+          <div className="chip-row" role="group" aria-label={copy.selectField}>
             {data.topics.map((t) => (
               <button
                 key={t.id}
@@ -239,8 +242,8 @@ export function FrontierScoreExplorer() {
           </div>
         </div>
         <div className="tool-control-group">
-          <span className="tool-label">Layer</span>
-          <div className="chip-row" role="group" aria-label="Select layer">
+          <span className="tool-label">{copy.layer}</span>
+          <div className="chip-row" role="group" aria-label={copy.selectLayer}>
             {data.layers.map((l) => (
               <button
                 key={l.id}
@@ -260,11 +263,11 @@ export function FrontierScoreExplorer() {
         {/* ---- capacity-over-time chart ---- */}
         <div className="frontier-panel">
           <div className="frontier-panel-head">
-            <span className="tool-label">{layer} over time</span>
+            <span className="tool-label">{layer} {copy.overTime}</span>
             <div
               className="chip-row time-range-row"
               role="group"
-              aria-label="Time range"
+              aria-label={copy.timeRange}
             >
               {RANGES.map((r) => (
                 <button
@@ -419,7 +422,7 @@ export function FrontierScoreExplorer() {
         {/* ---- weighted institution ranking ---- */}
         <div className="frontier-panel">
           <div className="frontier-panel-head">
-            <span className="tool-label">Institutions</span>
+            <span className="tool-label">{copy.institutions}</span>
             <span className="tool-label">{yearsSlice[activeIdx]}</span>
           </div>
           <div className="rank-list">
@@ -446,7 +449,7 @@ export function FrontierScoreExplorer() {
         {/* ---- weight controls ---- */}
         <div className="frontier-panel">
           <div className="frontier-panel-head">
-            <span className="tool-label">Weight controls</span>
+            <span className="tool-label">{copy.weights}</span>
           </div>
           <div className="weight-list">
             {dims.map((d) => (
@@ -473,11 +476,11 @@ export function FrontierScoreExplorer() {
             ))}
           </div>
           <div className="weight-total">
-            <span>Total weight</span>
+            <span>{copy.totalWeight}</span>
             <strong>{totalWeight.toFixed(2)}</strong>
           </div>
           <button type="button" className="weight-reset" onClick={reset} disabled={isDefault}>
-            Reset to default
+            {copy.reset}
           </button>
         </div>
       </div>

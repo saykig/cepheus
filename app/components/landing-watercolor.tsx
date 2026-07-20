@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import type { Locale } from 'app/lib/i18n'
+import { siteCopy } from 'app/lib/site-copy'
 
 type Point = {
   id: string
@@ -16,8 +18,9 @@ const MAX_MARKS = 18
 const SIZES = ['large', 'medium', 'small'] as const
 const TONES = ['sage', 'brown', 'blue'] as const
 
-export function LandingWatercolor() {
+export function LandingWatercolor({ locale }: { locale: Locale }) {
   const [points, setPoints] = useState<Point[]>([])
+  const copy = siteCopy[locale]
 
   function addMark(event: React.MouseEvent<HTMLElement>) {
     const bounds = event.currentTarget.getBoundingClientRect()
@@ -140,7 +143,7 @@ export function LandingWatercolor() {
         <h1>Cepheus</h1>
       </div>
       <p className="landing-hint" aria-hidden="true">
-        Click anywhere to trace a connection
+        {copy.landingHint}
       </p>
     </section>
   )

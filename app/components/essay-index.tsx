@@ -3,6 +3,8 @@
 import type { CSSProperties } from 'react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { getEssayTargetOffset } from './essay-scroll'
+import type { Locale } from 'app/lib/i18n'
+import { siteCopy } from 'app/lib/site-copy'
 
 type Section = {
   id: string
@@ -13,10 +15,13 @@ type Section = {
 export function EssayIndex({
   sections,
   updated,
+  locale,
 }: {
   sections: Section[]
   updated?: string
+  locale: Locale
 }) {
+  const copy = siteCopy[locale]
   const [activeId, setActiveId] = useState(sections[0]?.id)
   const [visibleChildId, setVisibleChildId] = useState<string | null>(null)
   const [progress, setProgress] = useState(0)
@@ -154,7 +159,7 @@ export function EssayIndex({
   return (
     <aside
       className="essay-side"
-      aria-label="Essay contents"
+      aria-label={copy.contents}
       style={
         {
           '--note-opacity': noteOpacity,
@@ -163,11 +168,10 @@ export function EssayIndex({
       }
     >
       <p className="essay-side-note">
-        Technology is often built in one world and governed in another. Omoikane
-        maps the distance between them.
+        {copy.sideNote}
       </p>
 
-      <nav className="essay-scroll-index" aria-label="Sections">
+      <nav className="essay-scroll-index" aria-label={copy.sections}>
         {sections.map((section) => {
           const childIds = section.children?.map((child) => child.id) ?? []
           const branchOpen = childIds.includes(visibleChildId ?? '')
@@ -218,9 +222,9 @@ export function EssayIndex({
               strokeLinecap="round"
             />
           </svg>
-          Download report (PDF)
+          {copy.download}
         </button>
-        {updated ? <p className="rail-updated">Last updated {updated}</p> : null}
+        {updated ? <p className="rail-updated">{copy.lastUpdated} {updated}</p> : null}
       </div>
     </aside>
   )
