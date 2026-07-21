@@ -1,0 +1,147 @@
+{
+  "sources": [
+    {
+      "id": "ec-ai-act-regulatory-framework",
+      "title": "AI Act",
+      "issuingBody": "European Commission",
+      "url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+      "publicationDate": null,
+      "accessedDate": "2026-07-21",
+      "jurisdiction": "European Union",
+      "sourceType": "official-policy-page",
+      "bindingness": "documents-binding-regulation",
+      "relevantComponentIds": [
+        "information-asymmetry",
+        "binding-legal-mandate",
+        "compulsory-information-access",
+        "independent-evaluation-power",
+        "corrective-and-enforcement-power",
+        "coverage-and-coordination"
+      ],
+      "notes": "Official explanatory page for the AI Act. The page reports a last update of 7 July 2026; no original page publication date is supplied."
+    },
+    {
+      "id": "ec-gpai-models-qa",
+      "title": "General-Purpose AI Models in the AI Act – Questions & Answers",
+      "issuingBody": "European Commission, European AI Office",
+      "url": "https://digital-strategy.ec.europa.eu/en/faqs/general-purpose-ai-models-ai-act-questions-answers",
+      "publicationDate": null,
+      "accessedDate": "2026-07-21",
+      "jurisdiction": "European Union",
+      "sourceType": "official-faq",
+      "bindingness": "documents-binding-regulation",
+      "relevantComponentIds": [
+        "information-asymmetry",
+        "binding-legal-mandate",
+        "compulsory-information-access",
+        "corrective-and-enforcement-power",
+        "coverage-and-coordination"
+      ],
+      "notes": "Official interpretive Q&A that does not itself constitute an authoritative Commission position. The page reports a last update of 9 September 2025."
+    },
+    {
+      "id": "ec-gpai-code",
+      "title": "The General-Purpose AI Code of Practice",
+      "issuingBody": "European Commission, European AI Office",
+      "url": "https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai",
+      "publicationDate": "2025-07-10",
+      "accessedDate": "2026-07-21",
+      "jurisdiction": "European Union",
+      "sourceType": "official-voluntary-code",
+      "bindingness": "voluntary",
+      "relevantComponentIds": [
+        "information-asymmetry",
+        "evaluation-dependence",
+        "binding-legal-mandate",
+        "coverage-and-coordination"
+      ],
+      "notes": "The Code was published on 10 July 2025 and is a voluntary compliance tool; the underlying legal obligations arise from the AI Act."
+    },
+    {
+      "id": "nist-ai-rmf",
+      "title": "Artificial Intelligence Risk Management Framework",
+      "issuingBody": "United States National Institute of Standards and Technology",
+      "url": "https://www.nist.gov/itl/ai-risk-management-framework",
+      "publicationDate": "2023-01-26",
+      "accessedDate": "2026-07-21",
+      "jurisdiction": "United States",
+      "sourceType": "official-voluntary-framework",
+      "bindingness": "voluntary",
+      "relevantComponentIds": [
+        "evaluation-dependence",
+        "expertise-concentration",
+        "independent-evaluation-power",
+        "coverage-and-coordination"
+      ],
+      "notes": "NIST released AI RMF 1.0 on 26 January 2023. The framework is voluntary and is not binding regulatory authority."
+    },
+    {
+      "id": "uk-aisi-overview",
+      "title": "Introducing the AI Safety Institute",
+      "issuingBody": "United Kingdom Department for Science, Innovation and Technology",
+      "url": "https://www.gov.uk/government/publications/ai-safety-institute-overview/introducing-the-ai-safety-institute",
+      "publicationDate": "2023-11-02",
+      "accessedDate": "2026-07-21",
+      "jurisdiction": "United Kingdom",
+      "sourceType": "official-programme-overview",
+      "bindingness": "non-binding",
+      "relevantComponentIds": [
+        "evaluation-dependence",
+        "expertise-concentration",
+        "independent-evaluation-power"
+      ],
+      "notes": "Official overview of a government technical and research institute; it does not establish the Institute as a regulator."
+    },
+    {
+      "id": "uk-aisi-evaluations",
+      "title": "AI Safety Institute approach to evaluations",
+      "issuingBody": "United Kingdom Department for Science, Innovation and Technology",
+      "url": "https://www.gov.uk/government/publications/ai-safety-institute-approach-to-evaluations/ai-safety-institute-approach-to-evaluations",
+      "publicationDate": "2024-02-09",
+      "accessedDate": "2026-07-21",
+      "jurisdiction": "United Kingdom",
+      "sourceType": "official-evaluation-methodology",
+      "bindingness": "non-binding",
+      "relevantComponentIds": [
+        "evaluation-dependence",
+        "expertise-concentration",
+        "independent-evaluation-power"
+      ],
+      "notes": "Official description of the Institute's evaluation approach and technical capacity, not evidence of compulsory regulatory power."
+    },
+    {
+      "id": "cac-generative-ai-measures",
+      "title": "Interim Measures for the Management of Generative Artificial Intelligence Services",
+      "issuingBody": "Cyberspace Administration of China and six other national authorities",
+      "url": "https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm",
+      "publicationDate": "2023-07-13",
+      "accessedDate": "2026-07-21",
+      "jurisdiction": "China",
+      "sourceType": "official-regulation",
+      "bindingness": "binding",
+      "relevantComponentIds": [
+        "information-asymmetry",
+        "binding-legal-mandate",
+        "compulsory-information-access",
+        "corrective-and-enforcement-power",
+        "coverage-and-coordination"
+      ],
+      "notes": "The measures were promulgated on 13 July 2023 and took effect on 15 August 2023."
+    },
+    {
+      "id": "oecd-ai-policy-dashboard",
+      "title": "OECD.AI Policy Observatory: Policies dashboard",
+      "issuingBody": "Organisation for Economic Co-operation and Development",
+      "url": "https://oecd.ai/en/dashboards/overview",
+      "publicationDate": null,
+      "accessedDate": "2026-07-21",
+      "jurisdiction": "International",
+      "sourceType": "official-policy-dashboard",
+      "bindingness": "non-binding",
+      "relevantComponentIds": [
+        "coverage-and-coordination"
+      ],
+      "notes": "A continuously maintained comparative policy resource; no stable publication date is supplied. It is not an enforcement authority."
+    }
+  ]
+}

@@ -185,27 +185,6 @@ const annual = {
 }
 writeFileSync(`${DATA_DIR}/annual-scores.json`, JSON.stringify(annual, null, 2) + '\n')
 
-// gap-data.json  (Gap Map)
-const gap = {
-  title: 'Gap Map Matrix',
-  description: 'Compare technical activity with policy authority and accountability to identify where the missing institutional links are greatest.',
-  note: 'Circle size is institutional importance. Illustrative values.',
-  presets: [
-    { id: 'capacity', label: 'Knowledge × Authority',
-      x: { key: 'knowledge', label: 'Knowledge', low: 'Low', high: 'High' },
-      y: { key: 'authority', label: 'Authority', low: 'Low', high: 'High' } },
-    { id: 'accountability', label: 'Dependency × Oversight',
-      x: { key: 'dependency', label: 'Dependency', low: 'Low', high: 'High' },
-      y: { key: 'oversight', label: 'Oversight', low: 'Low', high: 'High' } },
-  ],
-  topics: TOPICS.map(({ id, label, series, importance, gapType, gap, coords }) => ({
-    id, label, series, importance, gapType, gap,
-    knowledge: coords.knowledge, authority: coords.authority,
-    dependency: coords.dependency, oversight: coords.oversight,
-  })),
-}
-writeFileSync(`${DATA_DIR}/gap-data.json`, JSON.stringify(gap, null, 2) + '\n')
-
 // relationships.json  (Institutional Relationship Map)
 const NODE_POS = {
   'ai-governance': [50, 47], 'cybersecurity': [31, 63], 'military-ai': [69, 63],
@@ -300,4 +279,4 @@ console.log('AI Governance knowledge (default-weighted), sample ranking:')
 console.log(INSTITUTIONS.map((i) => `${i.label} ${r0(weighted(air[i.id].knowledge, DEFAULT_WEIGHTS.knowledge))}`).join(' · '))
 console.log('AI Governance authority (default-weighted):')
 console.log(INSTITUTIONS.map((i) => `${i.label} ${r0(weighted(air[i.id].authority, DEFAULT_WEIGHTS.authority))}`).join(' · '))
-console.log('wrote topics.json, institutions.json, annual-scores.json, gap-data.json, relationships.json')
+console.log('wrote topics.json, institutions.json, annual-scores.json, relationships.json')

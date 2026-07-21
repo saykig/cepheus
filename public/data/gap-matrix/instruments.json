@@ -1,0 +1,96 @@
+{
+  "instruments": [
+    {
+      "id": "eu-ai-act",
+      "label": "EU Artificial Intelligence Act",
+      "jurisdiction": "European Union",
+      "instrumentType": "binding-regulation",
+      "bindingness": "binding",
+      "issuerOrganizationIds": [
+        "eu-ai-office"
+      ],
+      "description": "The European Union's binding legal framework for AI, including obligations and enforcement arrangements for providers of general-purpose AI models and models with systemic risk.",
+      "sourceIds": [
+        "ec-ai-act-regulatory-framework",
+        "ec-gpai-models-qa"
+      ],
+      "notes": null
+    },
+    {
+      "id": "eu-gpai-code",
+      "label": "EU General-Purpose AI Code of Practice",
+      "jurisdiction": "European Union",
+      "instrumentType": "voluntary-framework",
+      "bindingness": "voluntary",
+      "issuerOrganizationIds": [
+        "eu-ai-office"
+      ],
+      "description": "A voluntary compliance tool intended to help providers demonstrate compliance with AI Act obligations concerning transparency, copyright, and safety and security.",
+      "sourceIds": [
+        "ec-gpai-code"
+      ],
+      "notes": "The Code is not treated as equivalent to, or as the source of, the underlying binding obligations in the AI Act."
+    },
+    {
+      "id": "nist-ai-rmf",
+      "label": "NIST AI Risk Management Framework",
+      "jurisdiction": "United States",
+      "instrumentType": "voluntary-framework",
+      "bindingness": "voluntary",
+      "issuerOrganizationIds": [
+        "nist"
+      ],
+      "description": "A voluntary framework for organizations to manage risks arising from the design, development, deployment, and use of AI systems.",
+      "sourceIds": [
+        "nist-ai-rmf"
+      ],
+      "notes": "It is not counted as binding regulatory authority."
+    },
+    {
+      "id": "uk-aisi-evaluations",
+      "label": "UK AI Security Institute evaluation programme",
+      "jurisdiction": "United Kingdom",
+      "instrumentType": "technical-evaluation-programme",
+      "bindingness": "non-binding",
+      "issuerOrganizationIds": [
+        "uk-aisi"
+      ],
+      "description": "A government technical programme for developing and conducting evaluations of advanced AI capabilities, safeguards, and impacts.",
+      "sourceIds": [
+        "uk-aisi-overview",
+        "uk-aisi-evaluations"
+      ],
+      "notes": "Evaluation capacity is distinguished from compulsory regulatory or enforcement power."
+    },
+    {
+      "id": "cac-generative-ai-measures",
+      "label": "China’s Interim Measures for Generative Artificial Intelligence Services",
+      "jurisdiction": "China",
+      "instrumentType": "binding-regulation",
+      "bindingness": "binding",
+      "issuerOrganizationIds": [
+        "cac"
+      ],
+      "description": "Binding interim administrative measures governing the provision of generative AI services to the public in China.",
+      "sourceIds": [
+        "cac-generative-ai-measures"
+      ],
+      "notes": null
+    },
+    {
+      "id": "oecd-ai-policy-context",
+      "label": "OECD AI Principles and Policy Navigator",
+      "jurisdiction": "International",
+      "instrumentType": "comparative-policy-context",
+      "bindingness": "non-binding",
+      "issuerOrganizationIds": [
+        "oecd-ai"
+      ],
+      "description": "Non-binding AI principles and a comparative policy resource used to understand national policy and institutional approaches.",
+      "sourceIds": [
+        "oecd-ai-policy-dashboard"
+      ],
+      "notes": "It is not counted as enforcement authority."
+    }
+  ]
+}

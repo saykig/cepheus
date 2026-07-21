@@ -1,0 +1,194 @@
+{
+  "id": "frontier-ai-governance",
+  "label": "Frontier AI governance",
+  "unitOfAnalysis": "governance-field",
+  "assessment": {
+    "status": "pending-coding",
+    "asOf": "2026-07-21",
+    "methodologyVersion": "1.0",
+    "geographicScope": [
+      "European Union",
+      "United States",
+      "United Kingdom",
+      "China"
+    ],
+    "scopeNote": "A comparative assessment of selected major frontier-AI jurisdictions, not a complete global measurement."
+  },
+  "definition": "Governance of general-purpose AI models with advanced capabilities or systemic-risk potential, particularly model evaluation, technical documentation, incident reporting, regulatory access, risk mitigation, and enforcement.",
+  "scope": {
+    "included": [
+      "General-purpose and frontier models",
+      "Model evaluations",
+      "Technical and training documentation",
+      "Serious-incident reporting",
+      "Government access to technical information",
+      "Independent testing and auditing",
+      "Corrective and enforcement powers"
+    ],
+    "excluded": [
+      "Sector-specific AI uses such as healthcare or hiring",
+      "General data protection",
+      "Military deployment",
+      "Ordinary software cybersecurity",
+      "Universities and academic institutions"
+    ]
+  },
+  "scoringRubric": {
+    "0": "absent",
+    "1": "limited, voluntary, or ad hoc",
+    "2": "partial or narrowly applicable",
+    "3": "substantial but fragmented",
+    "4": "comprehensive and operational"
+  },
+  "visualMapping": {
+    "x": "derived.knowledgeConcentration",
+    "y": "derived.publicAuthority",
+    "radius": "derived.governanceSignificanceRadius",
+    "gap": "derived.knowledgeConcentration - derived.publicAuthority"
+  },
+  "metrics": {
+    "knowledgeConcentration": {
+      "label": "Knowledge concentration",
+      "components": [
+        {
+          "id": "operational-control",
+          "weight": 0.2,
+          "score": null,
+          "rationale": null,
+          "sourceIds": [],
+          "assessedAt": null,
+          "confidence": null
+        },
+        {
+          "id": "critical-resource-control",
+          "weight": 0.2,
+          "score": null,
+          "rationale": null,
+          "sourceIds": [],
+          "assessedAt": null,
+          "confidence": null
+        },
+        {
+          "id": "information-asymmetry",
+          "weight": 0.2,
+          "score": null,
+          "rationale": null,
+          "sourceIds": [],
+          "assessedAt": null,
+          "confidence": null
+        },
+        {
+          "id": "evaluation-dependence",
+          "weight": 0.2,
+          "score": null,
+          "rationale": null,
+          "sourceIds": [],
+          "assessedAt": null,
+          "confidence": null
+        },
+        {
+          "id": "expertise-concentration",
+          "weight": 0.2,
+          "score": null,
+          "rationale": null,
+          "sourceIds": [],
+          "assessedAt": null,
+          "confidence": null
+        }
+      ]
+    },
+    "publicAuthority": {
+      "label": "Public authority",
+      "components": [
+        {
+          "id": "binding-legal-mandate",
+          "weight": 0.2,
+          "score": null,
+          "rationale": null,
+          "sourceIds": [],
+          "assessedAt": null,
+          "confidence": null
+        },
+        {
+          "id": "compulsory-information-access",
+          "weight": 0.2,
+          "score": null,
+          "rationale": null,
+          "sourceIds": [],
+          "assessedAt": null,
+          "confidence": null
+        },
+        {
+          "id": "independent-evaluation-power",
+          "weight": 0.2,
+          "score": null,
+          "rationale": null,
+          "sourceIds": [],
+          "assessedAt": null,
+          "confidence": null
+        },
+        {
+          "id": "corrective-and-enforcement-power",
+          "weight": 0.2,
+          "score": null,
+          "rationale": null,
+          "sourceIds": [],
+          "assessedAt": null,
+          "confidence": null
+        },
+        {
+          "id": "coverage-and-coordination",
+          "weight": 0.2,
+          "score": null,
+          "rationale": null,
+          "sourceIds": [],
+          "assessedAt": null,
+          "confidence": null
+        }
+      ]
+    }
+  },
+  "governanceSignificance": {
+    "publicDisplay": "tier-only",
+    "components": [
+      {
+        "id": "scale-of-exposure",
+        "weight": 0.25,
+        "score": null
+      },
+      {
+        "id": "severity-and-reversibility",
+        "weight": 0.25,
+        "score": null
+      },
+      {
+        "id": "strategic-dependence",
+        "weight": 0.25,
+        "score": null
+      },
+      {
+        "id": "pace-and-spillover",
+        "weight": 0.25,
+        "score": null
+      }
+    ]
+  },
+  "organizationIds": [
+    "eu-ai-office",
+    "nist",
+    "uk-aisi",
+    "cac",
+    "oecd-ai",
+    "openai",
+    "anthropic",
+    "google-deepmind"
+  ],
+  "instrumentIds": [
+    "eu-ai-act",
+    "eu-gpai-code",
+    "nist-ai-rmf",
+    "uk-aisi-evaluations",
+    "cac-generative-ai-measures",
+    "oecd-ai-policy-context"
+  ]
+}

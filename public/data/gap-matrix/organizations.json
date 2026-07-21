@@ -1,0 +1,124 @@
+{
+  "organizations": [
+    {
+      "id": "eu-ai-office",
+      "label": "European AI Office",
+      "jurisdiction": "European Union",
+      "organizationType": "public-authority",
+      "authorityProfile": "regulatory-and-enforcement",
+      "roleTypes": [
+        "binding-regulation",
+        "technical-evaluation-capacity"
+      ],
+      "description": "The European Commission body responsible for implementing and enforcing the AI Act's rules for general-purpose AI models at Union level.",
+      "sourceIds": [
+        "ec-ai-act-regulatory-framework",
+        "ec-gpai-models-qa",
+        "ec-gpai-code"
+      ],
+      "notes": "Its authority arises from the AI Act; supporting guidance and the voluntary GPAI Code do not independently create equivalent legal obligations."
+    },
+    {
+      "id": "nist",
+      "label": "United States National Institute of Standards and Technology",
+      "jurisdiction": "United States",
+      "organizationType": "public-technical-body",
+      "authorityProfile": "standards-and-technical",
+      "roleTypes": [
+        "voluntary-framework",
+        "technical-evaluation-capacity"
+      ],
+      "description": "A United States public standards and measurement body that develops technical AI risk-management guidance and evaluation resources.",
+      "sourceIds": [
+        "nist-ai-rmf"
+      ],
+      "notes": "The AI Risk Management Framework is voluntary and is not treated as binding regulatory authority."
+    },
+    {
+      "id": "uk-aisi",
+      "label": "United Kingdom AI Security Institute",
+      "jurisdiction": "United Kingdom",
+      "organizationType": "public-technical-body",
+      "authorityProfile": "evaluation-only",
+      "roleTypes": [
+        "technical-evaluation-capacity"
+      ],
+      "description": "A United Kingdom government research organization that develops and conducts evaluations of advanced AI systems.",
+      "sourceIds": [
+        "uk-aisi-overview",
+        "uk-aisi-evaluations"
+      ],
+      "notes": "It is represented as a technical evaluation body, not a regulator or enforcement authority."
+    },
+    {
+      "id": "cac",
+      "label": "Cyberspace Administration of China",
+      "jurisdiction": "China",
+      "organizationType": "public-authority",
+      "authorityProfile": "regulatory-and-enforcement",
+      "roleTypes": [
+        "binding-regulation"
+      ],
+      "description": "China's national cyberspace authority and one of the issuing bodies for binding rules governing generative AI services.",
+      "sourceIds": [
+        "cac-generative-ai-measures"
+      ],
+      "notes": null
+    },
+    {
+      "id": "oecd-ai",
+      "label": "OECD.AI",
+      "jurisdiction": "International",
+      "organizationType": "intergovernmental-policy-platform",
+      "authorityProfile": "comparative-policy-only",
+      "roleTypes": [
+        "voluntary-framework",
+        "comparative-policy-context"
+      ],
+      "description": "The OECD's policy platform for comparing AI principles, policies, institutions, and national approaches.",
+      "sourceIds": [
+        "oecd-ai-policy-dashboard"
+      ],
+      "notes": "It supplies comparative policy context and voluntary principles, not enforcement authority."
+    },
+    {
+      "id": "openai",
+      "label": "OpenAI",
+      "jurisdiction": "Private / transnational",
+      "organizationType": "private-model-provider",
+      "authorityProfile": "no-public-authority",
+      "roleTypes": [
+        "private-operational-control"
+      ],
+      "description": "A private developer and deployer of general-purpose and frontier AI models with operational control over model development and access.",
+      "sourceIds": [],
+      "notes": "Evidence assignment is deferred to the substantive coding stage."
+    },
+    {
+      "id": "anthropic",
+      "label": "Anthropic",
+      "jurisdiction": "Private / transnational",
+      "organizationType": "private-model-provider",
+      "authorityProfile": "no-public-authority",
+      "roleTypes": [
+        "private-operational-control"
+      ],
+      "description": "A private developer and deployer of general-purpose and frontier AI models with operational control over model development and access.",
+      "sourceIds": [],
+      "notes": "Evidence assignment is deferred to the substantive coding stage."
+    },
+    {
+      "id": "google-deepmind",
+      "label": "Google DeepMind",
+      "jurisdiction": "Private / transnational",
+      "organizationType": "private-model-provider",
+      "authorityProfile": "no-public-authority",
+      "roleTypes": [
+        "private-operational-control"
+      ],
+      "description": "A private developer and deployer of general-purpose and frontier AI models with operational control over model development and access.",
+      "sourceIds": [],
+      "notes": "Evidence assignment is deferred to the substantive coding stage."
+    }
+  ]
+}

@@ -2946,12 +2946,17 @@ input[type='email'] {
 
 /* =============================== Gap Map (quadrant scatter) */
 .gap-toolbar {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 0.7rem;
   margin-bottom: 1.1rem;
+}
+
+.gap-toolbar > .gap-legend-note {
+  margin-left: auto;
 }
 
 .gap-legend-note {
@@ -2983,6 +2988,78 @@ input[type='email'] {
   background: var(--paper-bright);
   box-shadow: var(--edge);
   padding: 0.4rem;
+}
+
+.gap-help-button {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: inherit;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: left;
+  text-transform: inherit;
+  cursor: help;
+}
+
+.gap-help-button:focus-visible,
+.gap-help-trigger:focus-visible {
+  color: var(--olive);
+  outline: 1px solid color-mix(in oklab, var(--olive) 58%, transparent);
+  outline-offset: 2px;
+}
+
+.gap-help-trigger {
+  cursor: help;
+  outline: none;
+}
+
+.gap-help-trigger:hover {
+  fill: var(--olive);
+}
+
+.gap-help-tooltip {
+  position: absolute;
+  z-index: 7;
+  width: min(19rem, calc(100% - 1.2rem));
+  padding: 0.72rem 0.82rem;
+  border-radius: var(--radius-sm);
+  background: var(--paper-bright);
+  box-shadow: var(--edge), var(--shadow-card);
+  color: var(--ink-soft);
+  font-family: var(--font-text), Georgia, serif;
+  font-size: var(--viz-body);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.45;
+  text-align: left;
+  text-transform: none;
+  pointer-events: none;
+}
+
+.gap-help-tooltip[hidden] {
+  display: none;
+}
+
+.gap-help-tooltip.is-significance {
+  top: calc(100% + 0.25rem);
+  right: 0;
+}
+
+.gap-help-tooltip.is-knowledge {
+  right: 0.6rem;
+  bottom: 1.4rem;
+}
+
+.gap-help-tooltip.is-authority {
+  top: 32%;
+  left: 0.6rem;
 }
 
 .gap-plot svg {
@@ -3073,6 +3150,7 @@ input[type='email'] {
 }
 
 .gap-panel {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 1.05rem 1.15rem;
@@ -3126,8 +3204,14 @@ input[type='email'] {
 }
 
 .gap-meter-row {
+  position: relative;
   display: grid;
   gap: 0.28rem;
+}
+
+.gap-help-tooltip.is-gap {
+  top: calc(100% + 0.35rem);
+  right: 0;
 }
 
 .gap-meter-head {
@@ -3148,6 +3232,16 @@ input[type='email'] {
   font-variant-numeric: tabular-nums;
 }
 
+.gap-panel.is-pending .gap-meter-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(3.4rem, auto);
+  gap: 0.55rem;
+}
+
+.gap-panel.is-pending .gap-meter-head .val {
+  text-align: right;
+}
+
 .gap-panel .meter > span {
   background: var(--sc);
 }
@@ -3160,6 +3254,23 @@ input[type='email'] {
   font-family: var(--font-text), Georgia, serif;
   font-size: var(--viz-body);
   line-height: 1.35;
+}
+
+.gap-panel .gap-scope-note {
+  margin: 0.55rem 0 0;
+  color: var(--ink-faint);
+  font-family: var(--font-text), Georgia, serif;
+  font-size: var(--viz-note);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.tool-loading-error {
+  display: grid;
+  place-items: center;
+  color: var(--ink-muted);
+  font-family: var(--font-text), Georgia, serif;
+  font-size: var(--viz-body);
 }
 
 .gap-panel .visual-sources {

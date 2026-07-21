@@ -165,9 +165,9 @@ export default async function CepheusEssay({
           <section className="essay-visual-block" id="gap-matrix">
             <GapMapMatrix locale={locale} />
             <p className="tool-caption">
-              Fields far below the diagonal draw heavy technical activity with
-              limited policy authority or accountability. Hover or select any
-              point to read the drivers behind its position.
+              Points below the diagonal have higher knowledge concentration than
+              public authority. Unscored fields remain marked “Assessment pending”
+              until evidence coding is complete.
             </p>
             <EssayDisclosure title="Where do these institutions meet?">
               <p>

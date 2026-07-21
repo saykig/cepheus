@@ -1,84 +1,171 @@
 'use client'
 
-import type { CSSProperties } from 'react'
-import { useEffect, useMemo, useState } from 'react'
+import type {
+  CSSProperties,
+  MouseEvent as ReactMouseEvent,
+  PointerEvent as ReactPointerEvent,
+} from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useInView } from './use-in-view'
 import { WatercolorNode, WatercolorNodeDefs } from './watercolor-node'
 import type { Locale } from 'app/lib/i18n'
 import { visualCopy } from 'app/lib/visual-copy'
+import {
+  deriveAssessment,
+  type GovernanceField,
+  type GovernanceSignificanceTier,
+} from 'app/lib/gap-matrix-scoring'
 
-type Topic = {
-  id: string
-  label: string
-  series: number
-  importance: number
-  gapType: string
-  gap: string
-  knowledge: number
-  authority: number
-  dependency: number
-  oversight: number
+type HelpId = 'knowledge' | 'authority' | 'gap' | 'significance'
+
+const HELP_TEXT: Record<HelpId, string> = {
+  knowledge:
+    'How strongly technical capability, information, and evaluation access are concentrated outside public institutions. A higher score means greater non-public concentration.',
+  authority:
+    'The extent to which public institutions possess binding, operational powers over that field. A higher score means broader and more enforceable public authority.',
+  gap:
+    'Calculated by subtracting public authority from knowledge concentration. A larger positive result indicates a wider institutional gap.',
+  significance:
+    'An assessment of the field’s scale of exposure, severity and reversibility, strategic dependence, and pace of spillover. It is shown as a tier rather than a precise public score.',
 }
 
-type Axis = { key: keyof Topic; label: string; low: string; high: string }
-type Preset = { id: string; label: string; x: Axis; y: Axis }
-
-type GapData = {
-  title: string
-  description: string
-  note: string
-  presets: Preset[]
-  topics: Topic[]
+const HELP_DOM_IDS: Record<HelpId, string> = {
+  knowledge: 'gap-help-knowledge',
+  authority: 'gap-help-authority',
+  gap: 'gap-help-result',
+  significance: 'gap-help-significance',
 }
 
-const sx = (v: number) => v
-const sy = (v: number) => 100 - v
-const rFor = (v: number) => (2 + (Math.sqrt(v) / 10) * 3.6) * 1.16
+const sx = (value: number) => value
+const sy = (value: number) => 100 - value
+const fieldColor = 'var(--series-1)'
 
-const colorFor = (t: Topic) => `var(--series-${t.series})`
+const tierLabel = (tier: GovernanceSignificanceTier | null) => {
+  if (tier === null) return 'Pending'
+  return tier.replace(/^./, (letter) => letter.toUpperCase())
+}
+
+function HelpTooltip({
+  active,
+  className,
+  helpId,
+}: {
+  active: boolean
+  className: string
+  helpId: HelpId
+}) {
+  return (
+    <span
+      id={HELP_DOM_IDS[helpId]}
+      className={`gap-help-tooltip ${className}`}
+      role="tooltip"
+      hidden={!active}
+    >
+      {HELP_TEXT[helpId]}
+    </span>
+  )
+}
 
 export function GapMapMatrix({ locale = 'en' }: { locale?: Locale }) {
   const copy = visualCopy[locale]
   const { ref, inView } = useInView<HTMLElement>()
-  const [data, setData] = useState<GapData | null>(null)
-  const [selectedId, setSelectedId] = useState<string | null>(null)
-  const [presetId, setPresetId] = useState<string | null>(null)
+  const [field, setField] = useState<GovernanceField | null>(null)
+  const [loadFailed, setLoadFailed] = useState(false)
+  const [activeTooltip, setActiveTooltip] = useState<HelpId | null>(null)
+  const touchStartedOpen = useRef(false)
 
   useEffect(() => {
-    fetch('/data/gap-data.json')
-      .then((r) => r.json())
-      .then((d: GapData) => {
-        setData(d)
-        setPresetId(d.presets[0]?.id ?? null)
-        setSelectedId(d.topics[0]?.id ?? null)
+    const controller = new AbortController()
+
+    fetch('/data/gap-matrix/fields.json', { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error(`Gap Matrix data returned ${response.status}`)
+        return response.json() as Promise<GovernanceField>
       })
+      .then(setField)
+      .catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === 'AbortError') return
+        setLoadFailed(true)
+      })
+
+    return () => controller.abort()
   }, [])
 
-  const preset = useMemo(
-    () => data?.presets.find((p) => p.id === presetId) ?? data?.presets[0],
-    [data, presetId],
-  )
-  const selected = useMemo(
-    () => data?.topics.find((t) => t.id === selectedId),
-    [data, selectedId],
-  )
+  useEffect(() => {
+    if (activeTooltip === null) return
 
-  if (!data || !selected || !preset) {
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setActiveTooltip(null)
+    }
+    const closeOutside = (event: globalThis.PointerEvent) => {
+      const target = event.target
+      if (target instanceof Element && target.closest('[data-gap-help-trigger]')) return
+      setActiveTooltip(null)
+    }
+
+    document.addEventListener('keydown', closeOnEscape)
+    document.addEventListener('pointerdown', closeOutside)
+    return () => {
+      document.removeEventListener('keydown', closeOnEscape)
+      document.removeEventListener('pointerdown', closeOutside)
+    }
+  }, [activeTooltip])
+
+  const derived = useMemo(() => (field ? deriveAssessment(field) : null), [field])
+
+  if (loadFailed) {
+    return (
+      <div className="tool-loading tool-loading-error" role="alert">
+        Gap Matrix data could not be loaded.
+      </div>
+    )
+  }
+
+  if (!field || !derived) {
     return <div className="tool-loading" aria-live="polite" aria-busy="true" />
   }
 
-  const xv = (t: Topic) => t[preset.x.key] as number
-  const yv = (t: Topic) => t[preset.y.key] as number
+  const isPositioned =
+    derived.knowledgeConcentration !== null &&
+    derived.publicAuthority !== null &&
+    derived.governanceSignificanceRadius !== null
+  const isPending = !isPositioned
 
-  // draw the selected bubble last so its label and halo sit above the cluster
-  const orderedTopics = [...data.topics].sort(
-    (a, b) => Number(a.id === selectedId) - Number(b.id === selectedId),
-  )
+  const showHelp = (helpId: HelpId) => setActiveTooltip(helpId)
+  const hideHelp = (helpId: HelpId) =>
+    setActiveTooltip((current) => (current === helpId ? null : current))
+  const helpProps = (helpId: HelpId) => ({
+    'aria-describedby': HELP_DOM_IDS[helpId],
+    'data-gap-help-trigger': true,
+    onFocus: () => showHelp(helpId),
+    onBlur: () => hideHelp(helpId),
+    onMouseEnter: () => showHelp(helpId),
+    onMouseLeave: (event: ReactMouseEvent<Element>) => {
+      if (document.activeElement !== event.currentTarget) hideHelp(helpId)
+    },
+    onPointerDown: (event: ReactPointerEvent<Element>) => {
+      if (event.pointerType !== 'mouse') {
+        touchStartedOpen.current = activeTooltip === helpId
+      }
+    },
+    onPointerUp: (event: ReactPointerEvent<Element>) => {
+      if (event.pointerType !== 'mouse') {
+        setActiveTooltip(touchStartedOpen.current ? null : helpId)
+      }
+    },
+  })
 
-  const meters = [
-    { label: preset.x.label, value: xv(selected) },
-    { label: preset.y.label, value: yv(selected) },
-    { label: copy.importance, value: selected.importance },
+  const axisMeters = [
+    {
+      helpId: 'knowledge' as const,
+      label: field.metrics.knowledgeConcentration.label,
+      value: derived.knowledgeConcentration,
+    },
+    {
+      helpId: 'authority' as const,
+      label: field.metrics.publicAuthority.label,
+      value: derived.publicAuthority,
+    },
   ]
 
   return (
@@ -93,9 +180,24 @@ export function GapMapMatrix({ locale = 'en' }: { locale?: Locale }) {
           <details className="tool-about">
             <summary>{copy.about}</summary>
             <div className="tool-about-body">
-              Each field is placed by two institutional measures. The dashed
-              diagonal is where the two are balanced; points below it are where
-              the gap opens. Circle size is institutional importance. {data.note}
+              Each point is a dated assessment of a defined governance field.
+              Knowledge concentration measures how strongly technical capability,
+              information, and evaluation access are concentrated outside public
+              institutions. Public authority measures binding rules, compulsory
+              access to information, independent evaluation powers, and enforcement
+              capacity. Both scores are calculated from a published component
+              rubric. The diagonal marks equal index scores; points below it have
+              greater non-public knowledge concentration than public authority.
+              Circle size shows governance significance as a tier. Full sources,
+              coding decisions, and methodological limitations are documented on{' '}
+              <a
+                href="https://github.com/saykig/cepheus"
+                rel="noreferrer"
+                target="_blank"
+              >
+                GitHub
+              </a>
+              .
             </div>
           </details>
         </div>
@@ -103,20 +205,11 @@ export function GapMapMatrix({ locale = 'en' }: { locale?: Locale }) {
       <p className="tool-subtitle">{copy.gapDescription}</p>
 
       <div className="gap-toolbar">
-        <div className="chip-row" role="group" aria-label={copy.chooseAxes}>
-          {data.presets.map((p) => (
-            <button
-              key={p.id}
-              type="button"
-              className={`chip${presetId === p.id ? ' is-on' : ''}`}
-              aria-pressed={presetId === p.id}
-              onClick={() => setPresetId(p.id)}
-            >
-              {p.label}
-            </button>
-          ))}
-        </div>
-        <span className="gap-legend-note">
+        <button
+          type="button"
+          className="gap-legend-note gap-help-button"
+          {...helpProps('significance')}
+        >
           <svg className="gap-size-key" viewBox="0 0 28 14" aria-hidden="true">
             <defs>
               <WatercolorNodeDefs id="gap-legend-watercolor" />
@@ -136,13 +229,22 @@ export function GapMapMatrix({ locale = 'en' }: { locale?: Locale }) {
               />
             </g>
           </svg>
-          {copy.circleImportance}
-        </span>
+          Governance significance
+        </button>
+        <HelpTooltip
+          active={activeTooltip === 'significance'}
+          className="is-significance"
+          helpId="significance"
+        />
       </div>
 
       <div className="gap-layout">
         <div className="gap-plot">
-          <svg viewBox="-12 -5 116 117" role="img" aria-label={`${data.title}: ${preset.label}`}>
+          <svg
+            viewBox="-12 -5 116 117"
+            role="img"
+            aria-label={`${copy.gapTitle}: Knowledge concentration by Public authority`}
+          >
             <defs>
               <WatercolorNodeDefs id="gap-node-watercolor" />
             </defs>
@@ -158,100 +260,159 @@ export function GapMapMatrix({ locale = 'en' }: { locale?: Locale }) {
             <line className="chart-axis" x1={0} y1={0} x2={0} y2={100} />
             <line className="chart-axis" x1={0} y1={100} x2={100} y2={100} />
 
-            <text className="diagonal-label" x={72} y={26} transform="rotate(-45 72 26)">
-              {copy.inBalance}
+            <text
+              className="diagonal-label"
+              x={72}
+              y={26}
+              transform="rotate(-45 72 26)"
+            >
+              Equal index scores
             </text>
 
-            <text className="gap-axis-title" x={50} y={112} textAnchor="middle">
-              {preset.x.label}
+            <text
+              className="gap-axis-title gap-help-trigger"
+              x={50}
+              y={112}
+              textAnchor="middle"
+              role="button"
+              tabIndex={0}
+              {...helpProps('knowledge')}
+            >
+              Knowledge concentration
             </text>
             <text className="gap-axis-end" x={0} y={108} textAnchor="middle">
-              {preset.x.low}
+              Low
             </text>
             <text className="gap-axis-end" x={100} y={108} textAnchor="middle">
-              {preset.x.high}
+              High
             </text>
             <text
-              className="gap-axis-title"
+              className="gap-axis-title gap-help-trigger"
               x={-8}
               y={50}
               textAnchor="middle"
               transform="rotate(-90 -8 50)"
+              role="button"
+              tabIndex={0}
+              {...helpProps('authority')}
             >
-              {preset.y.label}
+              Public authority
             </text>
 
-            {orderedTopics.map((t) => {
-              const isSel = selectedId === t.id
-              const r = rFor(t.importance)
-              const cx = sx(xv(t))
-              const cy = sy(yv(t))
-              return (
-                <g
-                  key={t.id}
-                  className={`bubble${isSel ? ' is-selected is-labeled' : ''}`}
-                  style={
-                    {
-                      '--sc': colorFor(t),
-                      transform: `translate(${cx}px, ${cy}px)`,
-                    } as CSSProperties
-                  }
-                  role="button"
-                  tabIndex={0}
-                  aria-pressed={isSel}
-                  aria-label={`${t.label}: ${preset.x.label} ${xv(t)}, ${preset.y.label} ${yv(t)}`}
-                  onClick={() => setSelectedId(t.id)}
-                  onKeyDown={(ev) => {
-                    if (ev.key === 'Enter' || ev.key === ' ') {
-                      ev.preventDefault()
-                      setSelectedId(t.id)
-                    }
-                  }}
+            {isPositioned && (
+              <g
+                className="bubble is-selected is-labeled"
+                style={
+                  {
+                    '--sc': fieldColor,
+                    transform: `translate(${sx(derived.knowledgeConcentration as number)}px, ${sy(derived.publicAuthority as number)}px)`,
+                  } as CSSProperties
+                }
+                role="img"
+                aria-label={`${field.label}: Knowledge concentration ${derived.knowledgeConcentration}, Public authority ${derived.publicAuthority}, Governance significance ${derived.governanceSignificanceTier}`}
+              >
+                <WatercolorNode
+                  cx={0}
+                  cy={0}
+                  radius={derived.governanceSignificanceRadius as number}
+                  filterId="gap-node-watercolor"
+                  selected
+                  hitRadius={(derived.governanceSignificanceRadius as number) + 2.7}
+                />
+                <text
+                  x={0}
+                  y={-(derived.governanceSignificanceRadius as number) - 1.4}
                 >
-                  <WatercolorNode
-                    cx={0}
-                    cy={0}
-                    radius={r}
-                    filterId="gap-node-watercolor"
-                    selected={isSel}
-                    hitRadius={r + 2.7}
-                  />
-                  <text x={0} y={-r - 1.4}>
-                    {t.label}
-                  </text>
-                </g>
-              )
-            })}
+                  {field.label}
+                </text>
+              </g>
+            )}
           </svg>
+
+          <HelpTooltip
+            active={activeTooltip === 'knowledge'}
+            className="is-knowledge"
+            helpId="knowledge"
+          />
+          <HelpTooltip
+            active={activeTooltip === 'authority'}
+            className="is-authority"
+            helpId="authority"
+          />
         </div>
 
         <aside
-          className="gap-panel"
-          style={{ '--sc': colorFor(selected) } as CSSProperties}
+          className={`gap-panel${isPending ? ' is-pending' : ''}`}
+          style={{ '--sc': fieldColor } as CSSProperties}
           aria-live="polite"
         >
           <span className="gap-panel-kind">
             <span className="dot" />
-            {selected.gapType}
+            {isPending ? 'Assessment pending' : 'Dated assessment'}
           </span>
-          <h5>{selected.label}</h5>
-          <p className="gap-panel-quadrant">{preset.label}</p>
+          <h5>{field.label}</h5>
+          <p className="gap-panel-quadrant">As of {field.assessment.asOf}</p>
 
           <div className="gap-meters">
-            {meters.map((m) => (
-              <div className="gap-meter-row" key={m.label}>
+            {axisMeters.map((meter) => (
+              <div className="gap-meter-row" key={meter.helpId}>
                 <div className="gap-meter-head">
-                  <span>{m.label}</span>
-                  <span className="val">{Math.round(m.value)} / 100</span>
+                  <span>{meter.label}</span>
+                  <span className="val">
+                    {meter.value === null
+                      ? 'Pending'
+                      : `${Math.round(meter.value)} / 100`}
+                  </span>
                 </div>
-                <div className="meter">
-                  <span style={{ width: `${m.value}%` }} />
-                </div>
+                {meter.value !== null && (
+                  <div
+                    className="meter"
+                    role="meter"
+                    aria-label={meter.label}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    aria-valuenow={Math.round(meter.value)}
+                  >
+                    <span style={{ width: `${meter.value}%` }} />
+                  </div>
+                )}
               </div>
             ))}
+
+            <div className="gap-meter-row">
+              <div className="gap-meter-head">
+                <button
+                  type="button"
+                  className="gap-help-button"
+                  {...helpProps('gap')}
+                >
+                  Gap result
+                </button>
+                <span className="val">
+                  {derived.gap === null
+                    ? 'Pending'
+                    : `${derived.gap > 0 ? '+' : ''}${derived.gap}`}
+                </span>
+              </div>
+              <HelpTooltip
+                active={activeTooltip === 'gap'}
+                className="is-gap"
+                helpId="gap"
+              />
+            </div>
+
+            <div className="gap-meter-row">
+              <div className="gap-meter-head">
+                <span>Governance significance</span>
+                <span className="val">
+                  {tierLabel(derived.governanceSignificanceTier)}
+                </span>
+              </div>
+            </div>
           </div>
 
-          <p className="gap-insight">{selected.gap}</p>
+          <p className="gap-insight">{field.definition}</p>
+          <p className="gap-scope-note">{field.assessment.scopeNote}</p>
         </aside>
       </div>
     </section>
