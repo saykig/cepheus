@@ -41,22 +41,48 @@ type NetworkData = {
   edges: Edge[]
 }
 
-const colorFor = (n: Node) => `var(--series-${n.series})`
+const colorFor = (node: Node) => `var(--series-${node.series})`
 
-function edgeStyle(kind: EdgeKind, strength: number, on: boolean) {
-  if (kind === 'authority') return { width: on ? 0.7 + strength * 0.9 : 1.1, dash: undefined, arrow: false }
-  if (kind === 'interface') return { width: on ? 0.3 + strength * 0.45 : 0.4, dash: '1.8 1.6', arrow: false }
-  if (kind === 'dependency') return { width: on ? 0.3 + strength * 0.55 : 0.45, dash: undefined, arrow: true }
-  return { width: on ? 0.3 + strength * 0.55 : 0.45, dash: undefined, arrow: false } // knowledge
+function edgePresentation(edge: Edge, strengthEnabled: boolean) {
+  if (edge.kind === 'authority') {
+    return { width: strengthEnabled ? 0.7 + edge.strength * 0.9 : 1.1, dash: undefined, arrow: false }
+  }
+  if (edge.kind === 'interface') {
+    return { width: strengthEnabled ? 0.3 + edge.strength * 0.45 : 0.4, dash: '1.8 1.6', arrow: false }
+  }
+  if (edge.kind === 'dependency') {
+    return { width: strengthEnabled ? 0.3 + edge.strength * 0.55 : 0.45, dash: undefined, arrow: true }
+  }
+  return { width: strengthEnabled ? 0.3 + edge.strength * 0.55 : 0.45, dash: undefined, arrow: false }
 }
 
-// The function name is kept so the essay page import stays valid; the tool is
-// the Institutional Relationship Map.
+function labelLines(label: string) {
+  if (label === 'U.S. Department of Defense') return ['U.S. Department', 'of Defense']
+  if (label === 'AI Governance') return ['AI', 'Governance']
+  if (label.length < 16) return [label]
+
+  const words = label.split(' ')
+  const midpoint = label.length / 2
+  let first = ''
+  let second = ''
+  for (const word of words) {
+    if (!second && `${first} ${word}`.trim().length <= midpoint + 2) {
+      first = `${first} ${word}`.trim()
+    } else {
+      second = `${second} ${word}`.trim()
+    }
+  }
+  return second ? [first, second] : [first]
+}
+
+// The function name remains stable so the essay route and localized drafts keep
+// their existing public interface.
 export function InstitutionalLinkMap({ locale = 'en' }: { locale?: Locale }) {
   const copy = visualCopy[locale]
   const { ref, inView } = useInView<HTMLElement>()
   const [data, setData] = useState<NetworkData | null>(null)
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [hoveredId, setHoveredId] = useState<string | null>(null)
   const [filter, setFilter] = useState('all')
   const [query, setQuery] = useState('')
   const [strength, setStrength] = useState(true)
@@ -66,19 +92,17 @@ export function InstitutionalLinkMap({ locale = 'en' }: { locale?: Locale }) {
 
   useEffect(() => {
     fetch('/data/relationships.json')
-      .then((r) => r.json())
-      .then((d: NetworkData) => {
-        setData(d)
-        setSelectedId(d.nodes[0]?.id ?? null)
+      .then((response) => response.json())
+      .then((network: NetworkData) => {
+        setData(network)
+        setSelectedId(network.nodes[0]?.id ?? null)
       })
   }, [])
 
   const nodesById = useMemo(
-    () => new Map((data?.nodes ?? []).map((n) => [n.id, n])),
+    () => new Map((data?.nodes ?? []).map((node) => [node.id, node])),
     [data],
   )
-
-  const edgeVisible = (e: Edge) => filter === 'all' || e.kind === filter
 
   const updateProfileScroll = useCallback(() => {
     const profile = profileRef.current
@@ -92,9 +116,7 @@ export function InstitutionalLinkMap({ locale = 'en' }: { locale?: Locale }) {
       '--profile-scroll-position',
       `${8 + Math.min(1, Math.max(0, progress)) * 84}%`,
     )
-    setProfileScrollable((current) =>
-      current === canScroll ? current : canScroll,
-    )
+    setProfileScrollable((current) => (current === canScroll ? current : canScroll))
   }, [])
 
   useEffect(() => {
@@ -120,45 +142,48 @@ export function InstitutionalLinkMap({ locale = 'en' }: { locale?: Locale }) {
     requestAnimationFrame(updateProfileScroll)
   }, [selectedId, updateProfileScroll])
 
-  const q = query.trim().toLowerCase()
-  const matches = (n: Node) => !q || n.label.toLowerCase().includes(q)
+  const normalizedQuery = query.trim().toLowerCase()
+  const matches = (node: Node) =>
+    !normalizedQuery || node.label.toLowerCase().includes(normalizedQuery)
 
   const selected = selectedId ? nodesById.get(selectedId) : undefined
 
-  // grouped connections for the selected node
   const panel = useMemo(() => {
     if (!data || !selected) return null
-    const inc = data.edges.filter((e) => e.source === selected.id || e.target === selected.id)
-    const other = (e: Edge) => nodesById.get(e.source === selected.id ? e.target : e.source)!
-    const uniq = (arr: Node[]) => Array.from(new Map(arr.map((n) => [n.id, n])).values())
-    const byKind = (k: EdgeKind) => uniq(inc.filter((e) => e.kind === k).map(other))
-    const dependsOn = uniq(inc.filter((e) => e.kind === 'dependency' && e.source === selected.id).map(other))
-    const reliedOnBy = uniq(inc.filter((e) => e.kind === 'dependency' && e.target === selected.id).map(other))
-    const interfaces = inc
-      .filter((e) => e.kind === 'interface')
-      .map((e) => ({ node: other(e), type: e.interfaceType }))
-    const connected = uniq(inc.map(other))
+    const incidentEdges = data.edges.filter(
+      (edge) => edge.source === selected.id || edge.target === selected.id,
+    )
+    const other = (edge: Edge) =>
+      nodesById.get(edge.source === selected.id ? edge.target : edge.source)!
+    const unique = (nodes: Node[]) =>
+      Array.from(new Map(nodes.map((node) => [node.id, node])).values())
+    const byKind = (kind: EdgeKind) =>
+      unique(incidentEdges.filter((edge) => edge.kind === kind).map(other))
     return {
       knowledge: byKind('knowledge'),
       authority: byKind('authority'),
-      dependsOn,
-      reliedOnBy,
-      interfaces,
-      connected,
     }
   }, [data, selected, nodesById])
 
   if (!data || !selected || !panel) {
-    return <div className="tool-loading" aria-live="polite" aria-busy="true" />
+    return <div className="tool-loading constellation-loading" aria-live="polite" aria-busy="true" />
   }
 
-  const edgeEls = data.edges
-    .map((e, i) => ({ e, i, s: nodesById.get(e.source), t: nodesById.get(e.target) }))
-    .filter((x) => x.s && x.t)
-    .map((x) => ({
-      ...x,
-      visible: edgeVisible(x.e),
-      incident: x.e.source === selected.id || x.e.target === selected.id,
+  const activeId = hoveredId ?? selected.id
+  const activeNode = nodesById.get(activeId) ?? selected
+  const edgeVisible = (edge: Edge) => filter === 'all' || edge.kind === filter
+  const edgeElements = data.edges
+    .map((edge, index) => ({
+      edge,
+      index,
+      source: nodesById.get(edge.source),
+      target: nodesById.get(edge.target),
+    }))
+    .filter((entry) => entry.source && entry.target)
+    .map((entry) => ({
+      ...entry,
+      visible: edgeVisible(entry.edge),
+      incident: entry.edge.source === activeId || entry.edge.target === activeId,
     }))
     .sort((a, b) => Number(a.incident) - Number(b.incident))
 
@@ -166,38 +191,53 @@ export function InstitutionalLinkMap({ locale = 'en' }: { locale?: Locale }) {
     (a, b) => Number(a.id === selectedId) - Number(b.id === selectedId),
   )
 
+  const renderTags = (items: Node[]) =>
+    items.length ? (
+      <div className="node-tags">
+        {items.map((node) => (
+          <button
+            key={node.id}
+            type="button"
+            className="node-tag"
+            onClick={() => setSelectedId(node.id)}
+          >
+            {node.label}
+          </button>
+        ))}
+      </div>
+    ) : (
+      <p className="node-profile-empty">{copy.noMappedLinks}</p>
+    )
+
   return (
     <section
       ref={ref}
-      className={`tool constellation reveal${inView ? ' is-in' : ''}`}
+      className={`tool constellation reveal${inView ? ' is-in' : ''}${strength ? '' : ' is-strength-uniform'}`}
       aria-label={copy.linkTitle}
+      aria-describedby="link-map-instructions"
     >
-      <div className="tool-head">
-        <div className="tool-heading">
-          <h4 className="tool-title">{copy.linkTitle}</h4>
-          <details className="tool-about">
-            <summary>{copy.about}</summary>
-            <div className="tool-about-body">
-              Solid lines are knowledge, thick lines are authority, arrows are
-              dependency, and dashed lines are interface mechanisms. Solid circles
-              are fields; dashed circles are institutions. {data.note}
-            </div>
-          </details>
+      <header className="constellation-header">
+        <div className="constellation-meta" aria-label={copy.projectName}>
+          <span>{copy.projectName}</span>
+          <span className="constellation-meta-mark" aria-hidden="true">✳</span>
         </div>
-      </div>
-      <p className="tool-subtitle">{copy.linkDescription}</p>
+        <h4 className="constellation-title">{copy.linkTitle}</h4>
+        <span className="constellation-title-rule" aria-hidden="true" />
+      </header>
+
+      <p className="constellation-intro">{copy.linkDescription}</p>
 
       <div className="constellation-toolbar">
         <div className="chip-row" role="group" aria-label={copy.filter}>
-          {data.filters.map((f) => (
+          {data.filters.map((item) => (
             <button
-              key={f.id}
+              key={item.id}
               type="button"
-              className={`chip${filter === f.id ? ' is-on' : ''}`}
-              aria-pressed={filter === f.id}
-              onClick={() => setFilter(f.id)}
+              className={`chip${filter === item.id ? ' is-on' : ''}`}
+              aria-pressed={filter === item.id}
+              onClick={() => setFilter(item.id)}
             >
-              {f.label}
+              {item.label}
             </button>
           ))}
         </div>
@@ -206,7 +246,7 @@ export function InstitutionalLinkMap({ locale = 'en' }: { locale?: Locale }) {
             <input
               type="checkbox"
               checked={strength}
-              onChange={(e) => setStrength(e.target.checked)}
+              onChange={(event) => setStrength(event.target.checked)}
             />
             <span className="toggle-track" />
             {copy.lineStrength}
@@ -220,16 +260,22 @@ export function InstitutionalLinkMap({ locale = 'en' }: { locale?: Locale }) {
               type="search"
               placeholder={copy.search}
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(event) => setQuery(event.target.value)}
               aria-label={copy.search}
             />
           </div>
+          <details className="constellation-about">
+            <summary>{copy.about}</summary>
+            <p>{data.note}</p>
+          </details>
         </div>
       </div>
 
       <div className="constellation-layout">
         <div className="constellation-canvas">
-          <svg viewBox="2 17 100 82" role="img" aria-label={`${data.title}: ${data.nodes.length} nodes`}>
+          <svg viewBox="2 15 100 86" role="img" aria-label={`${data.title}: ${data.nodes.length} nodes`}>
+            <title>{data.title}</title>
+            <desc>{data.description}</desc>
             <defs>
               <WatercolorNodeDefs id="constellation-node-watercolor" />
               <marker
@@ -237,85 +283,97 @@ export function InstitutionalLinkMap({ locale = 'en' }: { locale?: Locale }) {
                 viewBox="0 0 10 10"
                 refX="8.5"
                 refY="5"
-                markerWidth="3.6"
-                markerHeight="3.6"
+                markerWidth="3.5"
+                markerHeight="3.5"
                 orient="auto-start-reverse"
               >
                 <path d="M0 0 L10 5 L0 10 z" fill="context-stroke" />
               </marker>
             </defs>
 
-            {edgeEls.map(({ e, i, s, t, incident, visible }) => {
-              const dim = !!q && !(matches(s!) && matches(t!))
-              const style = edgeStyle(e.kind, e.strength, strength)
-              const dx = t!.x - s!.x
-              const dy = t!.y - s!.y
-              const len = Math.hypot(dx, dy) || 1
-              const ux = dx / len
-              const uy = dy / len
-              const back = style.arrow ? t!.size * 0.74 + 1.0 : 0
-              const tx = t!.x - ux * back
-              const ty = t!.y - uy * back
-              const cx = (s!.x + tx) / 2 + (-uy) * len * 0.08
-              const cy = (s!.y + ty) / 2 + ux * len * 0.08
+            {edgeElements.map(({ edge, index, source, target, incident, visible }) => {
+              const queryDimmed =
+                !!normalizedQuery && !(matches(source!) || matches(target!))
+              const presentation = edgePresentation(edge, strength)
+              const dx = target!.x - source!.x
+              const dy = target!.y - source!.y
+              const length = Math.hypot(dx, dy) || 1
+              const ux = dx / length
+              const uy = dy / length
+              const targetIsSelected = target!.id === selectedId
+              const back = presentation.arrow
+                ? target!.size * 0.74 + (targetIsSelected ? 1.6 : 1)
+                : 0
+              const targetX = target!.x - ux * back
+              const targetY = target!.y - uy * back
+              const controlX = (source!.x + targetX) / 2 + (-uy) * length * 0.08
+              const controlY = (source!.y + targetY) / 2 + ux * length * 0.08
               return (
                 <g
-                  key={`${e.source}-${e.target}-${i}`}
-                  className={`constellation-edge-group${incident ? ' is-highlighted' : ''}${dim ? ' is-dim' : ''}${visible ? '' : ' is-filtered'}`}
-                  style={{ '--sc': incident ? colorFor(selected) : undefined } as CSSProperties}
+                  key={`${edge.source}-${edge.target}-${index}`}
+                  className={`constellation-edge-group${incident ? ' is-highlighted' : ''}${queryDimmed ? ' is-dim' : ''}${visible ? '' : ' is-filtered'}`}
+                  style={{ '--sc': incident ? colorFor(activeNode) : undefined } as CSSProperties}
                   aria-hidden={!visible || undefined}
                 >
                   <path
                     className="constellation-edge-wash"
-                    d={`M ${s!.x} ${s!.y} Q ${cx.toFixed(2)} ${cy.toFixed(2)} ${tx.toFixed(2)} ${ty.toFixed(2)}`}
-                    strokeWidth={style.width * 3.1}
-                    strokeDasharray={style.dash}
+                    d={`M ${source!.x} ${source!.y} Q ${controlX.toFixed(2)} ${controlY.toFixed(2)} ${targetX.toFixed(2)} ${targetY.toFixed(2)}`}
+                    strokeWidth={presentation.width * 3.1}
+                    strokeDasharray={presentation.dash}
                   />
                   <path
                     className="constellation-edge-core"
-                    d={`M ${s!.x} ${s!.y} Q ${cx.toFixed(2)} ${cy.toFixed(2)} ${tx.toFixed(2)} ${ty.toFixed(2)}`}
-                    strokeWidth={style.width * 0.68}
-                    strokeDasharray={style.dash}
-                    markerEnd={style.arrow ? 'url(#rel-arrow)' : undefined}
+                    d={`M ${source!.x} ${source!.y} Q ${controlX.toFixed(2)} ${controlY.toFixed(2)} ${targetX.toFixed(2)} ${targetY.toFixed(2)}`}
+                    strokeWidth={presentation.width * 0.68}
+                    strokeDasharray={presentation.dash}
+                    markerEnd={presentation.arrow ? 'url(#rel-arrow)' : undefined}
                   >
-                    <title>{e.description}</title>
+                    <title>{edge.description}</title>
                   </path>
                 </g>
               )
             })}
 
-            {orderedNodes.map((n) => {
-              const r = n.size * 0.74
-              const dim = q ? !matches(n) : false
-              const isSel = selectedId === n.id
+            {orderedNodes.map((node) => {
+              const isSelected = selectedId === node.id
+              const isDimmed = normalizedQuery ? !matches(node) : false
+              const radius = node.size * 0.74
+              const lines = labelLines(node.label)
+              const labelY = node.y + radius + 2.9
               return (
                 <g
-                  key={n.id}
-                  className={`constellation-node is-${n.kind}${isSel ? ' is-selected' : ''}${dim ? ' is-dim' : ''}`}
-                  style={{ '--sc': colorFor(n) } as CSSProperties}
+                  key={node.id}
+                  className={`constellation-node is-${node.kind}${isSelected ? ' is-selected' : ''}${isDimmed ? ' is-dim' : ''}`}
+                  style={{ '--sc': colorFor(node) } as CSSProperties}
                   role="button"
                   tabIndex={0}
-                  aria-pressed={isSel}
-                  aria-label={`${n.label}, ${n.type}`}
-                  onClick={() => setSelectedId(n.id)}
-                  onKeyDown={(ev) => {
-                    if (ev.key === 'Enter' || ev.key === ' ') {
-                      ev.preventDefault()
-                      setSelectedId(n.id)
+                  aria-pressed={isSelected}
+                  aria-label={`${node.label}, ${node.type}`}
+                  onClick={() => setSelectedId(node.id)}
+                  onMouseEnter={() => setHoveredId(node.id)}
+                  onMouseLeave={() => setHoveredId(null)}
+                  onFocus={() => setHoveredId(node.id)}
+                  onBlur={() => setHoveredId(null)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault()
+                      setSelectedId(node.id)
                     }
                   }}
                 >
                   <WatercolorNode
-                    cx={n.x}
-                    cy={n.y}
-                    radius={r}
+                    cx={node.x}
+                    cy={node.y}
+                    radius={radius}
                     filterId="constellation-node-watercolor"
-                    kind={n.kind}
-                    selected={isSel}
-                    hitRadius={r + 2.1}
+                    kind={node.kind}
+                    selected={isSelected}
+                    hitRadius={Math.max(radius + 3.2, 7)}
                   />
-                  <text x={n.x} y={n.y + r + 2.7}>
-                    {n.label}
+                  <text x={node.x} y={labelY}>
+                    {lines.map((line, index) => (
+                      <tspan key={line} x={node.x} dy={index === 0 ? 0 : 2.7}>{line}</tspan>
+                    ))}
                   </text>
                 </g>
               )
@@ -333,68 +391,40 @@ export function InstitutionalLinkMap({ locale = 'en' }: { locale?: Locale }) {
             style={{ '--sc': colorFor(selected) } as CSSProperties}
             aria-live="polite"
           >
-            <span className="node-profile-kind">
-              <span className="dot" />
-              {selected.type}
-            </span>
-            <h5>{selected.label}</h5>
-            <p className="node-profile-desc">{selected.description}</p>
+            <section className="node-profile-section node-profile-field">
+              <span className="tool-label">{copy.field}</span>
+              <h5>{selected.label}</h5>
+            </section>
 
-            <div className="node-facet">
+            <section className="node-profile-section">
+              <span className="tool-label">{copy.panelAbout}</span>
+              <p className="node-profile-desc">{selected.description}</p>
+            </section>
+
+            <section className="node-profile-section">
               <span className="tool-label">{copy.mainGap}</span>
               <p className="node-gap">{selected.gap}</p>
-            </div>
+            </section>
 
-            {(
-              [
-                { label: copy.expertise, items: panel.knowledge },
-                { label: copy.authorityOver, items: panel.authority },
-                { label: copy.reliesOn, items: panel.dependsOn },
-                { label: copy.reliedOnBy, items: panel.reliedOnBy },
-              ] as { label: string; items: Node[] }[]
-            )
-              .filter((f) => f.items.length > 0)
-              .map((f) => (
-                <div className="node-facet" key={f.label}>
-                  <span className="tool-label">{f.label}</span>
-                  <div className="node-tags">
-                    {f.items.map((n) => (
-                      <button
-                        key={n.id}
-                        type="button"
-                        className="node-tag"
-                        onClick={() => setSelectedId(n.id)}
-                      >
-                        {n.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              ))}
+            <section className="node-profile-section">
+              <span className="tool-label">{copy.expertise}</span>
+              {renderTags(panel.knowledge)}
+            </section>
 
-            {panel.interfaces.length > 0 ? (
-              <div className="node-facet">
-                <span className="tool-label">{copy.interfaces}</span>
-                <div className="node-tags">
-                  {panel.interfaces.map((it, idx) => (
-                    <button
-                      key={`${it.node.id}-${idx}`}
-                      type="button"
-                      className="node-tag"
-                      onClick={() => setSelectedId(it.node.id)}
-                    >
-                      {it.node.label}
-                      <span className="mech">{it.type}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            ) : null}
+            <section className="node-profile-section">
+              <span className="tool-label">{copy.authorityOver}</span>
+              {renderTags(panel.authority)}
+            </section>
           </aside>
           <span className="node-scroll-rail" aria-hidden="true">
             <span className="node-scroll-thumb" />
           </span>
         </div>
+      </div>
+
+      <div className="constellation-instructions" id="link-map-instructions">
+        <span className="constellation-info-mark" aria-hidden="true">i</span>
+        <p><span>{copy.instructionOne}</span><span>{copy.instructionTwo}</span></p>
       </div>
     </section>
   )

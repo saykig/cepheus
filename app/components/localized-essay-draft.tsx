@@ -56,7 +56,6 @@ export function LocalizedEssayDraft({ locale }: { locale: DraftLocale }) {
               {index === 4 ? (
                 <section className="essay-visual-block" id="cepheus-map">
                   <InstitutionalLinkMap locale={locale} />
-                  <p className="tool-caption">{draft.linkCaption}</p>
                 </section>
               ) : null}
             </div>

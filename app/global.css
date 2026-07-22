@@ -1078,9 +1078,10 @@ html[data-theme="dark"] .theme-toggle::after {
 
   .technical-capacity-essay .essay-side-note {
     max-width: 19ch;
-    margin-bottom: 2rem;
-    font-size: 0.76rem;
-    line-height: 1.45;
+    margin-top: calc(clamp(2.106rem, 3.672vw, 2.754rem) + 1.35rem);
+    margin-bottom: 1.5rem;
+    font-size: 0.65625rem;
+    line-height: 1.42;
   }
 
   .technical-capacity-essay .essay-index-item {
@@ -1118,6 +1119,7 @@ html[data-theme="dark"] .theme-toggle::after {
   }
 
   .technical-capacity-essay .rail-updated {
+    padding-inline-start: calc(9px + 0.42rem);
     font-size: 0.56rem;
   }
 }
@@ -3004,6 +3006,706 @@ input[type='email'] {
   font-size: var(--viz-label);
 }
 
+/* Reference-aligned Institutional Link Map. These scoped rules deliberately
+   leave the shared instrument and watercolor-node styles unchanged. */
+.tool.constellation {
+  --constellation-plot-height: 26.25rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 13.5rem;
+  grid-template-areas:
+    "header profile"
+    "toolbar profile"
+    "canvas profile"
+    "legend profile"
+    "instructions instructions";
+  column-gap: 0.75rem;
+  margin: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: color-mix(in oklab, var(--paper-bright) 72%, var(--paper));
+  box-shadow: none;
+  container-type: inline-size;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.constellation-header {
+  grid-area: header;
+  margin: 0;
+}
+
+.constellation-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--ink-muted);
+  font-family: var(--font-text), Georgia, serif;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.constellation-meta-mark {
+  color: var(--olive);
+  font-size: 0.72rem;
+  letter-spacing: 0;
+}
+
+.constellation-title {
+  margin: 1.5rem 0 0;
+  color: var(--ink);
+  font-family: var(--font-display), "Iowan Old Style", "Palatino Linotype", serif;
+  font-size: clamp(2rem, 4.5cqi, 2.25rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.constellation-title-rule {
+  display: block;
+  width: 3rem;
+  height: 2px;
+  margin-top: 1rem;
+  background: var(--olive);
+}
+
+.tool.constellation .constellation-intro {
+  max-width: 61ch;
+  margin: 0.75rem 0 0;
+  color: var(--ink-soft);
+  font-family: var(--font-text), Georgia, serif;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.tool.constellation .constellation-toolbar {
+  grid-area: toolbar;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin: 1rem 0 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--rule-soft);
+}
+
+.tool.constellation .chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.tool.constellation .chip {
+  min-height: 1.65rem;
+  padding: 0.22rem 0.58rem;
+  border-color: var(--rule);
+  background: transparent;
+  color: var(--ink-muted);
+  font-size: 0.6875rem;
+  line-height: 1.25;
+}
+
+.tool.constellation .chip.is-on {
+  border-color: color-mix(in oklab, var(--olive) 42%, var(--rule));
+  background: color-mix(in oklab, var(--olive) 10%, transparent);
+  color: var(--olive-deep);
+}
+
+.tool.constellation .constellation-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.tool.constellation .toggle {
+  gap: 0.5rem;
+  font-size: 0.6875rem;
+  line-height: 1.25;
+}
+
+.tool.constellation .toggle-track {
+  width: 1.65rem;
+  height: 0.88rem;
+}
+
+.tool.constellation .toggle-track::after {
+  width: calc(0.88rem - 4px);
+  height: calc(0.88rem - 4px);
+}
+
+.tool.constellation .toggle input:checked + .toggle-track::after {
+  transform: translateX(0.77rem);
+}
+
+.tool.constellation .search-box {
+  min-height: 1.65rem;
+  padding: 0.2rem 0.52rem;
+  border-radius: 5px;
+  background: transparent;
+}
+
+.tool.constellation .search-box input {
+  width: 6.65rem;
+  max-width: 23vw;
+  font-size: 0.6875rem;
+  line-height: 1.25;
+}
+
+.constellation-about {
+  position: relative;
+  color: var(--ink-muted);
+  font-family: var(--font-text), Georgia, serif;
+  font-size: 0.6875rem;
+  line-height: 1.25;
+}
+
+.constellation-about > summary {
+  list-style: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.constellation-about > summary::-webkit-details-marker {
+  display: none;
+}
+
+.constellation-about > summary::before {
+  content: "ⓘ ";
+  color: var(--olive);
+}
+
+.constellation-about[open] > summary,
+.constellation-about > summary:hover {
+  color: var(--olive-deep);
+}
+
+.constellation-about > p {
+  position: absolute;
+  top: 1.5rem;
+  right: 0;
+  z-index: 6;
+  width: min(18rem, 70vw);
+  margin: 0;
+  padding: 0.75rem 0.8rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--paper-bright);
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.tool.constellation .constellation-layout {
+  display: contents;
+}
+
+.tool.constellation .constellation-canvas {
+  grid-area: canvas;
+  height: var(--constellation-plot-height);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: color-mix(in oklab, var(--paper-bright) 58%, var(--paper));
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.tool.constellation .constellation-canvas svg {
+  overflow: hidden;
+}
+
+.constellation-grid-field {
+  fill: url(#constellation-grid);
+}
+
+.constellation-grid-dot {
+  fill: color-mix(in oklab, var(--ink) 18%, transparent);
+}
+
+.tool.constellation .constellation-edge-group {
+  opacity: 0.62;
+  transition: opacity var(--dur-1) var(--ease-quart);
+}
+
+.tool.constellation .constellation-edge-core {
+  fill: none;
+  stroke: color-mix(in oklab, var(--ink) 58%, transparent);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  transition: stroke var(--dur-1) var(--ease-quart), opacity var(--dur-1) var(--ease-quart);
+}
+
+.tool.constellation .constellation-edge-group.is-moderate .constellation-edge-core {
+  stroke: color-mix(in oklab, var(--ink) 42%, transparent);
+}
+
+.tool.constellation .constellation-edge-group.is-weak .constellation-edge-core {
+  stroke: color-mix(in oklab, var(--ink) 30%, transparent);
+}
+
+.tool.constellation.is-strength-uniform .constellation-edge-group.is-strong .constellation-edge-core,
+.tool.constellation.is-strength-uniform .constellation-edge-group.is-moderate .constellation-edge-core,
+.tool.constellation.is-strength-uniform .constellation-edge-group.is-weak .constellation-edge-core {
+  stroke: color-mix(in oklab, var(--ink) 48%, transparent);
+}
+
+.tool.constellation .constellation-edge-group.is-highlighted {
+  opacity: 1;
+}
+
+.tool.constellation .constellation-edge-group.is-highlighted .constellation-edge-core {
+  stroke: color-mix(in oklab, var(--sc) 88%, var(--ink));
+}
+
+.tool.constellation .constellation-edge-group.is-dim {
+  opacity: 0.22;
+}
+
+.tool.constellation .constellation-edge-group.is-filtered {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tool.constellation .constellation-node {
+  cursor: pointer;
+  outline: none;
+  transition: opacity var(--dur-1) var(--ease-quart);
+}
+
+.constellation-node-disc,
+.constellation-node-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  vector-effect: non-scaling-stroke;
+  transition: fill var(--dur-1) var(--ease-quart), stroke var(--dur-1) var(--ease-quart), opacity var(--dur-1) var(--ease-quart);
+}
+
+.constellation-node-disc {
+  fill: color-mix(in oklab, var(--sc) 58%, var(--paper-bright));
+  stroke: color-mix(in oklab, var(--sc) 88%, var(--ink));
+  stroke-width: 0.8px;
+}
+
+.constellation-node.is-institution .constellation-node-disc {
+  fill: color-mix(in oklab, var(--sc) 42%, var(--paper-bright));
+}
+
+.constellation-node-ring {
+  fill: none;
+  stroke: var(--olive);
+  stroke-width: 1px;
+  opacity: 0;
+}
+
+.constellation-node-hit {
+  fill: transparent;
+  stroke: none;
+  pointer-events: all;
+}
+
+.tool.constellation .constellation-node.is-selected .constellation-node-disc {
+  fill: color-mix(in oklab, var(--sc) 88%, var(--ink));
+  stroke: color-mix(in oklab, var(--sc) 72%, var(--ink));
+}
+
+.tool.constellation .constellation-node.is-selected .constellation-node-ring,
+.tool.constellation .constellation-node:focus-visible .constellation-node-ring {
+  opacity: 1;
+}
+
+.tool.constellation .constellation-node:hover .constellation-node-disc,
+.tool.constellation .constellation-node:focus-visible .constellation-node-disc {
+  fill: color-mix(in oklab, var(--sc) 74%, var(--paper-bright));
+}
+
+.tool.constellation .constellation-node.is-dim {
+  opacity: 0.25;
+}
+
+.tool.constellation .constellation-node text {
+  fill: var(--ink);
+  stroke: color-mix(in oklab, var(--paper-bright) 92%, transparent);
+  stroke-width: 0.7px;
+  font-family: var(--font-text), Georgia, serif;
+  font-size: 2.5px;
+  font-weight: 400;
+  paint-order: stroke;
+  text-anchor: middle;
+  transition: fill var(--dur-1) var(--ease-quart), opacity var(--dur-1) var(--ease-quart);
+}
+
+.tool.constellation .constellation-node text.is-inside {
+  fill: var(--paper-bright);
+  stroke: none;
+  font-family: var(--font-display), "Iowan Old Style", "Palatino Linotype", serif;
+  font-size: 2.75px;
+}
+
+.tool.constellation .node-profile-shell {
+  --profile-scroll-position: 8%;
+  grid-area: profile;
+  align-self: stretch;
+  height: auto;
+  margin-top: 1.75rem;
+}
+
+.tool.constellation .node-profile {
+  height: 100%;
+  padding: 0.95rem 1.1rem 0.95rem 0.95rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.tool.constellation .node-profile-section {
+  margin: 0;
+  padding: 0.5rem 0 0;
+  border-top: 1px solid var(--rule);
+}
+
+.tool.constellation .node-profile-section:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.tool.constellation .node-profile-section + .node-profile-section {
+  margin-top: 0.5rem;
+}
+
+.tool.constellation .tool-label {
+  display: block;
+  color: var(--ink);
+  font-family: var(--font-text), Georgia, serif;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.tool.constellation .node-profile h5 {
+  margin: 0.45rem 0 0;
+  color: var(--olive-deep);
+  font-family: var(--font-display), "Iowan Old Style", "Palatino Linotype", serif;
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.1;
+  text-wrap: pretty;
+}
+
+.tool.constellation .node-profile-kind {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+  margin-top: 0.38rem;
+  color: var(--ink-muted);
+  font-size: 0.56rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.tool.constellation .node-profile-kind .dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  background: var(--sc);
+}
+
+.tool.constellation .node-profile-desc,
+.tool.constellation .node-gap,
+.tool.constellation .node-profile-empty {
+  margin: 0.38rem 0 0;
+  color: var(--ink-soft);
+  font-family: var(--font-text), Georgia, serif;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.tool.constellation .node-profile-empty {
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+.tool.constellation .node-tags {
+  gap: 0.3rem;
+  margin-top: 0.42rem;
+}
+
+.tool.constellation .node-tag {
+  min-height: 1.6rem;
+  padding: 0.22rem 0.52rem;
+  border-radius: 5px;
+  color: var(--ink-soft);
+  font-size: 0.6875rem;
+  line-height: 1.25;
+}
+
+.node-key-links {
+  display: grid;
+  gap: 0.18rem;
+  margin-top: 0.42rem;
+}
+
+.node-key-link {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: 0.25rem;
+  width: 100%;
+  padding: 0.12rem 0;
+  border: 0;
+  background: none;
+  color: var(--ink-soft);
+  font-family: var(--font-text), Georgia, serif;
+  font-size: 0.6875rem;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+}
+
+.node-key-link > span:nth-child(1),
+.node-key-link > span:nth-child(3) {
+  overflow-wrap: anywhere;
+}
+
+.node-key-link-strength {
+  grid-column: 1 / -1;
+  justify-self: end;
+  color: var(--ink-muted);
+  text-align: right;
+}
+
+.node-key-link:hover,
+.node-key-link:focus-visible {
+  color: var(--olive-deep);
+}
+
+.tool.constellation .node-profile-year strong {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--ink);
+  font-family: var(--font-display), "Iowan Old Style", "Palatino Linotype", serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.tool.constellation .node-scroll-rail {
+  top: 0.72rem;
+  right: 0.42rem;
+  bottom: 0.72rem;
+  background: var(--rule);
+}
+
+.tool.constellation .node-scroll-thumb {
+  width: 0.22rem;
+  background: color-mix(in oklab, var(--olive) 52%, transparent);
+  filter: none;
+}
+
+.constellation-legend {
+  grid-area: legend;
+  display: grid;
+  grid-template-columns: 1.35fr 0.8fr 1.1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+
+.constellation-legend-list,
+.constellation-state-list {
+  display: grid;
+  gap: 0.36rem;
+  margin-top: 0.58rem;
+}
+
+.constellation-legend-list > span,
+.constellation-state-list > span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ink-muted);
+  font-family: var(--font-text), Georgia, serif;
+  font-size: 0.6875rem;
+  line-height: 1.4;
+}
+
+.legend-line {
+  display: inline-block;
+  width: 2.25rem;
+  height: 0;
+  border-top-color: var(--ink);
+  border-top-style: solid;
+  flex: none;
+}
+
+.legend-line.is-strong {
+  border-top-width: 2px;
+}
+
+.legend-line.is-moderate {
+  border-top-width: 1px;
+  opacity: 0.7;
+}
+
+.legend-line.is-weak {
+  border-top-width: 1px;
+  opacity: 0.42;
+}
+
+.constellation-node-scale {
+  display: flex;
+  align-items: center;
+  gap: 0.72rem;
+  min-height: 2.5rem;
+  margin-top: 0.4rem;
+  color: var(--ink-muted);
+}
+
+.constellation-node-scale i {
+  display: block;
+  width: 0.48rem;
+  height: 0.48rem;
+  border: 1px solid var(--ink-muted);
+  border-radius: 50%;
+}
+
+.constellation-node-scale i:nth-child(3) {
+  width: 0.68rem;
+  height: 0.68rem;
+}
+
+.constellation-node-scale i:nth-child(4) {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.constellation-node-scale i:nth-child(5) {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.legend-node {
+  display: inline-block;
+  width: 0.68rem;
+  height: 0.68rem;
+  border: 1px solid var(--olive);
+  border-radius: 50%;
+  background: color-mix(in oklab, var(--olive) 45%, var(--paper-bright));
+  flex: none;
+}
+
+.legend-node.is-selected {
+  outline: 1px solid var(--olive);
+  outline-offset: 3px;
+}
+
+.legend-node.is-dimmed {
+  border-color: var(--rule);
+  background: var(--ink-faint);
+  opacity: 0.38;
+}
+
+.legend-connection {
+  position: relative;
+  display: inline-block;
+  width: 2rem;
+  height: 1px;
+  background: var(--olive);
+  flex: none;
+}
+
+.legend-connection::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 0.62rem;
+  height: 0.62rem;
+  border: 1px solid var(--olive);
+  border-radius: 50%;
+  background: var(--paper-bright);
+  transform: translateY(-50%);
+}
+
+.constellation-instructions {
+  grid-area: instructions;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+
+.constellation-info-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 1px solid var(--ink-muted);
+  border-radius: 50%;
+  color: var(--ink-muted);
+  font-family: var(--font-display), "Iowan Old Style", "Palatino Linotype", serif;
+  font-size: 0.7rem;
+  font-style: italic;
+  flex: none;
+}
+
+.tool.constellation .constellation-instructions p {
+  display: grid;
+  gap: 0.18rem;
+  max-width: 72ch;
+  margin: 0;
+  color: var(--ink-muted);
+  font-family: var(--font-text), Georgia, serif;
+  font-size: 0.6875rem;
+  line-height: 1.45;
+}
+
+html[data-theme="dark"] .tool.constellation .constellation-intro {
+  line-height: 1.6;
+  letter-spacing: 0.005em;
+}
+
+html[data-theme="dark"] .tool.constellation .node-profile-desc,
+html[data-theme="dark"] .tool.constellation .node-gap,
+html[data-theme="dark"] .constellation-about > p {
+  line-height: 1.55;
+  letter-spacing: 0.005em;
+}
+
+html[data-theme="dark"] .constellation-legend-list > span,
+html[data-theme="dark"] .constellation-state-list > span {
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+}
+
+html[data-theme="dark"] .tool.constellation .constellation-instructions p {
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+@media (pointer: coarse) {
+  .tool.constellation .chip,
+  .tool.constellation .node-tag,
+  .tool.constellation .node-key-link,
+  .tool.constellation .toggle,
+  .tool.constellation .search-box,
+  .constellation-about > summary {
+    min-height: 44px;
+  }
+}
+
 /* =============================== Gap Map (quadrant scatter) */
 .gap-toolbar {
   position: relative;
@@ -3378,6 +4080,414 @@ input[type='email'] {
   .gap-toolbar {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .tool.constellation {
+    --constellation-plot-height: auto;
+    display: block;
+    padding: 1rem;
+  }
+
+  .constellation-title {
+    margin-top: 1.35rem;
+    font-size: clamp(1.9rem, 9.5vw, 2.35rem);
+  }
+
+  .tool.constellation .constellation-toolbar {
+    align-items: stretch;
+    margin-top: 0.9rem;
+  }
+
+  .tool.constellation .constellation-controls {
+    justify-content: flex-start;
+  }
+
+  .tool.constellation .search-box input {
+    width: min(9rem, 46vw);
+    max-width: none;
+  }
+
+  .tool.constellation .constellation-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .tool.constellation .constellation-canvas {
+    width: min(100%, 32.5rem);
+    height: auto;
+    margin-inline: auto;
+    aspect-ratio: 100 / 86;
+  }
+
+  .tool.constellation .node-profile-shell,
+  .tool.constellation .node-profile {
+    height: auto;
+  }
+
+  .tool.constellation .node-profile-shell {
+    margin-top: 0;
+  }
+
+  .tool.constellation .node-profile {
+    overflow: visible;
+    padding-right: 0.95rem;
+  }
+
+  .tool.constellation .node-scroll-rail {
+    display: none;
+  }
+
+  .constellation-legend {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .constellation-legend > section:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .tool.constellation .chip,
+  .tool.constellation .node-tag,
+  .tool.constellation .node-key-link,
+  .tool.constellation .toggle,
+  .tool.constellation .search-box,
+  .constellation-about > summary {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 520px) {
+  .constellation-meta {
+    align-items: flex-start;
+    gap: 0.42rem 0.65rem;
+    font-size: 0.625rem;
+  }
+
+  .tool.constellation .constellation-intro {
+    font-size: 0.8125rem;
+  }
+
+  .tool.constellation .constellation-node text {
+    font-size: 3.5px;
+  }
+
+  .tool.constellation .constellation-node text.is-inside {
+    font-size: 3.75px;
+  }
+
+  .tool.constellation .chip-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+  }
+
+  .tool.constellation .chip {
+    justify-content: center;
+  }
+
+  .tool.constellation .constellation-controls {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    width: 100%;
+  }
+
+  .tool.constellation .search-box {
+    width: 100%;
+  }
+
+  .tool.constellation .search-box input {
+    width: 100%;
+  }
+
+  .constellation-about {
+    grid-column: 1 / -1;
+  }
+
+  .constellation-about > p {
+    right: auto;
+    left: 0;
+  }
+
+  .constellation-legend {
+    grid-template-columns: 1fr;
+  }
+
+  .constellation-legend > section:last-child {
+    grid-column: auto;
+  }
+
+  .constellation-instructions {
+    padding-inline: 0.75rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .tool.constellation .chip-row {
+    grid-template-columns: 1fr;
+  }
+
+  .constellation-title {
+    font-size: 1.35rem;
+    line-height: 1.04;
+    overflow-wrap: break-word;
+  }
+}
+
+/* Institutional Link Map hybrid: retain the essay's established instrument
+   silhouette while keeping the approved compact header, controls, profile,
+   and instructional note. */
+.tool.constellation {
+  --constellation-plot-height: 26rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.62fr) minmax(13rem, 0.9fr);
+  grid-template-areas:
+    "header header"
+    "intro profile"
+    "toolbar profile"
+    "canvas profile"
+    "instructions instructions";
+  gap: 0 1rem;
+  margin: 0.5rem 0 0.4rem;
+  padding: clamp(1.15rem, 2.4vw, 1.7rem);
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--paper-raise);
+  box-shadow: var(--edge), var(--sheen), var(--shadow-card);
+}
+
+.tool.constellation .constellation-header {
+  grid-area: header;
+}
+
+.tool.constellation .constellation-meta {
+  gap: 0.5rem;
+  color: var(--ink-faint);
+  font-size: 0.625rem;
+}
+
+.tool.constellation .constellation-title {
+  margin-top: 0.85rem;
+  font-size: var(--viz-title);
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.tool.constellation .constellation-title-rule {
+  width: 2rem;
+  height: 1px;
+  margin-top: 0.65rem;
+}
+
+.tool.constellation .constellation-intro {
+  grid-area: intro;
+  max-width: 58ch;
+  margin-top: 0.55rem;
+  font-size: var(--viz-body);
+  line-height: 1.4;
+}
+
+.tool.constellation .constellation-toolbar {
+  grid-area: toolbar;
+  margin: 0.9rem 0 1rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.tool.constellation .chip {
+  min-height: auto;
+  padding: 0.18rem 0.56rem;
+  border-radius: var(--radius-pill);
+  font-size: var(--viz-control);
+}
+
+.tool.constellation .toggle,
+.tool.constellation .search-box input,
+.tool.constellation .constellation-about {
+  font-size: var(--viz-control);
+}
+
+.tool.constellation .search-box {
+  min-height: auto;
+  border-radius: var(--radius-pill);
+  background: var(--paper-bright);
+}
+
+.tool.constellation .search-box input {
+  width: 8.5rem;
+  max-width: 40vw;
+}
+
+.tool.constellation .constellation-layout {
+  display: contents;
+}
+
+.tool.constellation .constellation-canvas {
+  grid-area: canvas;
+  height: var(--constellation-plot-height);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: radial-gradient(
+    120% 120% at 50% 30%,
+    var(--paper-bright),
+    var(--paper-raise) 70%
+  );
+  box-shadow: var(--edge);
+}
+
+.tool.constellation .constellation-edge-group {
+  opacity: 1;
+  transition: opacity 1.1s var(--ease-quart);
+}
+
+.tool.constellation .constellation-edge-wash,
+.tool.constellation .constellation-edge-core {
+  fill: none;
+  stroke: var(--rule);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 700ms var(--ease-quart), opacity 700ms var(--ease-quart);
+}
+
+.tool.constellation .constellation-edge-wash {
+  opacity: 0.12;
+  filter: blur(0.65px);
+}
+
+.tool.constellation .constellation-edge-core {
+  opacity: 0.58;
+}
+
+.tool.constellation .constellation-edge-group.is-highlighted .constellation-edge-wash,
+.tool.constellation .constellation-edge-group.is-highlighted .constellation-edge-core {
+  stroke: color-mix(in oklab, var(--sc) 78%, transparent);
+}
+
+.tool.constellation .constellation-edge-group.is-highlighted .constellation-edge-wash {
+  opacity: 0.16;
+}
+
+.tool.constellation .constellation-edge-group.is-highlighted .constellation-edge-core {
+  opacity: 0.72;
+}
+
+.tool.constellation .constellation-node text {
+  fill: var(--ink-soft);
+  stroke: var(--paper);
+  stroke-width: 0.6px;
+  font-family: var(--font-display), "Iowan Old Style", "Palatino Linotype", serif;
+  font-size: 2.5px;
+}
+
+.tool.constellation .node-profile-shell {
+  grid-area: profile;
+  align-self: stretch;
+  height: auto;
+  margin-top: 0.55rem;
+}
+
+.tool.constellation .node-profile {
+  height: 100%;
+  overflow: hidden;
+  padding: 0.85rem 1rem 0.85rem 0.9rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--paper-bright);
+  box-shadow: var(--edge);
+}
+
+.tool.constellation .node-scroll-rail {
+  display: none;
+}
+
+.tool.constellation .node-profile-section {
+  padding-top: 0.45rem;
+}
+
+.tool.constellation .node-profile-section + .node-profile-section {
+  margin-top: 0.45rem;
+}
+
+.tool.constellation .node-profile h5 {
+  margin-top: 0.35rem;
+  font-size: 1rem;
+}
+
+.tool.constellation .node-profile-desc,
+.tool.constellation .node-gap,
+.tool.constellation .node-profile-empty {
+  margin-top: 0.3rem;
+  font-size: 0.7rem;
+  line-height: 1.4;
+}
+
+.tool.constellation .node-profile .tool-label {
+  font-size: 0.58rem;
+}
+
+.tool.constellation .node-tags {
+  margin-top: 0.32rem;
+}
+
+.tool.constellation .node-tag {
+  min-height: auto;
+  padding: 0.14rem 0.45rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.625rem;
+}
+
+.tool.constellation .constellation-instructions {
+  grid-area: instructions;
+  margin-top: 0.85rem;
+  padding: 0.65rem 0.8rem;
+  border-color: var(--rule-soft);
+  background: color-mix(in oklab, var(--paper-bright) 40%, transparent);
+}
+
+.tool.constellation .constellation-instructions p {
+  font-size: var(--viz-note);
+  line-height: 1.45;
+}
+
+@media (max-width: 780px) {
+  .tool.constellation {
+    --constellation-plot-height: 20rem;
+    display: block;
+    padding: 1rem;
+  }
+
+  .tool.constellation .constellation-toolbar {
+    align-items: stretch;
+  }
+
+  .tool.constellation .constellation-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .tool.constellation .constellation-canvas {
+    grid-area: auto;
+    width: 100%;
+    height: var(--constellation-plot-height);
+    aspect-ratio: auto;
+  }
+
+  .tool.constellation .node-profile-shell,
+  .tool.constellation .node-profile {
+    height: auto;
+  }
+
+  .tool.constellation .node-profile-shell {
+    grid-area: auto;
+    margin-top: 0;
+  }
+
+  .tool.constellation .node-profile {
+    overflow: visible;
+  }
+
+  .tool.constellation .constellation-instructions {
+    margin-top: 1rem;
   }
 }
 

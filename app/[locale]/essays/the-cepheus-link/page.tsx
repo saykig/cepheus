@@ -406,11 +406,6 @@ export default async function CepheusEssay({
 
           <section className="essay-visual-block" id="cepheus-map">
             <InstitutionalLinkMap locale={locale} />
-            <p className="tool-caption">
-              Select any point to read how influence, information, and funding
-              move through it. Filter to institutions or funding links to see
-              who holds the field together.
-            </p>
             <EssayDisclosure title="Who depends on whom?">
               <p>
                 A government may possess legal authority while depending on a
