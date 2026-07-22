@@ -36,7 +36,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
     contents: 'Essay contents',
     sections: 'Sections',
     sideNote:
-      'Artificial Intelligence is often built in one world and governed in another. Cepheus maps the distance between them.',
+      'AI is often built in one world and governed in another. Cepheus is an AI-for-policy project that maps the gaps between technological innovation and institutional responsibility.',
     download: 'Download report (PDF)',
     lastUpdated: 'Last updated',
   },
