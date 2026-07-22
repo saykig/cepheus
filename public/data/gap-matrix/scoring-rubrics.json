@@ -1,0 +1,135 @@
+{
+  "version": "1.0",
+  "fieldId": "frontier-ai-governance",
+  "evidenceCutoff": "2026-07-21",
+  "geographicScope": [
+    "European Union",
+    "United States",
+    "United Kingdom",
+    "China"
+  ],
+  "aggregationRule": "Apply each component rubric to the combined evidence for the four selected jurisdictions as a holistic ordinal judgment. Do not calculate or average jurisdiction sub-scores. Use the highest anchor whose core conditions are supported; retain a null score when the evidence cannot distinguish adjacent anchors.",
+  "globalEvidenceRule": "Evidence marked Global may provide context for the field but cannot by itself establish that the same condition holds in each selected jurisdiction.",
+  "rubrics": [
+    {
+      "id": "operational-control",
+      "metricId": "knowledgeConcentration",
+      "label": "Operational control",
+      "anchors": {
+        "0": "Public institutions routinely direct frontier-model training, release, deployment, and access decisions across the selected jurisdictions.",
+        "1": "Public operational control is broad across the selected jurisdictions and non-public provider discretion is limited to narrow implementation choices.",
+        "2": "Control is mixed across jurisdictions or lifecycle stages, with meaningful public direction alongside substantial provider discretion.",
+        "3": "Providers make most training, release, deployment, and access decisions; public intervention is episodic, constraining, or post hoc rather than operational.",
+        "4": "Near-exclusive non-public control of training, release, deployment, and access is demonstrated across the full selected scope, with no routine public ability to direct lifecycle decisions."
+      }
+    },
+    {
+      "id": "critical-resource-control",
+      "metricId": "knowledgeConcentration",
+      "label": "Critical-resource control",
+      "anchors": {
+        "0": "Public institutions control or have guaranteed access to the compute, chips, model weights, training data, and infrastructure required for frontier-model development across the selected jurisdictions.",
+        "1": "Broad public provision or mandated access substantially offsets dependence on non-public critical resources across the selected jurisdictions.",
+        "2": "Resource control is mixed, with viable public or diversified alternatives alongside material non-public bottlenecks.",
+        "3": "Most frontier-relevant compute, weights, training assets, or infrastructure are non-public and viable public alternatives are limited.",
+        "4": "A narrow non-public group controls indispensable frontier-model resources across the selected scope and no viable public substitute or guaranteed access exists."
+      }
+    },
+    {
+      "id": "information-asymmetry",
+      "metricId": "knowledgeConcentration",
+      "label": "Information asymmetry",
+      "anchors": {
+        "0": "Public institutions receive complete, timely, and verifiable information about training, testing, capabilities, safeguards, incidents, and deployment across the selected jurisdictions.",
+        "1": "Broad mandatory technical access exists across the selected jurisdictions, with only minor timing or detail gaps.",
+        "2": "Meaningful mandatory access exists in some jurisdictions or information categories, but important lifecycle or coverage gaps remain.",
+        "3": "Public institutions depend heavily on selective provider disclosure and technical-information obligations are fragmented across jurisdictions or model categories.",
+        "4": "Essential technical and operational information is inaccessible to public institutions across the selected scope and no compulsory access route exists."
+      }
+    },
+    {
+      "id": "evaluation-dependence",
+      "metricId": "knowledgeConcentration",
+      "label": "Evaluation dependence",
+      "anchors": {
+        "0": "Public institutions can independently test complete frontier systems through compulsory, timely access to relevant model variants, safeguards, tools, and technical information.",
+        "1": "Independent public evaluation access is broad across the selected jurisdictions, with only occasional dependence on provider assistance.",
+        "2": "Substantial public evaluation capacity exists, but model access, system coverage, timing, or access to internals is inconsistent.",
+        "3": "Public evaluation depends mainly on provider-granted access, configurations, technical assistance, or information, subject to limited statutory exceptions.",
+        "4": "Public institutions cannot independently evaluate frontier systems and must rely wholly on provider claims, tools, and discretionary access."
+      }
+    },
+    {
+      "id": "expertise-concentration",
+      "metricId": "knowledgeConcentration",
+      "label": "Expertise concentration",
+      "anchors": {
+        "0": "Public frontier-model expertise equals or exceeds non-public capacity across the selected jurisdictions and covers all required technical functions.",
+        "1": "Durable public teams cover nearly all frontier-governance needs, with only minor hiring, retention, or specialization gaps.",
+        "2": "Meaningful public expertise exists, but material hiring, retention, scale, or specialized-capability gaps persist.",
+        "3": "Leading expertise is concentrated in frontier laboratories and contractors, while public capacity is limited or uneven across the selected jurisdictions.",
+        "4": "Essential frontier-model expertise is almost entirely outside public institutions across the selected scope, creating near-total dependence on non-public actors."
+      }
+    },
+    {
+      "id": "binding-legal-mandate",
+      "metricId": "publicAuthority",
+      "label": "Binding legal mandate",
+      "anchors": {
+        "0": "No selected jurisdiction has a binding mandate directed at general-purpose or frontier-model governance.",
+        "1": "Authority rests mainly on general law, voluntary commitments, guidance, or ad hoc arrangements rather than binding frontier-model duties.",
+        "2": "Binding duties exist in limited jurisdictions, for limited model categories, or for limited lifecycle stages.",
+        "3": "Binding frontier-model duties cover most of the selected field, but material jurisdictional gaps, exemptions, or implementation fragmentation remain.",
+        "4": "Comprehensive and operational binding mandates cover general-purpose and frontier models throughout their lifecycle in all four selected jurisdictions."
+      }
+    },
+    {
+      "id": "compulsory-information-access",
+      "metricId": "publicAuthority",
+      "label": "Compulsory information access",
+      "anchors": {
+        "0": "Public institutions have no power to compel frontier-model technical, training, evaluation, incident, or deployment information.",
+        "1": "Compulsory access is narrow, ad hoc, or limited to post-incident investigation under general powers.",
+        "2": "Compulsory access exists in limited jurisdictions or information categories, with major lifecycle or territorial gaps.",
+        "3": "Broad compulsory powers operate across most of the selected field, but material scope, timing, or coordination gaps remain.",
+        "4": "Public institutions have timely, comprehensive, and enforceable access to relevant frontier-model information across all selected jurisdictions."
+      }
+    },
+    {
+      "id": "independent-evaluation-power",
+      "metricId": "publicAuthority",
+      "label": "Independent evaluation power",
+      "anchors": {
+        "0": "Public institutions have neither legal power nor technical capacity to evaluate frontier models independently.",
+        "1": "Public technical capacity or voluntary testing arrangements exist, but institutions cannot compel access or evaluation.",
+        "2": "Legal evaluation power or capable public institutions exist in part of the selected scope, with substantial access or coverage limitations.",
+        "3": "Broad independent evaluation power covers most of the selected field, but jurisdictional, lifecycle, or technical fragmentation remains.",
+        "4": "Routine, compulsory, full-access independent evaluation is legally and operationally available throughout the model lifecycle in all selected jurisdictions."
+      }
+    },
+    {
+      "id": "corrective-and-enforcement-power",
+      "metricId": "publicAuthority",
+      "label": "Corrective and enforcement power",
+      "anchors": {
+        "0": "Public institutions have no power to require frontier-model corrections or impose sanctions.",
+        "1": "Institutions rely on indirect general-law remedies, advice, or voluntary requests rather than dedicated binding powers.",
+        "2": "Binding corrective or sanctioning powers exist in limited jurisdictions or scope, or are not yet fully operational.",
+        "3": "Substantial mitigation, withdrawal, recall, suspension, or penalty powers cover most of the selected field, with residual fragmentation.",
+        "4": "Comprehensive and operational corrective and enforcement powers cover all relevant lifecycle stages and all four selected jurisdictions."
+      }
+    },
+    {
+      "id": "coverage-and-coordination",
+      "metricId": "publicAuthority",
+      "label": "Coverage and coordination",
+      "anchors": {
+        "0": "No selected jurisdiction has defined institutional coverage or coordination for general-purpose or frontier-model governance.",
+        "1": "Coverage consists mainly of isolated initiatives, advisory bodies, or voluntary forums without defined operational roles.",
+        "2": "Relevant institutions exist across parts of the selected scope, but material gaps, overlaps, or non-binding coordination remain.",
+        "3": "Formal coverage and coordination span most jurisdictions and lifecycle stages, with residual fragmentation or unclear responsibility.",
+        "4": "Clear, operational lifecycle and cross-jurisdiction coordination covers the full selected field with defined responsibilities and effective information sharing."
+      }
+    }
+  ]
+}

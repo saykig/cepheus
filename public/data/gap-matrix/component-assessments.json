@@ -1,0 +1,637 @@
+{
+  "assessments": [
+    {
+      "id": "frontier-ai-governance-knowledge-concentration-operational-control",
+      "fieldId": "frontier-ai-governance",
+      "metricId": "knowledgeConcentration",
+      "componentId": "operational-control",
+      "rubricVersion": "1.0",
+      "score": 3,
+      "status": "provisional",
+      "rationale": "The combined evidence places most training, release, deployment, and evaluator-access decisions with model providers. EU and Chinese authorities can constrain or correct provider conduct, but the record does not show routine public direction of lifecycle operations. The evidence supports rubric anchor 3; it does not demonstrate the near-exclusive non-public control across the full four-jurisdiction scope required for anchor 4.",
+      "supportingEvidenceIds": [
+        "stanford-industry-share-notable-models",
+        "uk-release-decisions-remain-with-provider",
+        "openai-controls-predeployment-evaluation",
+        "openai-selects-external-assessment-access",
+        "anthropic-rsp-internal-deployment-process",
+        "deepmind-corporate-body-approves-deployment"
+      ],
+      "counterEvidenceIds": [
+        "eu-ai-office-corrective-measures",
+        "cac-corrective-measures"
+      ],
+      "confidence": "moderate",
+      "assessedAt": "2026-07-22",
+      "reviewStatus": "awaiting-author-review",
+      "jurisdictionEvidence": [
+        {
+          "jurisdiction": "European Union",
+          "supportingEvidenceIds": ["stanford-industry-share-notable-models"],
+          "counterEvidenceIds": ["eu-ai-office-corrective-measures"],
+          "summary": "Global industry-production evidence suggests provider-led operations, while the AI Act gives the Commission power to require mitigation or withdrawal rather than routine control of development operations.",
+          "evidenceStrength": "limited",
+          "limitations": "The industry finding is global and does not isolate providers operating in the European Union."
+        },
+        {
+          "jurisdiction": "United States",
+          "supportingEvidenceIds": [
+            "stanford-industry-share-notable-models",
+            "openai-controls-predeployment-evaluation",
+            "openai-selects-external-assessment-access",
+            "anthropic-rsp-internal-deployment-process"
+          ],
+          "counterEvidenceIds": [],
+          "summary": "US-based provider documents place evaluation, safeguard, deployment, and third-party access decisions inside company processes.",
+          "evidenceStrength": "strong",
+          "limitations": "Corporate documents establish company practices but do not inventory every applicable federal or state constraint."
+        },
+        {
+          "jurisdiction": "United Kingdom",
+          "supportingEvidenceIds": [
+            "uk-release-decisions-remain-with-provider",
+            "deepmind-corporate-body-approves-deployment"
+          ],
+          "counterEvidenceIds": [],
+          "summary": "AISI disclaims responsibility for provider release decisions, and Google DeepMind describes internal approval of general-availability deployment.",
+          "evidenceStrength": "moderate",
+          "limitations": "The evidence does not establish the effect of all UK sectoral or general-law constraints on deployment."
+        },
+        {
+          "jurisdiction": "China",
+          "supportingEvidenceIds": ["stanford-model-production-us-china"],
+          "counterEvidenceIds": ["cac-corrective-measures"],
+          "summary": "Tracked model production is concentrated partly in China, but public authorities can order corrections or service suspension under the Interim Measures.",
+          "evidenceStrength": "limited",
+          "limitations": "Production location does not distinguish private, state-linked, and public operational control in China."
+        }
+      ]
+    },
+    {
+      "id": "frontier-ai-governance-knowledge-concentration-critical-resource-control",
+      "fieldId": "frontier-ai-governance",
+      "metricId": "knowledgeConcentration",
+      "componentId": "critical-resource-control",
+      "rubricVersion": "1.0",
+      "score": null,
+      "status": "pending",
+      "rationale": "The available global evidence identifies geographic concentration in model production, data-center infrastructure, chip fabrication, and weak disclosure about training resources. It does not establish resource ownership, guaranteed access, public alternatives, or effective control comparably across the European Union, United States, United Kingdom, and China, so anchors 2 through 4 cannot be distinguished responsibly.",
+      "supportingEvidenceIds": [
+        "stanford-model-production-us-china",
+        "stanford-upstream-transparency-weakest",
+        "stanford-us-data-center-count",
+        "stanford-leading-chip-foundry-concentration"
+      ],
+      "counterEvidenceIds": [],
+      "confidence": null,
+      "assessedAt": "2026-07-22",
+      "reviewStatus": "awaiting-author-review",
+      "jurisdictionEvidence": [
+        {
+          "jurisdiction": "European Union",
+          "supportingEvidenceIds": ["stanford-upstream-transparency-weakest"],
+          "counterEvidenceIds": [],
+          "summary": "Global transparency evidence indicates weak disclosure about resources used to build models, but no comparable EU resource-control evidence was identified.",
+          "evidenceStrength": "limited",
+          "limitations": "No source establishes EU public or private control of frontier-relevant compute, weights, data, or infrastructure."
+        },
+        {
+          "jurisdiction": "United States",
+          "supportingEvidenceIds": [
+            "stanford-model-production-us-china",
+            "stanford-us-data-center-count",
+            "stanford-leading-chip-foundry-concentration"
+          ],
+          "counterEvidenceIds": [],
+          "summary": "The United States hosts substantial data-center and model-production activity within a globally concentrated chip supply chain.",
+          "evidenceStrength": "limited",
+          "limitations": "Counts and supply-chain concentration do not identify ownership, frontier-training capacity, or public access."
+        },
+        {
+          "jurisdiction": "United Kingdom",
+          "supportingEvidenceIds": [],
+          "counterEvidenceIds": [],
+          "summary": "No comparable UK evidence on control of frontier-model compute, weights, training data, or infrastructure was identified.",
+          "evidenceStrength": "none",
+          "limitations": "The absence of coded evidence is not evidence of absent public or private capacity."
+        },
+        {
+          "jurisdiction": "China",
+          "supportingEvidenceIds": [
+            "stanford-model-production-us-china",
+            "stanford-leading-chip-foundry-concentration"
+          ],
+          "counterEvidenceIds": [],
+          "summary": "China is a major tracked model-production jurisdiction operating within a globally concentrated leading-chip supply chain.",
+          "evidenceStrength": "limited",
+          "limitations": "The evidence does not distinguish state, state-linked, and private resource control or access within China."
+        }
+      ]
+    },
+    {
+      "id": "frontier-ai-governance-knowledge-concentration-information-asymmetry",
+      "fieldId": "frontier-ai-governance",
+      "metricId": "knowledgeConcentration",
+      "componentId": "information-asymmetry",
+      "rubricVersion": "1.0",
+      "score": 3,
+      "status": "provisional",
+      "rationale": "Global transparency research reports weak and declining public disclosure, especially for training resources and code, while AISI describes reliance on provider technical information. EU documentation duties, Chinese inspection cooperation, and corporate system cards provide material counterevidence, but access remains fragmented and often selective. This matches rubric anchor 3 rather than complete inaccessibility under anchor 4.",
+      "supportingEvidenceIds": [
+        "stanford-transparency-average-declined",
+        "stanford-upstream-transparency-weakest",
+        "stanford-training-code-not-released",
+        "uk-aisi-needs-provider-technical-discussions",
+        "openai-controls-predeployment-evaluation",
+        "anthropic-risk-reports-may-be-redacted"
+      ],
+      "counterEvidenceIds": [
+        "eu-gpai-technical-documentation-duty",
+        "cac-provider-supervision-cooperation",
+        "openai-publishes-third-party-summaries",
+        "anthropic-publishes-system-cards",
+        "deepmind-model-card-disclosure"
+      ],
+      "confidence": "moderate",
+      "assessedAt": "2026-07-22",
+      "reviewStatus": "awaiting-author-review",
+      "jurisdictionEvidence": [
+        {
+          "jurisdiction": "European Union",
+          "supportingEvidenceIds": [
+            "stanford-transparency-average-declined",
+            "stanford-upstream-transparency-weakest"
+          ],
+          "counterEvidenceIds": ["eu-gpai-technical-documentation-duty"],
+          "summary": "Global disclosure gaps remain relevant, while the AI Act requires technical documentation for competent authorities.",
+          "evidenceStrength": "moderate",
+          "limitations": "Public transparency indices do not measure confidential regulatory submissions, and the EU duty's implementation was still maturing at the cutoff."
+        },
+        {
+          "jurisdiction": "United States",
+          "supportingEvidenceIds": [
+            "stanford-transparency-average-declined",
+            "stanford-training-code-not-released",
+            "openai-controls-predeployment-evaluation",
+            "anthropic-risk-reports-may-be-redacted"
+          ],
+          "counterEvidenceIds": [
+            "openai-publishes-third-party-summaries",
+            "anthropic-publishes-system-cards"
+          ],
+          "summary": "Provider-controlled evaluations and redaction coexist with public system cards and selected third-party summaries.",
+          "evidenceStrength": "strong",
+          "limitations": "Corporate disclosures do not reveal what information may be supplied confidentially under other legal authorities."
+        },
+        {
+          "jurisdiction": "United Kingdom",
+          "supportingEvidenceIds": ["uk-aisi-needs-provider-technical-discussions"],
+          "counterEvidenceIds": ["deepmind-model-card-disclosure"],
+          "summary": "AISI reports needing provider teams' information for high-quality evaluation, while Google DeepMind publishes model-level documentation.",
+          "evidenceStrength": "moderate",
+          "limitations": "The company and evaluator examples do not cover every provider operating in the United Kingdom."
+        },
+        {
+          "jurisdiction": "China",
+          "supportingEvidenceIds": ["stanford-transparency-average-declined"],
+          "counterEvidenceIds": ["cac-provider-supervision-cooperation"],
+          "summary": "Global public-disclosure gaps provide limited context, while Chinese rules require cooperation and technical or data support for supervision.",
+          "evidenceStrength": "limited",
+          "limitations": "The coded evidence does not show the depth, regularity, or independent verifiability of information supplied to Chinese authorities."
+        }
+      ]
+    },
+    {
+      "id": "frontier-ai-governance-knowledge-concentration-evaluation-dependence",
+      "fieldId": "frontier-ai-governance",
+      "metricId": "knowledgeConcentration",
+      "componentId": "evaluation-dependence",
+      "rubricVersion": "1.0",
+      "score": 3,
+      "status": "provisional",
+      "rationale": "AISI identifies the provider-controlled model variants, safeguard settings, technical discussions, and testing windows needed for high-fidelity evaluation. Corporate sources likewise describe selected access and internal evaluation processes. EU statutory evaluation powers and AISI's public capacity are significant counterevidence, but they do not establish routine compulsory full-system access across the four jurisdictions. The combined evidence matches anchor 3.",
+      "supportingEvidenceIds": [
+        "uk-aisi-needs-privileged-model-access",
+        "uk-aisi-needs-provider-technical-discussions",
+        "uk-release-decisions-remain-with-provider",
+        "uk-aisi-cannot-evaluate-all-models",
+        "stanford-training-code-not-released",
+        "openai-selects-external-assessment-access",
+        "anthropic-rsp-internal-deployment-process",
+        "deepmind-corporate-body-approves-deployment"
+      ],
+      "counterEvidenceIds": [
+        "eu-ai-office-model-evaluation-power",
+        "uk-aisi-independent-evaluator",
+        "uk-aisi-built-public-evaluation-team"
+      ],
+      "confidence": "moderate",
+      "assessedAt": "2026-07-22",
+      "reviewStatus": "awaiting-author-review",
+      "jurisdictionEvidence": [
+        {
+          "jurisdiction": "European Union",
+          "supportingEvidenceIds": ["stanford-training-code-not-released"],
+          "counterEvidenceIds": ["eu-ai-office-model-evaluation-power"],
+          "summary": "Global access limitations provide context, while the AI Act gives the AI Office a conditional power to conduct model evaluations.",
+          "evidenceStrength": "moderate",
+          "limitations": "The statutory power was not yet fully operational at the cutoff, and the source does not show routine access practice."
+        },
+        {
+          "jurisdiction": "United States",
+          "supportingEvidenceIds": [
+            "openai-controls-predeployment-evaluation",
+            "openai-selects-external-assessment-access",
+            "anthropic-rsp-internal-deployment-process"
+          ],
+          "counterEvidenceIds": [],
+          "summary": "Provider documents describe internal evaluations and invited external access rather than compulsory independent public testing.",
+          "evidenceStrength": "moderate",
+          "limitations": "The coded sources cover selected companies and do not inventory every US public evaluation programme."
+        },
+        {
+          "jurisdiction": "United Kingdom",
+          "supportingEvidenceIds": [
+            "uk-aisi-needs-privileged-model-access",
+            "uk-aisi-needs-provider-technical-discussions",
+            "uk-release-decisions-remain-with-provider",
+            "uk-aisi-cannot-evaluate-all-models"
+          ],
+          "counterEvidenceIds": [
+            "uk-aisi-independent-evaluator",
+            "uk-aisi-built-public-evaluation-team"
+          ],
+          "summary": "The United Kingdom has meaningful independent evaluation capacity, but AISI documents reliance on provider access, information, and cooperation.",
+          "evidenceStrength": "strong",
+          "limitations": "AISI's public descriptions do not enumerate the access terms for every predeployment test."
+        },
+        {
+          "jurisdiction": "China",
+          "supportingEvidenceIds": ["stanford-training-code-not-released"],
+          "counterEvidenceIds": [],
+          "summary": "Global evidence indicates limited release of training code, but no comparable evidence of Chinese public model-evaluation access was identified.",
+          "evidenceStrength": "limited",
+          "limitations": "The absence of coded access evidence prevents a reliable jurisdiction-specific conclusion."
+        }
+      ]
+    },
+    {
+      "id": "frontier-ai-governance-knowledge-concentration-expertise-concentration",
+      "fieldId": "frontier-ai-governance",
+      "metricId": "knowledgeConcentration",
+      "componentId": "expertise-concentration",
+      "rubricVersion": "1.0",
+      "score": null,
+      "status": "pending",
+      "rationale": "GAO documents AI-expertise recruitment and development challenges in selected US agencies, while AISI documents both a substantial public evaluation team and coverage limits. Comparable evidence for EU and Chinese public frontier-model expertise is absent, and the US evidence concerns government AI use more broadly. The record cannot distinguish rubric anchors 2 and 3 across the selected scope.",
+      "supportingEvidenceIds": [
+        "gao-six-agencies-ai-expertise-challenges",
+        "uk-aisi-cannot-evaluate-all-models"
+      ],
+      "counterEvidenceIds": ["uk-aisi-built-public-evaluation-team"],
+      "confidence": null,
+      "assessedAt": "2026-07-22",
+      "reviewStatus": "awaiting-author-review",
+      "jurisdictionEvidence": [
+        {
+          "jurisdiction": "European Union",
+          "supportingEvidenceIds": [],
+          "counterEvidenceIds": [],
+          "summary": "No sufficiently comparable evidence of EU public frontier-model staffing, retention, or technical depth was coded.",
+          "evidenceStrength": "none",
+          "limitations": "Institutional mandates do not establish the quantity or quality of available expertise."
+        },
+        {
+          "jurisdiction": "United States",
+          "supportingEvidenceIds": ["gao-six-agencies-ai-expertise-challenges"],
+          "counterEvidenceIds": [],
+          "summary": "Selected federal agencies report difficulty attracting and developing personnel with generative-AI expertise.",
+          "evidenceStrength": "moderate",
+          "limitations": "The GAO population is not limited to frontier-model oversight and does not compare public and private expertise directly."
+        },
+        {
+          "jurisdiction": "United Kingdom",
+          "supportingEvidenceIds": ["uk-aisi-cannot-evaluate-all-models"],
+          "counterEvidenceIds": ["uk-aisi-built-public-evaluation-team"],
+          "summary": "AISI has built a specialized public evaluation team but reports insufficient capacity to test every released model.",
+          "evidenceStrength": "moderate",
+          "limitations": "Team existence and model coverage do not provide a direct public-private expertise comparison."
+        },
+        {
+          "jurisdiction": "China",
+          "supportingEvidenceIds": [],
+          "counterEvidenceIds": [],
+          "summary": "No sufficiently comparable evidence of Chinese public frontier-model staffing, retention, or technical depth was coded.",
+          "evidenceStrength": "none",
+          "limitations": "The absence of coded evidence cannot be interpreted as absence of public expertise."
+        }
+      ]
+    },
+    {
+      "id": "frontier-ai-governance-public-authority-binding-legal-mandate",
+      "fieldId": "frontier-ai-governance",
+      "metricId": "publicAuthority",
+      "componentId": "binding-legal-mandate",
+      "rubricVersion": "1.0",
+      "score": 2,
+      "status": "provisional",
+      "rationale": "The EU AI Act creates binding general-purpose and systemic-risk model duties, and China's Interim Measures impose binding duties on public generative-AI services. The US NIST framework is voluntary, UK AISI is not a regulator, the EU Code itself is voluntary, and the Chinese instrument is not frontier-specific. Binding mandates therefore cover limited jurisdictions and model categories, matching anchor 2.",
+      "supportingEvidenceIds": [
+        "eu-systemic-risk-model-duties",
+        "cac-measures-binding-and-effective"
+      ],
+      "counterEvidenceIds": [
+        "eu-gpai-code-voluntary-compliance-tool",
+        "nist-ai-rmf-voluntary",
+        "uk-aisi-not-regulator",
+        "cac-public-service-scope-limitation"
+      ],
+      "confidence": "moderate",
+      "assessedAt": "2026-07-22",
+      "reviewStatus": "awaiting-author-review",
+      "jurisdictionEvidence": [
+        {
+          "jurisdiction": "European Union",
+          "supportingEvidenceIds": ["eu-systemic-risk-model-duties"],
+          "counterEvidenceIds": ["eu-gpai-code-voluntary-compliance-tool"],
+          "summary": "Binding AI Act obligations apply to general-purpose models, with additional duties for systemic-risk models; the Code is a voluntary compliance mechanism rather than the legal source.",
+          "evidenceStrength": "strong",
+          "limitations": "Some duties and enforcement arrangements were still moving through staged application at the cutoff."
+        },
+        {
+          "jurisdiction": "United States",
+          "supportingEvidenceIds": [],
+          "counterEvidenceIds": ["nist-ai-rmf-voluntary"],
+          "summary": "The coded national framework is voluntary and does not establish a binding frontier-model mandate.",
+          "evidenceStrength": "limited",
+          "limitations": "The evidence base does not inventory every federal or state law that could constrain model providers."
+        },
+        {
+          "jurisdiction": "United Kingdom",
+          "supportingEvidenceIds": [],
+          "counterEvidenceIds": ["uk-aisi-not-regulator"],
+          "summary": "AISI supplies technical capacity but is not a regulator and does not itself create binding provider duties.",
+          "evidenceStrength": "moderate",
+          "limitations": "Other UK regulators may apply general or sectoral law outside this field definition."
+        },
+        {
+          "jurisdiction": "China",
+          "supportingEvidenceIds": ["cac-measures-binding-and-effective"],
+          "counterEvidenceIds": ["cac-public-service-scope-limitation"],
+          "summary": "Binding Interim Measures govern public generative-AI services, but exclude research and internal applications not offered to the public.",
+          "evidenceStrength": "strong",
+          "limitations": "The instrument is service-focused and not a dedicated frontier-model regime."
+        }
+      ]
+    },
+    {
+      "id": "frontier-ai-governance-public-authority-compulsory-information-access",
+      "fieldId": "frontier-ai-governance",
+      "metricId": "publicAuthority",
+      "componentId": "compulsory-information-access",
+      "rubricVersion": "1.0",
+      "score": 2,
+      "status": "provisional",
+      "rationale": "EU law requires technical documentation, authorizes information requests, and imposes cooperation duties. Chinese rules require cooperation with supervision and technical or data support. Equivalent frontier-specific compulsory access is not established in the coded US or UK evidence, and EU enforcement was not yet applicable at the cutoff. This is partial access under anchor 2.",
+      "supportingEvidenceIds": [
+        "eu-gpai-technical-documentation-duty",
+        "eu-ai-office-information-request-power",
+        "eu-provider-cooperation-duty",
+        "cac-provider-supervision-cooperation"
+      ],
+      "counterEvidenceIds": [
+        "eu-gpai-enforcement-not-yet-applicable",
+        "nist-ai-rmf-voluntary",
+        "uk-aisi-needs-privileged-model-access"
+      ],
+      "confidence": "moderate",
+      "assessedAt": "2026-07-22",
+      "reviewStatus": "awaiting-author-review",
+      "jurisdictionEvidence": [
+        {
+          "jurisdiction": "European Union",
+          "supportingEvidenceIds": [
+            "eu-gpai-technical-documentation-duty",
+            "eu-ai-office-information-request-power",
+            "eu-provider-cooperation-duty"
+          ],
+          "counterEvidenceIds": ["eu-gpai-enforcement-not-yet-applicable"],
+          "summary": "The AI Act creates documentation, request, and cooperation powers, but the Commission's enforcement powers were not yet applicable at the cutoff.",
+          "evidenceStrength": "strong",
+          "limitations": "The evidence establishes legal design rather than completed enforcement practice."
+        },
+        {
+          "jurisdiction": "United States",
+          "supportingEvidenceIds": [],
+          "counterEvidenceIds": ["nist-ai-rmf-voluntary"],
+          "summary": "The NIST framework provides voluntary guidance and does not compel provider information.",
+          "evidenceStrength": "limited",
+          "limitations": "Other investigatory or state-law powers were not comprehensively coded."
+        },
+        {
+          "jurisdiction": "United Kingdom",
+          "supportingEvidenceIds": [],
+          "counterEvidenceIds": ["uk-aisi-needs-privileged-model-access"],
+          "summary": "AISI describes the access needed for evaluation, but the coded evidence does not establish power to compel that access.",
+          "evidenceStrength": "moderate",
+          "limitations": "Voluntary access arrangements may be extensive even when they are not compulsory."
+        },
+        {
+          "jurisdiction": "China",
+          "supportingEvidenceIds": ["cac-provider-supervision-cooperation"],
+          "counterEvidenceIds": [],
+          "summary": "Providers must cooperate with lawful inspection and provide explanations and necessary technical or data support.",
+          "evidenceStrength": "moderate",
+          "limitations": "The practical depth and regularity of access to frontier-model artifacts are not documented."
+        }
+      ]
+    },
+    {
+      "id": "frontier-ai-governance-public-authority-independent-evaluation-power",
+      "fieldId": "frontier-ai-governance",
+      "metricId": "publicAuthority",
+      "componentId": "independent-evaluation-power",
+      "rubricVersion": "1.0",
+      "score": 2,
+      "status": "provisional",
+      "rationale": "EU law creates a conditional model-evaluation power, and the UK has an independent public evaluation institution with demonstrated capacity. UK access remains cooperative, NIST is voluntary, EU enforcement was not yet applicable, and the coded Chinese instrument does not establish comparable independent model-evaluation power. Legal power or capacity therefore exists only in part of the scope, matching anchor 2.",
+      "supportingEvidenceIds": [
+        "eu-ai-office-model-evaluation-power",
+        "uk-aisi-independent-evaluator",
+        "uk-aisi-built-public-evaluation-team"
+      ],
+      "counterEvidenceIds": [
+        "eu-gpai-enforcement-not-yet-applicable",
+        "nist-ai-rmf-voluntary",
+        "uk-aisi-needs-privileged-model-access"
+      ],
+      "confidence": "moderate",
+      "assessedAt": "2026-07-22",
+      "reviewStatus": "awaiting-author-review",
+      "jurisdictionEvidence": [
+        {
+          "jurisdiction": "European Union",
+          "supportingEvidenceIds": ["eu-ai-office-model-evaluation-power"],
+          "counterEvidenceIds": ["eu-gpai-enforcement-not-yet-applicable"],
+          "summary": "The AI Act authorizes conditional AI Office model evaluations, but the relevant enforcement powers were not yet applicable at the cutoff.",
+          "evidenceStrength": "strong",
+          "limitations": "No completed exercise of the power is established in the coded evidence."
+        },
+        {
+          "jurisdiction": "United States",
+          "supportingEvidenceIds": [],
+          "counterEvidenceIds": ["nist-ai-rmf-voluntary"],
+          "summary": "NIST provides technical guidance but the coded source does not establish compulsory independent frontier-model evaluation power.",
+          "evidenceStrength": "limited",
+          "limitations": "Other US public evaluation programmes were not comprehensively inventoried."
+        },
+        {
+          "jurisdiction": "United Kingdom",
+          "supportingEvidenceIds": [
+            "uk-aisi-independent-evaluator",
+            "uk-aisi-built-public-evaluation-team"
+          ],
+          "counterEvidenceIds": ["uk-aisi-needs-privileged-model-access"],
+          "summary": "AISI has independent technical capacity, but its high-fidelity evaluations require access and assistance controlled by providers.",
+          "evidenceStrength": "strong",
+          "limitations": "Independence of analysis is not equivalent to a legal power to compel full-system access."
+        },
+        {
+          "jurisdiction": "China",
+          "supportingEvidenceIds": [],
+          "counterEvidenceIds": [],
+          "summary": "The coded Chinese measure establishes supervision and information cooperation but not a comparable independent frontier-model evaluation power.",
+          "evidenceStrength": "limited",
+          "limitations": "The evidence base is not a complete inventory of Chinese technical evaluation institutions or authorities."
+        }
+      ]
+    },
+    {
+      "id": "frontier-ai-governance-public-authority-corrective-and-enforcement-power",
+      "fieldId": "frontier-ai-governance",
+      "metricId": "publicAuthority",
+      "componentId": "corrective-and-enforcement-power",
+      "rubricVersion": "1.0",
+      "score": 2,
+      "status": "provisional",
+      "rationale": "The EU AI Act provides mitigation, withdrawal, and fine powers, and China's Interim Measures allow warnings, correction orders, and service suspension. The EU powers were not yet applicable at the evidence cutoff, UK AISI is not a regulator, and NIST guidance is voluntary. Binding powers therefore exist in limited jurisdictions or are not fully operational, matching anchor 2.",
+      "supportingEvidenceIds": [
+        "eu-ai-office-corrective-measures",
+        "eu-gpai-fine-power",
+        "cac-corrective-measures"
+      ],
+      "counterEvidenceIds": [
+        "eu-gpai-enforcement-not-yet-applicable",
+        "nist-ai-rmf-voluntary",
+        "uk-aisi-not-regulator"
+      ],
+      "confidence": "moderate",
+      "assessedAt": "2026-07-22",
+      "reviewStatus": "awaiting-author-review",
+      "jurisdictionEvidence": [
+        {
+          "jurisdiction": "European Union",
+          "supportingEvidenceIds": [
+            "eu-ai-office-corrective-measures",
+            "eu-gpai-fine-power"
+          ],
+          "counterEvidenceIds": ["eu-gpai-enforcement-not-yet-applicable"],
+          "summary": "The AI Act authorizes mitigation, withdrawal, and substantial fines, but Commission enforcement was not yet applicable at the cutoff.",
+          "evidenceStrength": "strong",
+          "limitations": "The evidence establishes enacted powers rather than an enforcement record."
+        },
+        {
+          "jurisdiction": "United States",
+          "supportingEvidenceIds": [],
+          "counterEvidenceIds": ["nist-ai-rmf-voluntary"],
+          "summary": "The coded NIST instrument is voluntary and supplies no corrective or sanctioning power.",
+          "evidenceStrength": "limited",
+          "limitations": "General federal, state, competition, or consumer-protection remedies were not comprehensively coded."
+        },
+        {
+          "jurisdiction": "United Kingdom",
+          "supportingEvidenceIds": [],
+          "counterEvidenceIds": ["uk-aisi-not-regulator"],
+          "summary": "AISI is not a regulator and does not itself possess corrective or sanctioning powers over model providers.",
+          "evidenceStrength": "moderate",
+          "limitations": "Other UK regulators may possess general-law powers outside AISI's mandate."
+        },
+        {
+          "jurisdiction": "China",
+          "supportingEvidenceIds": ["cac-corrective-measures"],
+          "counterEvidenceIds": [],
+          "summary": "Authorities may warn providers, order corrections, and suspend services under the Interim Measures.",
+          "evidenceStrength": "strong",
+          "limitations": "The source does not establish enforcement frequency or application to internal model development."
+        }
+      ]
+    },
+    {
+      "id": "frontier-ai-governance-public-authority-coverage-and-coordination",
+      "fieldId": "frontier-ai-governance",
+      "metricId": "publicAuthority",
+      "componentId": "coverage-and-coordination",
+      "rubricVersion": "1.0",
+      "score": 2,
+      "status": "provisional",
+      "rationale": "The EU and China have defined institutions and duties, the United Kingdom has a specialized evaluation body, the United States has NIST guidance, and OECD.AI supplies comparative context. Their mandates, legal force, lifecycle coverage, and coordination differ substantially; the OECD resource is non-enforcement context, the US framework is voluntary, UK AISI is non-regulatory, and Chinese coverage is service-focused. This matches anchor 2.",
+      "supportingEvidenceIds": [
+        "eu-systemic-risk-model-duties",
+        "eu-provider-cooperation-duty",
+        "uk-aisi-built-public-evaluation-team",
+        "cac-measures-binding-and-effective",
+        "oecd-dashboard-comparative-only"
+      ],
+      "counterEvidenceIds": [
+        "eu-gpai-enforcement-not-yet-applicable",
+        "nist-ai-rmf-voluntary",
+        "uk-aisi-not-regulator",
+        "uk-aisi-cannot-evaluate-all-models",
+        "cac-public-service-scope-limitation"
+      ],
+      "confidence": "moderate",
+      "assessedAt": "2026-07-22",
+      "reviewStatus": "awaiting-author-review",
+      "jurisdictionEvidence": [
+        {
+          "jurisdiction": "European Union",
+          "supportingEvidenceIds": [
+            "eu-systemic-risk-model-duties",
+            "eu-provider-cooperation-duty"
+          ],
+          "counterEvidenceIds": ["eu-gpai-enforcement-not-yet-applicable"],
+          "summary": "The AI Act defines Union-level duties and cooperation, but staged application limited operational coverage at the cutoff.",
+          "evidenceStrength": "strong",
+          "limitations": "Coordination effectiveness between Union and national bodies is not measured by the legal text alone."
+        },
+        {
+          "jurisdiction": "United States",
+          "supportingEvidenceIds": [],
+          "counterEvidenceIds": ["nist-ai-rmf-voluntary"],
+          "summary": "NIST provides a national technical framework, but its voluntary status leaves binding coverage and enforcement coordination unresolved.",
+          "evidenceStrength": "limited",
+          "limitations": "This evidence base does not inventory every federal and state institution relevant to advanced models."
+        },
+        {
+          "jurisdiction": "United Kingdom",
+          "supportingEvidenceIds": ["uk-aisi-built-public-evaluation-team"],
+          "counterEvidenceIds": [
+            "uk-aisi-not-regulator",
+            "uk-aisi-cannot-evaluate-all-models"
+          ],
+          "summary": "A specialized public evaluation institution exists, but it is non-regulatory and cannot evaluate every released model.",
+          "evidenceStrength": "moderate",
+          "limitations": "The evidence does not measure coordination between AISI and all existing UK regulators."
+        },
+        {
+          "jurisdiction": "China",
+          "supportingEvidenceIds": ["cac-measures-binding-and-effective"],
+          "counterEvidenceIds": ["cac-public-service-scope-limitation"],
+          "summary": "Seven national authorities jointly issued binding measures for public generative-AI services, but the instrument excludes non-public research and internal use.",
+          "evidenceStrength": "strong",
+          "limitations": "Joint issuance does not by itself establish day-to-day coordination or full frontier-model lifecycle coverage."
+        }
+      ]
+    }
+  ]
+}

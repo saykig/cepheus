@@ -4,7 +4,7 @@
   "unitOfAnalysis": "governance-field",
   "assessment": {
     "status": "pending-coding",
-    "asOf": "2026-07-21",
+    "evidenceCutoff": "2026-07-21",
     "methodologyVersion": "1.0",
     "geographicScope": [
       "European Union",
@@ -33,13 +33,6 @@
       "Universities and academic institutions"
     ]
   },
-  "scoringRubric": {
-    "0": "absent",
-    "1": "limited, voluntary, or ad hoc",
-    "2": "partial or narrowly applicable",
-    "3": "substantial but fragmented",
-    "4": "comprehensive and operational"
-  },
   "visualMapping": {
     "x": "derived.knowledgeConcentration",
     "y": "derived.publicAuthority",
@@ -52,48 +45,23 @@
       "components": [
         {
           "id": "operational-control",
-          "weight": 0.2,
-          "score": null,
-          "rationale": null,
-          "sourceIds": [],
-          "assessedAt": null,
-          "confidence": null
+          "weight": 0.2
         },
         {
           "id": "critical-resource-control",
-          "weight": 0.2,
-          "score": null,
-          "rationale": null,
-          "sourceIds": [],
-          "assessedAt": null,
-          "confidence": null
+          "weight": 0.2
         },
         {
           "id": "information-asymmetry",
-          "weight": 0.2,
-          "score": null,
-          "rationale": null,
-          "sourceIds": [],
-          "assessedAt": null,
-          "confidence": null
+          "weight": 0.2
         },
         {
           "id": "evaluation-dependence",
-          "weight": 0.2,
-          "score": null,
-          "rationale": null,
-          "sourceIds": [],
-          "assessedAt": null,
-          "confidence": null
+          "weight": 0.2
         },
         {
           "id": "expertise-concentration",
-          "weight": 0.2,
-          "score": null,
-          "rationale": null,
-          "sourceIds": [],
-          "assessedAt": null,
-          "confidence": null
+          "weight": 0.2
         }
       ]
     },
@@ -102,48 +70,23 @@
       "components": [
         {
           "id": "binding-legal-mandate",
-          "weight": 0.2,
-          "score": null,
-          "rationale": null,
-          "sourceIds": [],
-          "assessedAt": null,
-          "confidence": null
+          "weight": 0.2
         },
         {
           "id": "compulsory-information-access",
-          "weight": 0.2,
-          "score": null,
-          "rationale": null,
-          "sourceIds": [],
-          "assessedAt": null,
-          "confidence": null
+          "weight": 0.2
         },
         {
           "id": "independent-evaluation-power",
-          "weight": 0.2,
-          "score": null,
-          "rationale": null,
-          "sourceIds": [],
-          "assessedAt": null,
-          "confidence": null
+          "weight": 0.2
         },
         {
           "id": "corrective-and-enforcement-power",
-          "weight": 0.2,
-          "score": null,
-          "rationale": null,
-          "sourceIds": [],
-          "assessedAt": null,
-          "confidence": null
+          "weight": 0.2
         },
         {
           "id": "coverage-and-coordination",
-          "weight": 0.2,
-          "score": null,
-          "rationale": null,
-          "sourceIds": [],
-          "assessedAt": null,
-          "confidence": null
+          "weight": 0.2
         }
       ]
     }

@@ -1,12 +1,21 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
+import assessmentData from '../../public/data/gap-matrix/component-assessments.json' with { type: 'json' }
+import fieldData from '../../public/data/gap-matrix/fields.json' with { type: 'json' }
 import {
   calculateGap,
   calculateWeightedScore,
+  deriveAssessment,
+  deriveAxisAssessment,
   radiusForSignificanceTier,
   significanceTierFor,
+  type ComponentAssessment,
+  type GovernanceField,
   type WeightedComponent,
 } from './gap-matrix-scoring.ts'
+
+const field = fieldData as GovernanceField
+const assessments = assessmentData.assessments as ComponentAssessment[]
 
 const componentsWithScore = (score: number | null): WeightedComponent[] =>
   Array.from({ length: 5 }, (_, index) => ({
@@ -14,6 +23,8 @@ const componentsWithScore = (score: number | null): WeightedComponent[] =>
     weight: 0.2,
     score,
   }))
+
+const cloneAssessments = () => structuredClone(assessments)
 
 describe('calculateWeightedScore', () => {
   it('returns 0 when every component is scored 0', () => {
@@ -48,6 +59,97 @@ describe('calculateWeightedScore', () => {
     const components = componentsWithScore(null)
     components[0].weight = -0.2
     assert.throws(() => calculateWeightedScore(components), RangeError)
+  })
+})
+
+describe('component assessment derivation', () => {
+  it('calculates the internal public-authority result but withholds it publicly', () => {
+    assert.deepEqual(
+      deriveAxisAssessment(field, assessments, 'publicAuthority'),
+      {
+        internalScore: 50,
+        publicScore: null,
+        publicReady: false,
+      },
+    )
+  })
+
+  it('returns a pending internal knowledge-concentration result', () => {
+    assert.deepEqual(
+      deriveAxisAssessment(field, assessments, 'knowledgeConcentration'),
+      {
+        internalScore: null,
+        publicScore: null,
+        publicReady: false,
+      },
+    )
+  })
+
+  it('publishes an axis only when every assessment is reviewed or published', () => {
+    const reviewed = cloneAssessments()
+    let publishNext = false
+    for (const assessment of reviewed) {
+      if (assessment.metricId !== 'publicAuthority') continue
+      assessment.status = publishNext ? 'published' : 'reviewed'
+      publishNext = !publishNext
+    }
+
+    assert.deepEqual(
+      deriveAxisAssessment(field, reviewed, 'publicAuthority'),
+      {
+        internalScore: 50,
+        publicScore: 50,
+        publicReady: true,
+      },
+    )
+  })
+
+  it('keeps a reviewed axis pending when one component remains provisional', () => {
+    const mixed = cloneAssessments()
+    for (const assessment of mixed) {
+      if (assessment.metricId === 'publicAuthority') assessment.status = 'reviewed'
+    }
+    mixed.find(
+      (assessment) => assessment.componentId === 'coverage-and-coordination',
+    )!.status = 'provisional'
+
+    assert.equal(
+      deriveAxisAssessment(field, mixed, 'publicAuthority').publicScore,
+      null,
+    )
+  })
+
+  it('rejects a missing assessment', () => {
+    assert.throws(
+      () => deriveAssessment(field, assessments.slice(1)),
+      /Missing assessments/,
+    )
+  })
+
+  it('rejects a duplicate component assessment', () => {
+    const duplicate = cloneAssessments()
+    duplicate.push({ ...duplicate[0], id: `${duplicate[0].id}-duplicate` })
+    assert.throws(() => deriveAssessment(field, duplicate), /Duplicate assessment/)
+  })
+
+  it('rejects an unknown component assessment', () => {
+    const unknown = cloneAssessments()
+    unknown[0].componentId = 'unknown-component'
+    assert.throws(() => deriveAssessment(field, unknown), /unknown component/)
+  })
+
+  it('rejects a pending score with non-null confidence', () => {
+    const invalid = cloneAssessments()
+    const pending = invalid.find((assessment) => assessment.score === null)!
+    pending.confidence = 'low'
+    assert.throws(() => deriveAssessment(field, invalid), /null confidence/)
+  })
+
+  it('rejects a non-null score with pending status', () => {
+    const invalid = cloneAssessments()
+    const scored = invalid.find((assessment) => assessment.score !== null)!
+    scored.status = 'pending'
+    assert.throws(() => deriveAssessment(field, invalid), /non-pending status/)
   })
 })
 

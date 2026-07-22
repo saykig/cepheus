@@ -12,6 +12,8 @@ import type { Locale } from 'app/lib/i18n'
 import { visualCopy } from 'app/lib/visual-copy'
 import {
   deriveAssessment,
+  type ComponentAssessment,
+  type ComponentAssessmentData,
   type GovernanceField,
   type GovernanceSignificanceTier,
 } from 'app/lib/gap-matrix-scoring'
@@ -70,6 +72,7 @@ export function GapMapMatrix({ locale = 'en' }: { locale?: Locale }) {
   const copy = visualCopy[locale]
   const { ref, inView } = useInView<HTMLElement>()
   const [field, setField] = useState<GovernanceField | null>(null)
+  const [assessments, setAssessments] = useState<ComponentAssessment[] | null>(null)
   const [loadFailed, setLoadFailed] = useState(false)
   const [activeTooltip, setActiveTooltip] = useState<HelpId | null>(null)
   const touchStartedOpen = useRef(false)
@@ -77,12 +80,24 @@ export function GapMapMatrix({ locale = 'en' }: { locale?: Locale }) {
   useEffect(() => {
     const controller = new AbortController()
 
-    fetch('/data/gap-matrix/fields.json', { signal: controller.signal })
-      .then((response) => {
-        if (!response.ok) throw new Error(`Gap Matrix data returned ${response.status}`)
-        return response.json() as Promise<GovernanceField>
+    const loadJson = async <T,>(path: string) => {
+      const response = await fetch(path, { signal: controller.signal })
+      if (!response.ok) {
+        throw new Error(`Gap Matrix data returned ${response.status} for ${path}`)
+      }
+      return response.json() as Promise<T>
+    }
+
+    Promise.all([
+      loadJson<GovernanceField>('/data/gap-matrix/fields.json'),
+      loadJson<ComponentAssessmentData>(
+        '/data/gap-matrix/component-assessments.json',
+      ),
+    ])
+      .then(([fieldData, assessmentData]) => {
+        setField(fieldData)
+        setAssessments(assessmentData.assessments)
       })
-      .then(setField)
       .catch((error: unknown) => {
         if (error instanceof DOMException && error.name === 'AbortError') return
         setLoadFailed(true)
@@ -111,7 +126,10 @@ export function GapMapMatrix({ locale = 'en' }: { locale?: Locale }) {
     }
   }, [activeTooltip])
 
-  const derived = useMemo(() => (field ? deriveAssessment(field) : null), [field])
+  const derived = useMemo(
+    () => (field && assessments ? deriveAssessment(field, assessments) : null),
+    [assessments, field],
+  )
 
   if (loadFailed) {
     return (
@@ -121,7 +139,7 @@ export function GapMapMatrix({ locale = 'en' }: { locale?: Locale }) {
     )
   }
 
-  if (!field || !derived) {
+  if (!field || !assessments || !derived) {
     return <div className="tool-loading" aria-live="polite" aria-busy="true" />
   }
 
@@ -351,7 +369,9 @@ export function GapMapMatrix({ locale = 'en' }: { locale?: Locale }) {
             {isPending ? 'Assessment pending' : 'Dated assessment'}
           </span>
           <h5>{field.label}</h5>
-          <p className="gap-panel-quadrant">As of {field.assessment.asOf}</p>
+          <p className="gap-panel-quadrant">
+            As of {field.assessment.evidenceCutoff}
+          </p>
 
           <div className="gap-meters">
             {axisMeters.map((meter) => (

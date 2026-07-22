@@ -6,7 +6,7 @@
       "issuingBody": "European Commission",
       "url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
       "publicationDate": null,
-      "accessedDate": "2026-07-21",
+      "accessedDate": "2026-07-22",
       "jurisdiction": "European Union",
       "sourceType": "official-policy-page",
       "bindingness": "documents-binding-regulation",
@@ -18,7 +18,29 @@
         "corrective-and-enforcement-power",
         "coverage-and-coordination"
       ],
-      "notes": "Official explanatory page for the AI Act. The page reports a last update of 7 July 2026; no original page publication date is supplied."
+      "notes": "Official explanatory page for the AI Act. The page reports a last update of 7 July 2026; the underlying legal obligations are sourced separately to the regulation itself."
+    },
+    {
+      "id": "eu-ai-act-text",
+      "title": "Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence",
+      "issuingBody": "European Parliament and Council of the European Union",
+      "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+      "publicationDate": "2024-07-12",
+      "accessedDate": "2026-07-22",
+      "jurisdiction": "European Union",
+      "sourceType": "official-legislation",
+      "bindingness": "binding",
+      "relevantComponentIds": [
+        "operational-control",
+        "information-asymmetry",
+        "evaluation-dependence",
+        "binding-legal-mandate",
+        "compulsory-information-access",
+        "independent-evaluation-power",
+        "corrective-and-enforcement-power",
+        "coverage-and-coordination"
+      ],
+      "notes": "Authoritative regulation text. Application dates differ by provision and are treated explicitly in the evidence records."
     },
     {
       "id": "ec-gpai-models-qa",
@@ -26,7 +48,7 @@
       "issuingBody": "European Commission, European AI Office",
       "url": "https://digital-strategy.ec.europa.eu/en/faqs/general-purpose-ai-models-ai-act-questions-answers",
       "publicationDate": null,
-      "accessedDate": "2026-07-21",
+      "accessedDate": "2026-07-22",
       "jurisdiction": "European Union",
       "sourceType": "official-faq",
       "bindingness": "documents-binding-regulation",
@@ -34,6 +56,7 @@
         "information-asymmetry",
         "binding-legal-mandate",
         "compulsory-information-access",
+        "independent-evaluation-power",
         "corrective-and-enforcement-power",
         "coverage-and-coordination"
       ],
@@ -45,7 +68,7 @@
       "issuingBody": "European Commission, European AI Office",
       "url": "https://digital-strategy.ec.europa.eu/en/policies/contents-code-gpai",
       "publicationDate": "2025-07-10",
-      "accessedDate": "2026-07-21",
+      "accessedDate": "2026-07-22",
       "jurisdiction": "European Union",
       "sourceType": "official-voluntary-code",
       "bindingness": "voluntary",
@@ -55,7 +78,7 @@
         "binding-legal-mandate",
         "coverage-and-coordination"
       ],
-      "notes": "The Code was published on 10 July 2025 and is a voluntary compliance tool; the underlying legal obligations arise from the AI Act."
+      "notes": "The Code is a voluntary compliance tool; the underlying legal obligations arise from the AI Act."
     },
     {
       "id": "nist-ai-rmf",
@@ -63,17 +86,36 @@
       "issuingBody": "United States National Institute of Standards and Technology",
       "url": "https://www.nist.gov/itl/ai-risk-management-framework",
       "publicationDate": "2023-01-26",
-      "accessedDate": "2026-07-21",
+      "accessedDate": "2026-07-22",
       "jurisdiction": "United States",
       "sourceType": "official-voluntary-framework",
       "bindingness": "voluntary",
       "relevantComponentIds": [
         "evaluation-dependence",
         "expertise-concentration",
+        "binding-legal-mandate",
+        "compulsory-information-access",
         "independent-evaluation-power",
+        "corrective-and-enforcement-power",
         "coverage-and-coordination"
       ],
       "notes": "NIST released AI RMF 1.0 on 26 January 2023. The framework is voluntary and is not binding regulatory authority."
+    },
+    {
+      "id": "gao-generative-ai-federal-agencies",
+      "title": "Artificial Intelligence: Generative AI Use and Management at Federal Agencies",
+      "issuingBody": "United States Government Accountability Office",
+      "url": "https://www.gao.gov/products/gao-25-107653",
+      "publicationDate": "2025-07-29",
+      "accessedDate": "2026-07-22",
+      "jurisdiction": "United States",
+      "sourceType": "official-government-report",
+      "bindingness": "not-applicable",
+      "relevantComponentIds": [
+        "expertise-concentration",
+        "coverage-and-coordination"
+      ],
+      "notes": "GAO reviewed selected federal agencies. Its workforce findings do not measure all US public institutions or frontier-model governance specifically."
     },
     {
       "id": "uk-aisi-overview",
@@ -81,14 +123,19 @@
       "issuingBody": "United Kingdom Department for Science, Innovation and Technology",
       "url": "https://www.gov.uk/government/publications/ai-safety-institute-overview/introducing-the-ai-safety-institute",
       "publicationDate": "2023-11-02",
-      "accessedDate": "2026-07-21",
+      "accessedDate": "2026-07-22",
       "jurisdiction": "United Kingdom",
       "sourceType": "official-programme-overview",
       "bindingness": "non-binding",
       "relevantComponentIds": [
+        "operational-control",
         "evaluation-dependence",
         "expertise-concentration",
-        "independent-evaluation-power"
+        "binding-legal-mandate",
+        "compulsory-information-access",
+        "independent-evaluation-power",
+        "corrective-and-enforcement-power",
+        "coverage-and-coordination"
       ],
       "notes": "Official overview of a government technical and research institute; it does not establish the Institute as a regulator."
     },
@@ -98,16 +145,40 @@
       "issuingBody": "United Kingdom Department for Science, Innovation and Technology",
       "url": "https://www.gov.uk/government/publications/ai-safety-institute-approach-to-evaluations/ai-safety-institute-approach-to-evaluations",
       "publicationDate": "2024-02-09",
-      "accessedDate": "2026-07-21",
+      "accessedDate": "2026-07-22",
       "jurisdiction": "United Kingdom",
       "sourceType": "official-evaluation-methodology",
       "bindingness": "non-binding",
       "relevantComponentIds": [
+        "operational-control",
         "evaluation-dependence",
         "expertise-concentration",
-        "independent-evaluation-power"
+        "compulsory-information-access",
+        "independent-evaluation-power",
+        "coverage-and-coordination"
       ],
       "notes": "Official description of the Institute's evaluation approach and technical capacity, not evidence of compulsory regulatory power."
+    },
+    {
+      "id": "uk-aisi-early-lessons",
+      "title": "Early lessons from evaluating frontier AI systems",
+      "issuingBody": "United Kingdom AI Security Institute",
+      "url": "https://www.aisi.gov.uk/blog/early-lessons-from-evaluating-frontier-ai-systems",
+      "publicationDate": "2024-10-24",
+      "accessedDate": "2026-07-22",
+      "jurisdiction": "United Kingdom",
+      "sourceType": "official-institutional-report",
+      "bindingness": "non-binding",
+      "relevantComponentIds": [
+        "operational-control",
+        "information-asymmetry",
+        "evaluation-dependence",
+        "expertise-concentration",
+        "compulsory-information-access",
+        "independent-evaluation-power",
+        "coverage-and-coordination"
+      ],
+      "notes": "AISI's account of its own evaluation practice, capacity, access requirements, and methodological limitations."
     },
     {
       "id": "cac-generative-ai-measures",
@@ -115,18 +186,21 @@
       "issuingBody": "Cyberspace Administration of China and six other national authorities",
       "url": "https://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm",
       "publicationDate": "2023-07-13",
-      "accessedDate": "2026-07-21",
+      "accessedDate": "2026-07-22",
       "jurisdiction": "China",
       "sourceType": "official-regulation",
       "bindingness": "binding",
       "relevantComponentIds": [
+        "operational-control",
         "information-asymmetry",
+        "evaluation-dependence",
         "binding-legal-mandate",
         "compulsory-information-access",
+        "independent-evaluation-power",
         "corrective-and-enforcement-power",
         "coverage-and-coordination"
       ],
-      "notes": "The measures were promulgated on 13 July 2023 and took effect on 15 August 2023."
+      "notes": "The measures were promulgated on 13 July 2023 and took effect on 15 August 2023. The authoritative source is in Chinese."
     },
     {
       "id": "oecd-ai-policy-dashboard",
@@ -134,14 +208,132 @@
       "issuingBody": "Organisation for Economic Co-operation and Development",
       "url": "https://oecd.ai/en/dashboards/overview",
       "publicationDate": null,
-      "accessedDate": "2026-07-21",
+      "accessedDate": "2026-07-22",
       "jurisdiction": "International",
       "sourceType": "official-policy-dashboard",
       "bindingness": "non-binding",
       "relevantComponentIds": [
         "coverage-and-coordination"
       ],
-      "notes": "A continuously maintained comparative policy resource; no stable publication date is supplied. It is not an enforcement authority."
+      "notes": "A continuously maintained comparative policy resource. It is not an enforcement authority."
+    },
+    {
+      "id": "stanford-ai-index-2026",
+      "title": "The 2026 AI Index Report",
+      "issuingBody": "Stanford Institute for Human-Centered Artificial Intelligence",
+      "url": "https://hai.stanford.edu/assets/files/ai_index_report_2026.pdf",
+      "publicationDate": null,
+      "accessedDate": "2026-07-22",
+      "jurisdiction": "Global",
+      "sourceType": "major-research-report",
+      "bindingness": "not-applicable",
+      "relevantComponentIds": [
+        "operational-control",
+        "critical-resource-control",
+        "information-asymmetry",
+        "evaluation-dependence"
+      ],
+      "notes": "Global research report released in 2026. Its notable-model and transparency populations are not identical to this assessment's frontier-AI field or four-jurisdiction scope."
+    },
+    {
+      "id": "openai-gpt-5-5-system-card",
+      "title": "GPT-5.5 System Card",
+      "issuingBody": "OpenAI",
+      "url": "https://openai.com/index/gpt-5-5-system-card/",
+      "publicationDate": "2026-04-23",
+      "accessedDate": "2026-07-22",
+      "jurisdiction": "Private / transnational",
+      "sourceType": "corporate-system-card",
+      "bindingness": "self-governance",
+      "relevantComponentIds": [
+        "operational-control",
+        "information-asymmetry",
+        "evaluation-dependence"
+      ],
+      "notes": "Corporate primary document. It establishes OpenAI's disclosed practices but is not independent evidence of system-wide governance effectiveness."
+    },
+    {
+      "id": "openai-external-testing",
+      "title": "Strengthening our safety ecosystem with external testing",
+      "issuingBody": "OpenAI",
+      "url": "https://openai.com/index/strengthening-safety-with-external-testing/",
+      "publicationDate": "2025-11-19",
+      "accessedDate": "2026-07-22",
+      "jurisdiction": "Private / transnational",
+      "sourceType": "corporate-practice-disclosure",
+      "bindingness": "self-governance",
+      "relevantComponentIds": [
+        "operational-control",
+        "information-asymmetry",
+        "evaluation-dependence"
+      ],
+      "notes": "Corporate primary document describing selected third-party testing arrangements. It is not independent evidence of their sufficiency."
+    },
+    {
+      "id": "anthropic-rsp-3-4",
+      "title": "Anthropic's Responsible Scaling Policy, version 3.4",
+      "issuingBody": "Anthropic",
+      "url": "https://www.anthropic.com/responsible-scaling-policy",
+      "publicationDate": "2026-07-08",
+      "accessedDate": "2026-07-22",
+      "jurisdiction": "Private / transnational",
+      "sourceType": "corporate-governance-policy",
+      "bindingness": "self-governance",
+      "relevantComponentIds": [
+        "operational-control",
+        "information-asymmetry",
+        "evaluation-dependence"
+      ],
+      "notes": "Corporate primary policy effective before the evidence cutoff. It establishes Anthropic's disclosed internal process, not wider governance effectiveness."
+    },
+    {
+      "id": "anthropic-system-cards",
+      "title": "Model system cards",
+      "issuingBody": "Anthropic",
+      "url": "https://www.anthropic.com/system-cards",
+      "publicationDate": null,
+      "accessedDate": "2026-07-22",
+      "jurisdiction": "Private / transnational",
+      "sourceType": "corporate-document-index",
+      "bindingness": "self-governance",
+      "relevantComponentIds": [
+        "information-asymmetry",
+        "evaluation-dependence"
+      ],
+      "notes": "Corporate index of model system cards. Publication is selective and does not substitute for compulsory access to underlying technical information."
+    },
+    {
+      "id": "deepmind-fsf-3-1",
+      "title": "Strengthening our Frontier Safety Framework",
+      "issuingBody": "Google DeepMind",
+      "url": "https://deepmind.google/blog/strengthening-our-frontier-safety-framework/",
+      "publicationDate": "2025-09-22",
+      "accessedDate": "2026-07-22",
+      "jurisdiction": "Private / transnational",
+      "sourceType": "corporate-governance-policy",
+      "bindingness": "self-governance",
+      "relevantComponentIds": [
+        "operational-control",
+        "information-asymmetry",
+        "evaluation-dependence"
+      ],
+      "notes": "Corporate primary policy updated on 17 April 2026. It establishes Google DeepMind's disclosed internal process, not wider governance effectiveness."
+    },
+    {
+      "id": "deepmind-gemini-3-1-pro-model-card",
+      "title": "Gemini 3.1 Pro Model Card",
+      "issuingBody": "Google DeepMind",
+      "url": "https://deepmind.google/models/model-cards/gemini-3-1-pro",
+      "publicationDate": "2026-02-19",
+      "accessedDate": "2026-07-22",
+      "jurisdiction": "Private / transnational",
+      "sourceType": "corporate-model-card",
+      "bindingness": "self-governance",
+      "relevantComponentIds": [
+        "information-asymmetry",
+        "evaluation-dependence"
+      ],
+      "notes": "Corporate primary model card. It establishes disclosed practices and results but is not independent evidence of system-wide effectiveness."
     }
   ]
 }
