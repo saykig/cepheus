@@ -78,7 +78,6 @@ export default async function CepheusEssay({
     <article className="essay-page technical-capacity-essay">
       <header className="essay-hero">
         <div className="essay-hero-inner">
-          <p className="essay-kicker">{labels.kicker}</p>
           <h1>
             <span>{labels.titleLineOne}</span>
             <span>{labels.titleLineTwo}</span>

@@ -1090,7 +1090,12 @@ html[data-theme="dark"] .theme-toggle::after {
   }
 
   .technical-capacity-essay .essay-index-item:not(.is-child) {
-    min-height: 52px;
+    min-height: 76px;
+  }
+
+  .technical-capacity-essay .essay-scroll-index::before {
+    top: 38px;
+    bottom: 38px;
   }
 
   .technical-capacity-essay .essay-index-item.is-child {
@@ -1104,11 +1109,16 @@ html[data-theme="dark"] .theme-toggle::after {
   }
 
   .technical-capacity-essay .rail-download {
-    font-size: 0.68rem;
+    font-size: 0.62rem;
+  }
+
+  .technical-capacity-essay .rail-download svg {
+    width: 9px;
+    height: 9px;
   }
 
   .technical-capacity-essay .rail-updated {
-    font-size: 0.62rem;
+    font-size: 0.56rem;
   }
 }
 

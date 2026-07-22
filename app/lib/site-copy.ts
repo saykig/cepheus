@@ -36,7 +36,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
     contents: 'Essay contents',
     sections: 'Sections',
     sideNote:
-      'Technology is often built in one world and governed in another. Cepheus maps the distance between them.',
+      'Artificial Intelligence is often built in one world and governed in another. Cepheus maps the distance between them.',
     download: 'Download report (PDF)',
     lastUpdated: 'Last updated',
   },

@@ -21,7 +21,6 @@ export function LocalizedEssayDraft({ locale }: { locale: DraftLocale }) {
     <article className="essay-page">
       <header className="essay-hero">
         <div className="essay-hero-inner">
-          <p className="essay-kicker">{labels.kicker}</p>
           <h1><span>{labels.titleLineOne}</span><span>{labels.titleLineTwo}</span></h1>
           <p className="essay-subtitle">{labels.subtitle}</p>
           <p className="essay-meta"><span className="author">Sara Kim</span></p>
