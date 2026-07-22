@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { defaultLocale, isLocale, localeCookie } from './app/lib/i18n'
 
+const canonicalEssayPath = '/essays/what-we-owe-to-each-other'
+const retiredEssayPath = '/essays/the-cepheus-link'
+
 export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl
   const firstSegment = pathname.split('/')[1]
@@ -8,7 +11,25 @@ export function proxy(request: NextRequest) {
 
   if (legacyEssayPath && pathname === legacyEssayPath) {
     return NextResponse.redirect(
-      new URL(`/essays/the-cepheus-link${search}`, request.url),
+      new URL(`${canonicalEssayPath}${search}`, request.url),
+      308,
+    )
+  }
+
+  if (pathname === retiredEssayPath) {
+    return NextResponse.redirect(
+      new URL(`${canonicalEssayPath}${search}`, request.url),
+      308,
+    )
+  }
+
+  if (
+    firstSegment &&
+    isLocale(firstSegment) &&
+    pathname === `/${firstSegment}${retiredEssayPath}`
+  ) {
+    return NextResponse.redirect(
+      new URL(`/${firstSegment}${canonicalEssayPath}${search}`, request.url),
       308,
     )
   }

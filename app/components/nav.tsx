@@ -56,7 +56,7 @@ export function Navbar({
             {copy.essays}
           </button>
           <div className="essay-menu">
-            <Link href={localizeHref('/essays/the-cepheus-link', locale)}>
+            <Link href={localizeHref('/essays/what-we-owe-to-each-other', locale)}>
               {copy.essayMenuTitle}
             </Link>
           </div>
