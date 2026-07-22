@@ -15,6 +15,7 @@ import sourcesData from '../../../../public/data/sources.json'
 import { essayLabels } from 'app/lib/essay-copy'
 import { isLocale } from 'app/lib/i18n'
 import { LocalizedEssayDraft } from 'app/components/localized-essay-draft'
+import { TechnicalCapacityFigure } from 'app/components/technical-capacity-figure'
 
 export async function generateMetadata({
   params,
@@ -74,7 +75,7 @@ export default async function CepheusEssay({
   if (locale !== 'en') return <LocalizedEssayDraft locale={locale} />
 
   return (
-    <article className="essay-page">
+    <article className="essay-page technical-capacity-essay">
       <header className="essay-hero">
         <div className="essay-hero-inner">
           <p className="essay-kicker">{labels.kicker}</p>
@@ -121,6 +122,7 @@ export default async function CepheusEssay({
               technical expertise and control over the system.
             </strong>
           </p>
+          <TechnicalCapacityFigure />
           <p>
             At first, I read it as a dispute over one government contract, but it
             exposed a much larger institutional problem.{' '}

@@ -1062,6 +1062,56 @@ html[data-theme="dark"] .theme-toggle::after {
   }
 }
 
+@media (min-width: 901px) {
+  .technical-capacity-essay .essay-body {
+    --essay-reading-width: 47.5rem;
+  }
+
+  .technical-capacity-essay .essay-layout {
+    grid-template-columns: 148px minmax(0, 1fr);
+    gap: 36px;
+  }
+
+  .technical-capacity-essay .essay-hero-inner {
+    margin-left: 184px;
+  }
+
+  .technical-capacity-essay .essay-side-note {
+    max-width: 19ch;
+    margin-bottom: 2rem;
+    font-size: 0.76rem;
+    line-height: 1.45;
+  }
+
+  .technical-capacity-essay .essay-index-item {
+    gap: 0.48rem;
+    font-size: 0.65625rem;
+    line-height: 1.18;
+  }
+
+  .technical-capacity-essay .essay-index-item:not(.is-child) {
+    min-height: 52px;
+  }
+
+  .technical-capacity-essay .essay-index-item.is-child {
+    gap: 0.4rem;
+    font-size: 0.625rem;
+  }
+
+  .technical-capacity-essay .essay-rail-actions {
+    margin-top: 1.45rem;
+    padding-top: 1.1rem;
+  }
+
+  .technical-capacity-essay .rail-download {
+    font-size: 0.68rem;
+  }
+
+  .technical-capacity-essay .rail-updated {
+    font-size: 0.62rem;
+  }
+}
+
 .essay-disclosure > h3 {
   margin: 0;
 }
