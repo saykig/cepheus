@@ -57,7 +57,7 @@ export function Navbar({
           </button>
           <div className="essay-menu">
             <Link href={localizeHref('/essays/the-cepheus-link', locale)}>
-              {copy.essayTitle}
+              {copy.essayMenuTitle}
             </Link>
           </div>
         </nav>

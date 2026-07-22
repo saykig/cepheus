@@ -16,31 +16,13 @@ export default function Footer({ locale }: { locale: Locale }) {
     <footer className="colophon">
       <div className="colophon-inner">
         <div className="colophon-mark">
-          <svg
-            className="colophon-sigil"
-            width="30"
-            height="22"
-            viewBox="0 0 30 22"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M3 15C7 6 12 6 15 11s8 5 12-4"
-              stroke="currentColor"
-              strokeWidth="1"
-              strokeLinecap="round"
-              opacity="0.7"
-            />
-            <circle cx="3" cy="15" r="2" fill="currentColor" />
-            <circle cx="15" cy="11" r="2.4" fill="currentColor" />
-            <circle cx="27" cy="7" r="2" fill="currentColor" />
-          </svg>
-          <div>
-            <div className="colophon-word">Cepheus</div>
-            <p className="colophon-tagline">
-              {copy.tagline}
-            </p>
-          </div>
+          <img
+            className="colophon-brand-image"
+            src="/brand/cepheus-footer-lockup.png"
+            alt="Cepheus: Mapping the Gap. Aligning Our Future."
+            width="1496"
+            height="505"
+          />
         </div>
 
         <nav className="colophon-nav" aria-label={copy.footer}>

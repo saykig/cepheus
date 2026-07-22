@@ -3,6 +3,7 @@ import type { Locale } from './i18n'
 type SiteCopy = {
   essays: string
   essayTitle: string
+  essayMenuTitle: string
   home: string
   footer: string
   backToTop: string
@@ -23,6 +24,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
   en: {
     essays: 'essays',
     essayTitle: 'The Cepheus Link',
+    essayMenuTitle: 'What We Owe to Each Other',
     home: 'Home',
     footer: 'Footer',
     backToTop: 'Back to top',
@@ -43,6 +45,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
   ru: {
     essays: 'эссе',
     essayTitle: 'Связь Cepheus',
+    essayMenuTitle: 'Связь Cepheus',
     home: 'Главная',
     footer: 'Нижняя навигация',
     backToTop: 'Наверх',
@@ -63,6 +66,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
   ko: {
     essays: '에세이',
     essayTitle: 'Cepheus 연결',
+    essayMenuTitle: 'Cepheus 연결',
     home: '홈',
     footer: '하단 메뉴',
     backToTop: '맨 위로',
@@ -83,6 +87,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
   fr: {
     essays: 'essais',
     essayTitle: 'Le lien Cepheus',
+    essayMenuTitle: 'Le lien Cepheus',
     home: 'Accueil',
     footer: 'Pied de page',
     backToTop: 'Haut de page',
@@ -103,6 +108,7 @@ export const siteCopy: Record<Locale, SiteCopy> = {
   'zh-CN': {
     essays: '文章',
     essayTitle: 'Cepheus 之链',
+    essayMenuTitle: 'Cepheus 之链',
     home: '首页',
     footer: '页脚',
     backToTop: '返回顶部',
